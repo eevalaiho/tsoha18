@@ -1,2 +1,2 @@
 # tsoha18
-Helsingin yliopisto, tietokantasovelus, 2018
+Helsingin yliopisto, tietokantasovellus, 2018
