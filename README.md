@@ -27,6 +27,7 @@ Ajatuksia / käyttötapauksia
 * Asiakkaalla on etusivu, mistä pääsee seuraamaan raportteja
 
 
+
 Tieto-olioita
 * Asiakas (customer)
     * customer_id, name
