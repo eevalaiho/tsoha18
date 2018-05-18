@@ -1,46 +1,42 @@
 # Aineopintojen harjoitustyö: tietokantasovellus, kesä 2018
 Eeva-Maria Laiho
 
-## Aihe 1: Lambdakalkyylistä C#:iin konvertointisovellus
+## Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 
-Lambdakalkyylilausekkeiden (ks [Introduction to Lambda Calculus](https://courses.helsinki.fi/fi/tkt21019/124236673)) tulkkaus ja konvertointi C#-lausekkeiksi (31.5 palautus 31.5. mennessä)
+Aiheen motivaationa on NLTK:n ominaisuuksiin tutustuminen ja mielekäs hyödyntäminen tietokantaprojektissa sekä mahdollisesti data-analyysin graafisiin työkaluihin tutustuminen. 
 
-Introduction to Lambda Calculus -kurssin osuus
-* Lambdakalkyylitulkin toteutus Pythonilla tai vaihtoehtoisesti valmiin tulkin käyttöönotto
-* Tulkattujen lambdakalkyylilausekkeiden konvertointi C#-koodiksi [Dixin's blog](https://weblogs.asp.net/dixin/Tags/Lambda%20Calculus)
-
-Tietokantasovellus -kurssin osuus
-* Web-käyttöliittymä tulkille / konvertterille (lambdakalkyylilausekkeiden CRUD)
-  - Lambdalausekeolio
-  - C#-konversio-olio
-* Käyttäjähallinta ja kirjautuminen
-
-
-## Aihe 2:
-
-Luonnollisen kielen a
-
-Luonnollisen kielen analysointi (esim Python NLTK:lla). "Hakemuksen" lähettäminen "virastoon" -> hakemuksen sanojen analysointi -> hakemuksen osoittaminen NLTK-analyysin avulla tunnistetulle käsittelijälle.
-Hakemuksen tallentaminen "päätökseksi".
-
-The Python buildpack offers support for downloading NLTK data files listed in a nltk.txt file at the root of the app, as described here: (https://devcenter.heroku.com/articles/python-nltk).
-
-Sentiment analysis Python https://github.com/fnielsen/afinn
-
-Sentiment analysis and more https://www.textgain.com/pricing
-$0
-free
-100 requests / day
-all languages
-all services
-
-    part-of-speech tags
-    concept extraction
-    sentiment analysis
-    predict age & gender
-    predict education
+Ajatuksia / käyttötapauksia
+* Asiakas voi tilata itselleen tiivisteitä nettinäkyvyydestään. 
+    * Sopimusasiakas, anonyymille käyttäjälle näytetään infosivu
+* Seurattavia asioita voi olla useita
+* Asiakohtaisesti määritellään seurattavat kohteet (esim uutissivustot, sosiaalisen median feedit, haku) ja avainsanat (asiakkaan nimi, toimialue, tuotteet jne)
+* Asiakkuustasoja voisi olla useita riippuen siitä mitä seurataan
+    * Asioiden määrä
+    * Kanavien määrä ja laatu (esim vain uutissisältö, uutis- ja sosiaalisen median kanavat, jne)
+    * Analyysin taso
+    * Jatkuva analyysi / kerta-analyysi
+* Määritellyt seurattavat kohteet "skannataan" ja ne analysoidaan NLTK:n (tai vastaavan) avulla
+    * Suomen kielen tuki pitää tarkistaaa ja mahdollisesti pitää käyttää englanninkielisiä lähteitä ja avainsanoja
+* Tehdyn analyysin perusteella tuotetaan raportti näkyvyydestä
+    * Mainintojen määrä ja laatu 
+    * Lyhennelmä / lyhennelmät
+    * Graafit
+* Ei avointa rekisteröitymistä, ylläpitäjä luo asiakkaat tai ne on valmiina järjestelmässä 
+* Ylläpitäjä liittää asiakkaaseen seurattavat kohteet ja seurantaaikataulun
+    * Palvelun laajuus on "sopimus"asia
+* Asiakkaalla on etusivu, mistä pääsee seuraamaan raportteja
 
 
-Tiedeuutiset as json https://high.fi/tiede
-
-Json to csv converter https://konklone.io/json/
+Tieto-olioita
+* Asiakas (customer)
+    * customer_id, name
+* Asia (subject)
+    * subject_id, title, keywords
+* Seurattavat kohteet (target)
+    * target_id, title, type, uri
+* Asian seurattavat kohteet (subject_target)
+    * subject_id, target_id
+* Työ (job)
+    * subject, status, start_time, finnish_time, analysis_id
+* Analysis
+    * analysis_id
