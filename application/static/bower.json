@@ -22,10 +22,10 @@
     "/js"
   ],
   "main": [
-    "dist/css/sb-admin-2.css",
-    "dist/css/sb-admin-2.min.css",
-    "dist/js/sb-admin-2.js",
-    "dist/js/sb-admin-2.min.js"
+    "vendor/sb-admin/css/sb-admin-2.css",
+    "vendor/sb-admin/css/sb-admin-2.min.css",
+    "vendor/sb-admin/js/sb-admin-2.js",
+    "vendor/sb-admin/js/sb-admin-2.min.js"
   ],
   "dependencies": {
     "bootstrap": "~3.3.7",
