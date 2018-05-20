@@ -27,7 +27,7 @@ Ajatuksia / käyttötapauksia
 * Asiakkaalla on etusivu, mistä pääsee seuraamaan raportteja
     * mm Voyant-garfiikaa?
 
-Tieto-olioita
+Tieto-olioita (pohdintaa)
 * Asiakas (customer)
     * customer_id, name
 * Asia (subject)
