@@ -1,9 +1,9 @@
 # Aineopintojen harjoitustyö: tietokantasovellus, kesä 2018
 Eeva-Maria Laiho
 
-## Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
-
 Linkki Herokussa pyörivään sovellukseen: https://shielded-brook-33904.herokuapp.com/
+
+## Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 
 Aiheen motivaationa on NLTK:n ominaisuuksiin tutustuminen ja mielekäs hyödyntäminen tietokantaprojektissa sekä mahdollisesti data-analyysin graafisiin työkaluihin tutustuminen. 
 
