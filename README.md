@@ -2,12 +2,14 @@
 
 Linkki Herokussa pyörivään sovellukseen: https://shielded-brook-33904.herokuapp.com/
 
-## Aihe: Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
+## Aihe
+
+Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 
 Aiheen motivaationa on NLTK:n ominaisuuksiin tutustuminen ja mielekäs hyödyntäminen tietokantaprojektissa sekä mahdollisesti data-analyysin graafisiin työkaluihin tutustuminen. 
 
 ## Käyttötapaukset / käyttäjätarinat
-<a href="/documentation/userstories.md">Käyttäjätarinat</a>
+Käyttäjätarinat on listattu erillisessä dokumentissa: <a href="/documentation/userstories.md">Käyttäjätarinat</a>
 
 ## Tieto-olioita (pohdintaa)
 * Asiakas (customer)
@@ -22,6 +24,14 @@ Aiheen motivaationa on NLTK:n ominaisuuksiin tutustuminen ja mielekäs hyödynt�
     * subject, status, start_time, finnish_time, analysis_id
 * Analysis
     * analysis_id
+    
+## Tietokantakaavio
+![Tietokantakaavio](./documentation/graph.png)
+
+Running schemacrawler sh ../../schemacrawler/schemacrawler.sh -server sqlite -database ../application/tsoha18.db -command=schema -outputformat=png -outputfile=graph.png
+
+[Schemacrawler website](https://www.schemacrawler.com/diagramming.html)
+
     
 ## Featureja, kirjastoja
 * Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)
