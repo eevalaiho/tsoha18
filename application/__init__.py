@@ -1,6 +1,9 @@
 from flask import Flask, session, request
 app = Flask(__name__)
 
+from os import urandom
+app.config["SECRET_KEY"] = urandom(32)
+
 from flask_sqlalchemy import SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tsoha18.db"
 app.config["SQLALCHEMY_ECHO"] = True
