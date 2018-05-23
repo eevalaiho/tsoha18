@@ -1,5 +1,4 @@
 # Aineopintojen harjoitustyö: tietokantasovellus, kesä 2018
-Eeva-Maria Laiho
 
 Linkki Herokussa pyörivään sovellukseen: https://shielded-brook-33904.herokuapp.com/
 
