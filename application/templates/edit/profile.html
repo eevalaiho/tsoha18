@@ -1,4 +1,4 @@
-{% extends "layout_c.html" %}
+{% extends "layout_edit.html" %}
 
 {% block content %}
 
@@ -9,10 +9,10 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="/profile" method="post" name="profile">
+            <form action="/edit/profile" method="post" name="profile">
                 <div class="form-group">
                     <label>Sähköposti:</label>
-                    <input class="form-control" type="text" name="email" value="{{user.email}}" disabled="disabled">
+                    <input class="form-control" type="text" name="username" value="{{user.username}}" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label>Etunimi:</label>
@@ -31,21 +31,23 @@
                     <span class="form-control-static">{{user.date_modified}}</span>
                 </div>
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                <button type="cancel" value="cancel" class="btn btn-default">Peruuta ja palaa etusivulle</button>
-                <div>{{error}}</div>
+                <button name="cancel" type="submit" value="cancel" class="btn btn-default">Peruuta</button>
+                <span class="text-success">{{info}}</span><span class="text-danger">{{error}}</span>
             </form>
             <h1 class="page-header">Salasanan vaihto</h1>
-            <form action="/profile" method="post" name="changepwd">
+            <form action="/edit/profile" method="post" name="changepwd">
                 <div class="form-group">
                     <label>Salasana:</label>
                     <input class="form-control" type="password" name="password1" value="">
                 </div>
                 <div class="form-group">
                     <label>Vahvista salasana:</label>
-                    <input class="form-control" type="text" name="password2" value="">
+                    <input class="form-control" type="password" name="password2" value="">
                 </div>
+
                 <button name="changepwd" type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                <button type="cancel" value="cancel" class="btn btn-default">Peruuta ja palaa etusivulle</button>
+                <button name="cancel" type="submit" value="cancel" class="btn btn-default">Peruuta</button>
+                <span class="text-success">{{info2}}</span><span class="text-danger">{{error2}}</span>
             </form>
             <br/>
         </div>

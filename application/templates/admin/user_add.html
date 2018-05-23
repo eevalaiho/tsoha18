@@ -1,0 +1,52 @@
+{% extends "layout_admin.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Uuden käyttäjän lisäys</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <form action="/admin/user" method="post" name="user">
+                <div class="form-group">
+                    <label>Sähköposti:</label>
+                    <input class="form-control" type="text" name="username" value="">
+                </div>
+                <div class="form-group">
+                    <label>Etunimi:</label>
+                    <input class="form-control required" type="text" name="firstname" value="">
+                </div>
+                <div class="form-group">
+                    <label>Sukunimi:</label>
+                    <input class="form-control" type="text" name="lastname" value="">
+                </div>
+                <div class="form-group">
+                    <label>Käyttäjäryhmät:</label>
+                    <div class="checkbox">
+                        <label>
+                            <input value="user" type="checkbox">Käyttäjä
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input value="editor" type="checkbox">Ylläpitäjä
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input value="admin" type="checkbox">Pääylläpitäjä
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
+                <a href="/admin/user" class="btn btn-default">Peruuta</a>
+                <div>{{error}}</div>
+            </form>
+            <br />
+        </div>
+        <div class="col-lg-6"></div>
+
+    </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "layout_a.html" %}
+{% extends "layout_admin.html" %}
 
 {% block content %}
 
@@ -9,10 +9,11 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="/profile" method="post" name="profile">
+            <form action="/admin/user" method="post" name="user">
+                <input type="hidden" name="id" value="{{user.id}}">
                 <div class="form-group">
                     <label>Sähköposti:</label>
-                    <input class="form-control" type="text" name="email" value="{{user.email}}" disabled="disabled">
+                    <input class="form-control" type="text" name="username" value="{{user.username}}" disabled="disabled">
                 </div>
                 <div class="form-group">
                     <label>Etunimi:</label>
@@ -49,7 +50,8 @@
                     <span class="form-control-static">{{user.date_modified}}</span>
                 </div>
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                <button type="cancel" value="cancel" class="btn btn-default">Peruuta ja palaa etusivulle</button>
+                <a href="#" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a>
+                <a href="/admin/user" class="btn btn-default">Peruuta</a>
                 <div>{{error}}</div>
             </form>
             <br />
@@ -57,5 +59,18 @@
         <div class="col-lg-6"></div>
 
     </div>
+
+<script type="text/javascript">
+    $("a[name='btn-delete']").click(function(){
+        var id = $(this).attr("data-user-id");
+        var name = $(this).attr("data-user-name");
+        if(confirm("Haluatko varmasti poistaa käyttäjän '" + name + "' (id: " + id + ")?")){
+            $(this).attr("href", "/admin/user/" + id + "/delete");
+        }
+        else{
+            return false;
+        }
+    });
+</script>
 
 {% endblock %}

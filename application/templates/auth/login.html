@@ -43,7 +43,7 @@
             <ul>
                 <li>Sähköposti: paivio@tsoha18, salasana: salainen (pääylläpitäjä)</li>
                 <li>Sähköposti: yngve@tsoha18, salasana: salainen (ylläpitäjä)</li>
-                <li>Sähköposti: aino@tsoha18, salasana: salainen (asiakas)</li>
+                <li>Sähköposti: aukusti@tsoha18, salasana: salainen (asiakas)</li>
                 <li>Sähköposti: reija@tsoha18, salasana: salainen (asiakas)</li>
             </ul>
             <div class="col-md-4 col-md-offset-4">
@@ -52,13 +52,13 @@
                         <h3 class="panel-title">Kirjaudu</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" action="/login" method="post">
+                        <form role="form" action="/auth/login" method="post">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Sähköposti" name="login" type="email" autofocus>
+                                    <input class="form-control" placeholder="Sähköposti" name="username" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Salasana" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Salasana" name="password" type="password">
                                 </div>
                                 <div class="checkbox">
                                     <label>

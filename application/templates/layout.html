@@ -33,38 +33,35 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- jQuery -->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+
 </head>
 
 <body>
-    <div id="wrapper">
+    <span id="wrapper">
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
 
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Sulje/avaa navigaatiovalikko</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/home" class="navbar-brand">Tietokantasovellus: Harjoitustyö 2018</a>
-            </div>
+            <span class="navbar-header">
+                <a href="/edit" class="navbar-brand">Tietokantasovellus: Harjoitustyö 2018</a>
+            </span>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
-                <li>
-                    <a href="/home"><i class="fa fa-home fa-fw"></i> Etusivu</a>
-                </li>
+                {% if current_user.is_admin() %}
                 <li>
                     <a href="/admin"><i class="fa fa-wrench fa-fw"></i> Ylläpito</a>
                 </li>
+                {% endif %}
                 <li>
-                    <a href="/profile"><i class="fa fa-user fa-fw"></i> Omat tiedot</a>
+                    <a href="/edit/profile"><i class="fa fa-user fa-fw"></i> Omat tiedot</a>
                 </li>
                 <li>
-                    <a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Kirjaudu ulos</a>
+                    <a href="/auth/logout"><i class="fa fa-sign-out fa-fw"></i> Kirjaudu ulos</a>
                 </li>
             </ul>
+            <span style="padding: 15px; margin-right: 15px" class="navbar-right">{{current_user.firstname}} {{current_user.lastname}}, {{current_user.get_company().name}} (is_admin: {{current_user.is_admin()}})</span>
 
             {% block nav %}
 
@@ -80,14 +77,12 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="/static/vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="/static/vendor/metisMenu/metisMenu.min.js"></script>
+
 
     <!-- Morris Charts JavaScript -->
     <script src="/static/vendor/raphael/raphael.min.js"></script>
