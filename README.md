@@ -28,8 +28,6 @@ Käyttäjätarinat on listattu erillisessä dokumentissa: <a href="/documentatio
 ## Tietokantakaavio
 ![Tietokantakaavio](./documentation/graph.png)
 
-Running schemacrawler sh ../../schemacrawler/schemacrawler.sh -server sqlite -database ../application/tsoha18.db -command=schema -outputformat=png -outputfile=graph.png
-
 [Schemacrawler website](https://www.schemacrawler.com/diagramming.html)
 
     

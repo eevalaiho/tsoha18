@@ -17,13 +17,15 @@ Käyttäjänä haluan, että:
 Ylläpitäjänä haluan että:
 * voin katsella asiakkainen analyysejä juuri sellaisina, kuin asiakkaat itse ne näkevät
 * pääsen sovelluksen ylläpitonäkymään
-* voin lisätä, muokata ja poistaa sovelluksen käyttäjiä
+* voin listata sovelluksen käyttäjät
+* voin lisätä, muokata ja poistaa sovelluksen käyttäjiä (käyttäjärooli)
 * voin luoda, muokata ja poistaa raportteja asiakkaan nettinäkyvyydestä
 
 ##Pääylläpitäjä
 
 Pääylläpitäjänä haluan, että:
-* voin lisätä, muokata ja poistaa sovelluksen ylläpitäjiä
+* voin lisätä, muokata ja poistaa sovelluksen käyttäjiä
+* voin määrittää käyttäjälle käyttöoikeustason (pääylläpitäjä, ylläpitäjä, käyttäjä)
 (* voin lisätä sovellukseen asiakkaita)
 
 ##Vahingoittava käyttäjä
