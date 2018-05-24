@@ -1,2 +1,0 @@
-Running schemacrawler
-sh ../../schemacrawler/schemacrawler.sh -server sqlite -database ../application/tsoha18.db -command=schema -outputformat=png -outputfile=graph.png
