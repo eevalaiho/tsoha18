@@ -10,18 +10,18 @@ app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 
 from application import views
-
 from application.auth import views
-from application.auth import models
-
 from application.edit import views
-
 from application.admin import views
-from application.admin import models
+
+from application.auth import models
+from application import models
 
 db.create_all()
 
-# kirjautuminen
+
+# Authentication
+
 from application.auth.models import User
 
 from flask_login import LoginManager
@@ -36,7 +36,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-# Pre-import data
+# Populate database
 
 from sqlalchemy import exists
 from application.auth.models import Role
@@ -51,7 +51,7 @@ if not db_populated:
     db.session.add(role2)
     db.session.add(role3)
 
-    from application.admin.models import Company
+    from application.models import Company
     comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
     comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
     comp3 = Company("Idan ideahautomo",1)

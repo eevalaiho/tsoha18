@@ -1,6 +1,6 @@
 from application import db
 from application.models import Base
-from application.admin.models import Company
+from application.models import Company
 
 class Role(Base):
     __tablename__ = 'role'
