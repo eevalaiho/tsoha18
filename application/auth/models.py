@@ -19,7 +19,7 @@ class User(Base):
     lastname = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
-    companyid = db.Column(db.Integer, nullable=False)
+    companyid = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=False)
 
     def __init__(self):
         return

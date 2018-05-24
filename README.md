@@ -36,4 +36,3 @@ Käyttäjätarinat on listattu erillisessä dokumentissa: <a href="/documentatio
 
 ## Ulkoasu
 * Harjoitustyössä on käytetty [SB Bootstrap](https://startbootstrap.com/template-overviews/sb-admin/) ulkoasumallia
-

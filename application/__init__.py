@@ -52,29 +52,37 @@ if not db_populated:
     db.session.add(role3)
 
     from application.admin.models import Company
-    comp1 = Company("Tsoha18",1)
+    comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
+    comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
+    comp3 = Company("Idan ideahautomo",1)
     db.session.add(comp1)
+    db.session.add(comp2)
+    db.session.add(comp3)
 
     from application.auth.models import User
     user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',1)
     user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',1)
-    user3 = User('aukusti@tsoha18','Aukusti','Asiakas','salainen',1)
-    user4 = User('reija@tsoha18','Reija','Rahakas','salainen',1)
+    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2)
+    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2)
+    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3)
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)
     db.session.add(user4)
+    db.session.add(user5)
 
     from application.auth.models import UserRole
     userrole1 = UserRole(1, 1) # Administrator-paivio
     userrole2 = UserRole(2, 1) # Editor-paivio
     userrole3 = UserRole(2, 2) # Editor-yngve
-    userrole4 = UserRole(3, 3) # Customer-aino
-    userrole5 = UserRole(3, 4) # Customer-reija
+    userrole4 = UserRole(3, 3) # Customer-aukusti
+    userrole5 = UserRole(3, 4) # Customer-akuliina
+    userrole6 = UserRole(3, 5) # Customer-ida
     db.session.add(userrole1)
     db.session.add(userrole2)
     db.session.add(userrole3)
     db.session.add(userrole4)
+    db.session.add(userrole5)
     db.session.add(userrole5)
 
     db.session.commit()
