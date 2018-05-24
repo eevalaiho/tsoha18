@@ -27,9 +27,6 @@ Käyttäjätarinat on listattu erillisessä dokumentissa: <a href="/documentatio
     
 ## Tietokantakaavio
 ![Tietokantakaavio](./documentation/graph.png)
-
-[Schemacrawler website](https://www.schemacrawler.com/diagramming.html)
-
     
 ## Featureja, kirjastoja
 * Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)
