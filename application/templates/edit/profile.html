@@ -9,18 +9,18 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="/edit/profile" method="post" name="profile">
+            <form method="POST" action="{{ url_for('profile') }}">
                 <div class="form-group">
                     <label>Sähköposti:</label>
                     <input class="form-control" type="text" name="username" value="{{user.username}}" disabled="disabled">
                 </div>
                 <div class="form-group">
-                    <label>Etunimi:</label>
-                    <input class="form-control required" type="text" name="firstname" value="{{user.firstname}}">
+                    {{ form.firstname.label(class_="control-label") }}
+                    {{ form.firstname(class_="form-control") }}
                 </div>
                 <div class="form-group">
-                    <label>Sukunimi:</label>
-                    <input class="form-control" type="text" name="lastname" value="{{user.lastname}}">
+                    {{ form.lastname.label(class_="control-label") }}
+                    {{ form.lastname(class_="form-control") }}
                 </div>
                 <div class="form-group input-group">
                     <label>Luotu:</label>
@@ -30,9 +30,18 @@
                     <label>Muokattu:</label>
                     <span class="form-control-static">{{user.date_modified}}</span>
                 </div>
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
+                    <ul>
+                        {% for field in form.errors %}
+                        <li>{{ ", ".join(form.errors[field]) }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
                 <button name="cancel" type="submit" value="cancel" class="btn btn-default">Peruuta</button>
-                <span class="text-success">{{info}}</span><span class="text-danger">{{error}}</span>
             </form>
             <h1 class="page-header">Salasanan vaihto</h1>
             <form action="/edit/profile" method="post" name="changepwd">

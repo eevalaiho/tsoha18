@@ -52,19 +52,17 @@ if not db_populated:
     db.session.add(role3)
 
     from application.models import Company
-    comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
     comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
     comp3 = Company("Idan ideahautomo",1)
-    db.session.add(comp1)
     db.session.add(comp2)
     db.session.add(comp3)
 
     from application.auth.models import User
-    user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',1)
-    user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',1)
-    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2)
-    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2)
-    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3)
+    user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
+    user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
+    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True)
+    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True)
+    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3,False)
     db.session.add(user1)
     db.session.add(user2)
     db.session.add(user3)

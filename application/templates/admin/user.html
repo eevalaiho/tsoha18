@@ -2,6 +2,15 @@
 
 {% block content %}
 
+<style type="text/css">
+    ul.checkbox {
+        padding-left: 22px;
+    }
+    div.checkbox{
+        padding-left: 2px;
+    }
+</style>
+
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Käyttäjän tietojen muokkaus</h1>
@@ -9,49 +18,70 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form action="/admin/user" method="post" name="user">
-                <input type="hidden" name="id" value="{{user.id}}">
+            <form method="POST" action="{{ url_for('newuser') if (user is none) else url_for('user', id=user.id) }}">
+            {% if user is none %}
+                <div class="form-group{% if form.username.errors %} has-error{% endif %}">
+                    {{ form.username.label(class_="control-label", disabled_=True) }}
+                    {{ form.username(class_="form-control") }}
+                </div>
+                <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+                    {{ form.password.label(class_="control-label") }}
+                    {{ form.password(class_="form-control") }}
+                </div>
+                <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+                    {{ form.confirm.label(class_="control-label") }}
+                    {{ form.confirm(class_="form-control") }}
+                </div>
+            {% else %}
+                {{ form.id() }}
                 <div class="form-group">
-                    <label>Sähköposti:</label>
-                    <input class="form-control" type="text" name="username" value="{{user.username}}" disabled="disabled">
+                    <label class_="control-label">Sähköposti</label>
+                    <input class="form-control" disabled="disabled" value="{{ user.username }}" />
+                </div>
+            {% endif %}
+                <div class="form-group{% if form.firstname.errors %} has-error{% endif %}">
+                    {{ form.firstname.label(class_="control-label") }}
+                    {{ form.firstname(class_="form-control") }}
+                </div>
+                <div class="form-group{% if form.lastname.errors %} has-error{% endif %}">
+                    {{ form.lastname.label(class_="control-label") }}
+                    {{ form.lastname(class_="form-control") }}
                 </div>
                 <div class="form-group">
-                    <label>Etunimi:</label>
-                    <input class="form-control required" type="text" name="firstname" value="{{user.firstname}}">
+                    {{ form.userroles.label(class_="control-label") }}
+                    {{ form.userroles(class_="checkbox") }}
                 </div>
                 <div class="form-group">
-                    <label>Sukunimi:</label>
-                    <input class="form-control" type="text" name="lastname" value="{{user.lastname}}">
-                </div>
-                <div class="form-group">
-                    <label>Käyttäjäryhmät:</label>
+                    <label>Aktiivinen:</label>
                     <div class="checkbox">
                         <label>
-                            <input value="user" type="checkbox" {% if userroles.get(3) %} checked="checked" {% endif %}>Käyttäjä
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input value="editor" type="checkbox" {% if userroles.get(2) %} checked="checked" {% endif %}>Ylläpitäjä
-                        </label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input value="admin" type="checkbox" {% if (userroles.get(1)==1) %} checked="checked" {% endif %}>Pääylläpitäjä
+                            {{ form.active() }}{{ form.active.label(class_="control-label") }}
                         </label>
                     </div>
                 </div>
                 <div class="form-group input-group">
-                    <label>Luotu:</label>
-                    <span class="form-control-static">{{user.date_created}}</span>
+                    <label>Luotu:</label>&nbsp;
+                    <span class="form-control-static">{% if not user is none %}{{user.date_created}}{% endif %}</span>
                 </div>
                 <div class="form-group input-group">
-                    <label>Muokattu:</label>
-                    <span class="form-control-static">{{user.date_modified}}</span>
+                    <label>Muokattu:</label>&nbsp;
+                    <span class="form-control-static">{% if not user is none %}{{user.date_modified}}{% endif %}</span>
                 </div>
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
+                    <ul>
+                        {% for field in form.errors %}
+                        <li>{{ ", ".join(form.errors[field]) }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                <a href="#" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a>
-                <a href="/admin/user" class="btn btn-default">Peruuta</a>
+                {% if not user is none %}
+                    <a href="/admin/user/{{user.id}}/delete" name="btn-delete" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a>
+                {% endif %}
+                <a href="/admin/users" class="btn btn-default">Peruuta</a>
                 <div>{{error}}</div>
             </form>
             <br />

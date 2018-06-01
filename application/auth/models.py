@@ -19,17 +19,19 @@ class User(Base):
     lastname = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
-    companyid = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=False)
+    companyid = db.Column(db.Integer, db.ForeignKey('company.id'))
+    active = db.Column(db.Boolean, default=False)
 
     def __init__(self):
         return
 
-    def __init__(self, username, firstname, lastname, password, companyid):
+    def __init__(self, username, firstname, lastname, password, companyid, active):
         self.username = username # email address
         self.firstname = firstname
         self.lastname = lastname
         self.password = password
         self.companyid = companyid
+        self.active = active
 
     def get_roles(self):
         roles = {1:0, 2:0, 3:0} # 1=Administrator, 2=Editor, 3=Customer
@@ -46,7 +48,7 @@ class User(Base):
         return False
 
     def is_active(self):
-        return True
+        return bool(self.active)
 
     def is_authenticated(self):
         return True

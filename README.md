@@ -2,6 +2,13 @@
 
 Linkki Herokussa pyörivään sovellukseen: https://shielded-brook-33904.herokuapp.com/
 
+Käyttäjätunnukset: 
+* Sähköposti: paivio@tsoha18, salasana: salainen (pääylläpitäjä)
+* Sähköposti: yngve@tsoha18, salasana: salainen (ylläpitäjä)
+* Sähköposti: aukusti@asianajotoimisto, salasana: salainen (asiakas)
+* Sähköposti: akuliina@asianajotoimisto, salasana: salainen (asiakas)
+* Sähköposti: ida@ideahautomo, salasana: salainen (asiakas)
+
 ## Aihe
 
 Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä

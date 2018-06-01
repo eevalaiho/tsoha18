@@ -18,6 +18,7 @@
                     <th rowspan="1" colspan="1" style="width: 180px;">Etunimi</th>
                     <th rowspan="1" colspan="1" style="width: 260px;">Sukunimi</th>
                     <th rowspan="1" colspan="1" style="width: 260px;">Yritys</th>
+                    <th rowspan="1" colspan="1" style="width: 260px;">Aktiivinen</th>
                     <th tabindex="0" rowspan="1" colspan="1" style="width: 180px;" >Luontipvm</th>
                     <th tabindex="0" rowspan="1" colspan="1" style="width: 180px;" >Muokkauspvm</th>
                     <th tabindex="0" rowspan="1" colspan="1">Toiminnot</th>
@@ -31,6 +32,7 @@
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
                 <td>{{user.get_company().name}}</td>
+                <td>{{user.active}}</td>
                 <td>{{user.date_created}}</td>
                 <td>{{user.date_modified}}</td>
                 <td><a href="/admin/user/{{user.id}}" class="btn btn-default">Muokkaa</a>&nbsp;
@@ -40,7 +42,8 @@
             </tbody>
         </table>
         <br />
-        <a href="/admin/user/add" class="btn btn-default">Lisää uusi käyttäjä</a>
+        <a href="/admin/user" class="btn btn-default">Lisää uusi käyttäjä</a>
+        <br /><br/>
     </div>
 
 <script type="text/javascript">

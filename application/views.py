@@ -1,12 +1,12 @@
 from application import app
 from application.library import admin_required
 
-from flask import render_template
+from flask import render_template, redirect, url_for
 from flask_login import login_required
 
 @app.route("/")
 def index():
-    return render_template("/auth/login.html")
+    return redirect(url_for("auth_login"))
 
 @app.route("/edit")
 @login_required
@@ -18,4 +18,5 @@ def edit():
 @admin_required
 def admin():
     return render_template("/admin/home.html")
+
 
