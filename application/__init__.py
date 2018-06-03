@@ -1,4 +1,4 @@
-from flask import Flask, session, request
+from flask import Flask
 app = Flask(__name__)
 
 
@@ -52,6 +52,8 @@ from application.models import Company
 from application.auth.models import UserRole
 
 
+from sqlalchemy import text
+
 try:
     role1 = Role('Administrator')
     role2 = Role('Editor')
@@ -65,10 +67,10 @@ except:
 
 
 try:
-    comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
+    #comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
     comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
     comp3 = Company("Idan ideahautomo",1)
-    db.session.add(comp1)
+    #db.session.add(comp1)
     db.session.add(comp2)
     db.session.add(comp3)
     db.session.commit()
@@ -77,8 +79,8 @@ except:
 
 
 try:
-    user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',2,True)
-    user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',2,True)
+    user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
+    user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
     user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True)
     user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True)
     user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3,False)
