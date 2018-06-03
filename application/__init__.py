@@ -50,7 +50,7 @@ except:
 from application.auth.models import Role
 from application.models import Company
 from application.auth.models import UserRole
-
+from sys import stdout
 
 try:
     #comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
@@ -60,6 +60,7 @@ try:
     db.session.add(comp2)
     db.session.add(comp3)
     db.session.commit()
+    stdout.write("Companies inserted")
 
     #def __init__(self, username, firstname, lastname, password, companyid, active):
     user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
@@ -73,6 +74,7 @@ try:
     db.session.add(user4)
     db.session.add(user5)
     db.session.commit()
+    stdout.write("Users inserted")
 
     role1 = Role('Administrator')
     role2 = Role('Editor')
@@ -81,6 +83,7 @@ try:
     db.session.add(role2)
     db.session.add(role3)
     db.session.commit()
+    stdout.write("Roles inserted")
 
     userrole1 = UserRole(1, 1) # Administrator-paivio
     userrole2 = UserRole(2, 1) # Editor-paivio
@@ -95,6 +98,8 @@ try:
     db.session.add(userrole5)
     db.session.add(userrole5)
     db.session.commit()
+    stdout.write("Userroles inserted")
+
 except:
     pass
 
