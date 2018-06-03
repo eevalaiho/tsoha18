@@ -5,6 +5,7 @@ from application import app, db
 from application.auth.models import User
 from application.edit.forms import ProfileForm, ChangePasswordForm
 
+
 @app.route("/edit/profile", methods=["GET","POST"])
 @login_required
 def profile():
@@ -34,3 +35,9 @@ def profile():
     user.date_modified = db.func.current_timestamp()
     db.session().commit()
     return render_template("/edit/profile.html", user=current_user, form = form, cpform = cpform)
+
+
+@app.route("/edit/report", methods=["GET"])
+@login_required
+def report():
+    return render_template("/edit/report.html")

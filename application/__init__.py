@@ -42,26 +42,39 @@ def load_user(user_id):
 
 
 
+try:
+    db.create_all()
+except:
+    pass
+
 from application.auth.models import Role
 from application.models import Company
 from application.auth.models import UserRole
 
 
 try:
-    db.create_all()
-
     role1 = Role('Administrator')
     role2 = Role('Editor')
     role3 = Role('Customer')
     db.session.add(role1)
     db.session.add(role2)
     db.session.add(role3)
+    db.session.commit()
+except:
+    pass
 
+
+try:
     comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
     comp3 = Company("Idan ideahautomo",1)
     db.session.add(comp2)
     db.session.add(comp3)
+    db.session.commit()
+except:
+    pass
 
+
+try:
     user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
     user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
     user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True)
@@ -72,7 +85,12 @@ try:
     db.session.add(user3)
     db.session.add(user4)
     db.session.add(user5)
+    db.session.commit()
+except:
+    pass
 
+
+try:
     userrole1 = UserRole(1, 1) # Administrator-paivio
     userrole2 = UserRole(2, 1) # Editor-paivio
     userrole3 = UserRole(2, 2) # Editor-yngve
@@ -85,9 +103,7 @@ try:
     db.session.add(userrole4)
     db.session.add(userrole5)
     db.session.add(userrole5)
-
     db.session.commit()
-
 except:
     pass
 
