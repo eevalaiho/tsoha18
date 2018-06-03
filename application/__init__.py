@@ -41,64 +41,63 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-
-try:
-    db.create_all()
-except:
-    pass
-
 from application.auth.models import Role
 from application.models import Company
 from application.auth.models import UserRole
 from sys import stdout
 
 try:
-    #comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
-    comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
-    comp3 = Company("Idan ideahautomo",1)
-    #db.session.add(comp1)
-    db.session.add(comp2)
-    db.session.add(comp3)
-    db.session.commit()
-    stdout.write("Companies inserted")
+    db.create_all()
 
-    #def __init__(self, username, firstname, lastname, password, companyid, active):
-    user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
-    user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
-    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True)
-    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True)
-    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3,True)
-    db.session.add(user1)
-    db.session.add(user2)
-    db.session.add(user3)
-    db.session.add(user4)
-    db.session.add(user5)
-    db.session.commit()
-    stdout.write("Users inserted")
+    user = User.query.get(1)
+    if user is None:
 
-    role1 = Role('Administrator')
-    role2 = Role('Editor')
-    role3 = Role('Customer')
-    db.session.add(role1)
-    db.session.add(role2)
-    db.session.add(role3)
-    db.session.commit()
-    stdout.write("Roles inserted")
+        #comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
+        comp2 = Company("Aukustin asianajotoimisto Ky",2) # agreementlevel: 1 = Pro, 2 = Basic
+        comp3 = Company("Idan ideahautomo",1)
+        #db.session.add(comp1)
+        db.session.add(comp2)
+        db.session.add(comp3)
+        db.session.commit()
+        stdout.write("Companies inserted")
 
-    userrole1 = UserRole(1, 1) # Administrator-paivio
-    userrole2 = UserRole(2, 1) # Editor-paivio
-    userrole3 = UserRole(2, 2) # Editor-yngve
-    userrole4 = UserRole(3, 3) # Customer-aukusti
-    userrole5 = UserRole(3, 4) # Customer-akuliina
-    userrole6 = UserRole(3, 5) # Customer-ida
-    db.session.add(userrole1)
-    db.session.add(userrole2)
-    db.session.add(userrole3)
-    db.session.add(userrole4)
-    db.session.add(userrole5)
-    db.session.add(userrole5)
-    db.session.commit()
-    stdout.write("Userroles inserted")
+        #def __init__(self, username, firstname, lastname, password, companyid, active):
+        user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
+        user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
+        user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',1,True)
+        user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 1,True)
+        user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',2,True)
+        db.session.add(user1)
+        db.session.add(user2)
+        db.session.add(user3)
+        db.session.add(user4)
+        db.session.add(user5)
+        db.session.commit()
+        stdout.write("Users inserted")
+
+        role1 = Role('Administrator')
+        role2 = Role('Editor')
+        role3 = Role('Customer')
+        db.session.add(role1)
+        db.session.add(role2)
+        db.session.add(role3)
+        db.session.commit()
+        stdout.write("Roles inserted")
+
+        userrole1 = UserRole(1, 1) # Administrator-paivio
+        userrole2 = UserRole(2, 1) # Editor-paivio
+        userrole3 = UserRole(2, 2) # Editor-yngve
+        userrole4 = UserRole(3, 3) # Customer-aukusti
+        userrole5 = UserRole(3, 4) # Customer-akuliina
+        userrole6 = UserRole(3, 5) # Customer-ida
+        db.session.add(userrole1)
+        db.session.add(userrole2)
+        db.session.add(userrole3)
+        db.session.add(userrole4)
+        db.session.add(userrole5)
+        db.session.add(userrole5)
+        db.session.commit()
+        stdout.write("Userroles inserted")
 
 except:
     pass

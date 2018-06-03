@@ -1,0 +1,30 @@
+BEGIN TRANSACTION;
+
+INSERT INTO role (id,date_created,date_modified,name) VALUES (1,'2018-06-03 16:47:03','2018-06-03 16:47:03','Administrator');
+INSERT INTO role (id,date_created,date_modified,name) VALUES (2,'2018-06-03 16:47:03','2018-06-03 16:47:03','Editor');
+INSERT INTO role (id,date_created,date_modified,name) VALUES (3,'2018-06-03 16:47:03','2018-06-03 16:47:03','Customer');
+
+INSERT INTO company (id,date_created,date_modified,name,agreementlevel) VALUES (1,'2018-06-03 16:47:03','2018-06-03 16:47:03','Aukustin asianajotoimisto Ky',2);
+INSERT INTO company (id,date_created,date_modified,name,agreementlevel) VALUES (2,'2018-06-03 16:47:03','2018-06-03 16:47:03','Idan ideahautomo',1);
+
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (1,'2018-06-03 16:47:03','2018-06-03 16:47:03','Päiviö','Pääkäyttäjä','paivio@tsoha18','salainen',NULL,true);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (2,'2018-06-03 16:47:03','2018-06-03 16:47:03','Yngve','Ylläpitäjä','yngve@tsoha18','salainen',NULL,true);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (3,'2018-06-03 16:47:03','2018-06-03 16:47:03','Aukusti','Asiakas','aukusti@asianajotoimisto','salainen',1,true);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (4,'2018-06-03 16:47:03','2018-06-03 16:47:03','Ida','Asiakas','ida@ideahautomo','salainen',2,true);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (5,'2018-06-03 16:47:03','2018-06-03 16:47:03','Akuliina','Asiakas','akuliina@asianajotoimisto','salainen',1,false);
+
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (1,'2018-06-03 16:47:03','2018-06-03 16:47:03',1,1);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (2,'2018-06-03 16:47:03','2018-06-03 16:47:03',2,1);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (3,'2018-06-03 16:47:03','2018-06-03 16:47:03',2,2);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (4,'2018-06-03 16:47:03','2018-06-03 16:47:03',3,3);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (5,'2018-06-03 16:47:03','2018-06-03 16:47:03',3,4);
+
+--COMMIT;
+--ROLLBACK;
+
+--delete from company;
+
+select * from role;
+select * from company;
+select * from account;
+select * from accountrole;
