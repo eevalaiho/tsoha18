@@ -81,9 +81,9 @@ except:
 try:
     #user1 = User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True)
     #user2 = User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True)
-    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True)
-    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True)
-    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3,False)
+    user3 = User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,1)
+    user5 = User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,1)
+    user4 = User('ida@ideahautomo','Ida','Asiakas','salainen',3,0)
     #db.session.add(user1)
     #db.session.add(user2)
     db.session.add(user3)
