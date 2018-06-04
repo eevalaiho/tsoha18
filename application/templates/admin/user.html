@@ -1,4 +1,4 @@
-{% extends "layout_admin.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
 
@@ -67,7 +67,7 @@
                     <label>Muokattu:</label>&nbsp;
                     <span class="form-control-static">{% if not user is none %}{{user.date_modified}}{% endif %}</span>
                 </div>
-                {% if form.errors %}
+            {% if form.errors %}
                 <div class="alert alert-danger">
                     Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
                     <ul>
@@ -76,7 +76,19 @@
                         {% endfor %}
                     </ul>
                 </div>
-                {% endif %}
+            {% endif %}
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
                 {% if not user is none %}
                     <a href="/admin/user/{{user.id}}/delete" name="btn-delete" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a>

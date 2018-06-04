@@ -1,4 +1,4 @@
-from flask import render_template, session, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
 
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
@@ -67,6 +67,7 @@ def newuser():
         form.errors["general"] = ["Käyttäjäryhmien tallentaminen ei onnistunut."]
         return render_template("/admin/user.html", user=user, form=form)
 
+    flash('Käyttäjän lisääminen onnistui')
     return redirect(url_for('user', id=user.id))
 
 
@@ -108,7 +109,8 @@ def user(id):
         form.errors["general"] = ["Käyttäjän tallentaminen ei onnistunut."]
         return render_template("/admin/user.html", user = user, form=form)
 
-    return render_template("/admin/user.html", user = user, form=form, info="Käyttäjän lisääminen onnistui")
+    flash('Käyttäjän tallentaminen onnistui')
+    return render_template("/admin/user.html", user = user, form=form)
 
 
 
@@ -119,4 +121,5 @@ def user_delete(id):
     user = User.query.get(id)
     db.session().delete(user)
     db.session().commit()
+    flash('Käyttäjän poistaminen onnistui')
     return redirect(url_for('userlist'))

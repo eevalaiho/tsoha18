@@ -13,10 +13,4 @@ def index():
 def edit():
     return render_template("/edit/home.html")
 
-@app.route("/admin")
-@login_required
-@admin_required
-def admin():
-    return render_template("/admin/home.html")
-
 

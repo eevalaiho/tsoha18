@@ -12,11 +12,6 @@
             </span>
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
-                {% if current_user.is_admin() %}
-                <li>
-                    <a href="/admin"><i class="fa fa-wrench fa-fw"></i> Ylläpito</a>
-                </li>
-                {% endif %}
                 <li>
                     <a href="/edit/profile"><i class="fa fa-user fa-fw"></i> Omat tiedot</a>
                 </li>
@@ -26,9 +21,42 @@
             </ul>
             <span style="padding: 15px; margin-right: 15px" class="navbar-right">{{current_user.firstname}} {{current_user.lastname}}, {{current_user.get_company().name}} (is_admin: {{current_user.is_admin()}})</span>
 
-            {% block nav %}
+            <div class="navbar-default sidebar" role="navigation">
 
-            {% endblock %}
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="/edit"><i class="fa fa-home fa-fw"></i> Etusivu</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Raportit<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Raportti 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Raportti 2</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    {% if current_user.is_admin() %}
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Ylläpito<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/admin/users">Käyttäjät</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                    {% endif %}
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+
         </nav>
 
         <div id="page-wrapper">
