@@ -35,7 +35,7 @@
                                     {{ form.confirm.label(class_="control-label") }}
                                     {{ form.confirm(class_="form-control") }}
                                 </div>
-                                {% if form.errors %}
+                            {% if form.errors %}
                                 <div class="alert alert-danger">
                                     Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
                                     <ul>
@@ -44,7 +44,19 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
-                                {% endif %}
+                            {% endif %}
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <div class="alert alert-success alert-dismissable">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <ul class=flashes>
+                                    {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                    {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
                                 <div>
                                     <br />
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">Lähetä</button>

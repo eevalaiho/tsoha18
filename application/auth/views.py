@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user
 
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
@@ -59,4 +59,5 @@ def auth_register():
         form.errors["general"] = ["Lomakkeen lähettäminen ei onnistunut."]
         return render_template("/auth/register.html", form=form)
 
-    return render_template("/auth/register.html", form=form, info="Rekisteröinti onnistui")
+    flash("Kiitos rekisteröitymisestä! Saat sähköpostia asiakaspalvelustamme, kun tunnuksesi on aktiivinen ja voit kirjautua järjestelmään.")
+    return render_template("/auth/register.html", form=form)
