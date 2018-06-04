@@ -20,16 +20,16 @@ from application import models
 from application.auth import views
 from application.auth import models
 
-from application.edit import views
-from application.admin import views
+from application.profile import views
+from application.user import views
+
+
+from os import urandom
+app.config["SECRET_KEY"] = urandom(32)
 
 
 from application.auth.models import User
 from flask_login import LoginManager
-from os import urandom
-
-app.config["SECRET_KEY"] = urandom(32)
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 

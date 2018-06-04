@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(category_filter=["user"]) %}
             {% if messages %}
                 <div class="alert alert-success alert-dismissable">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -45,14 +45,14 @@
                 <td>{{user.active}}</td>
                 <td>{{user.date_created}}</td>
                 <td>{{user.date_modified}}</td>
-                <td><a href="/admin/user/{{user.id}}" class="btn btn-default">Muokkaa</a>&nbsp;
-                    <a href="#" name="btn-delete" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a></td>
+                <td><a href="{{ url_for('user', id=user.id) }}" class="btn btn-default">Muokkaa</a>&nbsp;
+                    <a href="#" name="btn-delete" data-href="{{ url_for('user_delete', id=user.id) }}" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a></td>
             </tr>
         {% endfor %}
             </tbody>
         </table>
         <br />
-        <a href="/admin/user" class="btn btn-default">Lisää uusi käyttäjä</a>
+        <a href="{{ url_for('newuser') }}" class="btn btn-default">Lisää uusi käyttäjä</a>
         <br /><br/>
     </div>
 
@@ -61,7 +61,8 @@
         var id = $(this).attr("data-user-id");
         var name = $(this).attr("data-user-name");
         if(confirm("Haluatko varmasti poistaa käyttäjän '" + name + "' (id: " + id + ")?")){
-            $(this).attr("href", "/admin/user/" + id + "/delete");
+            var href = $(this).attr("data-href");
+            $(this).attr("href", href);
         }
         else{
             return false;

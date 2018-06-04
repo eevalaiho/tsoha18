@@ -6,24 +6,24 @@ from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 from application import app, db
 from application.library import admin_required
 from application.auth.models import User, UserRole
-from application.admin.forms import UserForm, NewUserForm
+from application.user.forms import UserForm, NewUserForm
 
 
-@app.route('/admin/users', methods=["GET"])
+@app.route('/users', methods=["GET"])
 @login_required
 @admin_required
 def userlist():
-    return render_template("/admin/userlist.html", users=User.query.all())
+    return render_template("/user/userlist.html", users=User.query.all())
 
 
-@app.route('/admin/user', methods=["GET","POST"])
+@app.route('/user', methods=["GET","POST"])
 @login_required
 @admin_required
 def newuser():
 
     # GET
     if request.method == "GET":
-        return render_template("/admin/user.html", user=None, form = NewUserForm()) # 1=Administrator, 2=Editor, 3=Customer
+        return render_template("/user/user.html", user=None, form = NewUserForm()) # 1=Administrator, 2=Editor, 3=Customer
 
     # POST
     cancel = request.form.get("cancel")
@@ -33,7 +33,7 @@ def newuser():
     form = NewUserForm(request.form)
 
     if not form.validate():
-        return render_template("/admin/user.html", user=None, form = form)
+        return render_template("/user/user.html", user=None, form = form)
 
     password = form.password.data
     username = form.username.data
@@ -48,10 +48,10 @@ def newuser():
         db.session().commit()
     except (IntegrityError) as ex1:
         form.username.errors = ["Sähköposti on varattu"]
-        return render_template("/admin/user.html", user=None, form=form)
+        return render_template("/user/user.html", user=None, form=form)
     except (DBAPIError, SQLAlchemyError) as ex2:
         form.errors["general"] = ["Käyttäjän tallentaminen ei onnistunut."]
-        return render_template("/admin/user.html", user=None, form=form)
+        return render_template("/user/user.html", user=None, form=form)
 
     # GET userid
     user = User.query.filter_by(username=username).first()
@@ -65,15 +65,15 @@ def newuser():
         db.session().commit()
     except (DBAPIError, SQLAlchemyError) as ex2:
         form.errors["general"] = ["Käyttäjäryhmien tallentaminen ei onnistunut."]
-        return render_template("/admin/user.html", user=user, form=form)
+        return render_template("/user/user.html", user=user, form=form)
 
-    flash('Käyttäjän lisääminen onnistui')
+    flash('Käyttäjän lisääminen onnistui','user')
     return redirect(url_for('user', id=user.id))
 
 
 
 
-@app.route('/admin/user/<id>', methods=["GET","POST"])
+@app.route('/user/<id>', methods=["GET","POST"])
 @login_required
 @admin_required
 def user(id):
@@ -87,7 +87,7 @@ def user(id):
         for userrole in UserRole.query.filter(UserRole.accountid.__eq__(user.id)).all():
             userroles.append(userrole.id)
         form = UserForm(obj=user,userroles=userroles)
-        return render_template("/admin/user.html", user = user, form=form)
+        return render_template("/user/user.html", user = user, form=form)
 
     # POST
     cancel = request.form.get("cancel")
@@ -97,7 +97,7 @@ def user(id):
     form = UserForm(request.form, obj=user)
 
     if not form.validate():
-        return render_template("/admin/user.html", user = user, form = form)
+        return render_template("/user/user.html", user = user, form = form)
 
     user.firstname = form.firstname.data
     user.lastname = form.lastname.data
@@ -107,19 +107,19 @@ def user(id):
         db.session().commit()
     except (DBAPIError, SQLAlchemyError) as ex2:
         form.errors["general"] = ["Käyttäjän tallentaminen ei onnistunut."]
-        return render_template("/admin/user.html", user = user, form=form)
+        return render_template("/user/user.html", user = user, form=form)
 
-    flash('Käyttäjän tallentaminen onnistui')
-    return render_template("/admin/user.html", user = user, form=form)
+    flash('Käyttäjän tallentaminen onnistui','user')
+    return render_template("/user/user.html", user = user, form=form)
 
 
 
-@app.route('/admin/user/<id>/delete', methods=["GET"])
+@app.route('/user/<id>/delete', methods=["GET"])
 @login_required
 @admin_required
 def user_delete(id):
     user = User.query.get(id)
     db.session().delete(user)
     db.session().commit()
-    flash('Käyttäjän poistaminen onnistui')
+    flash('Käyttäjän poistaminen onnistui','user')
     return redirect(url_for('userlist'))

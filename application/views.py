@@ -11,6 +11,6 @@ def index():
 @app.route("/edit")
 @login_required
 def edit():
-    return render_template("/edit/home.html")
+    return render_template("/home.html")
 
 

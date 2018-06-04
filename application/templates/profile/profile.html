@@ -30,7 +30,7 @@
                     <label>Muokattu:</label>
                     <span class="form-control-static">{{user.date_modified}}</span>
                 </div>
-                {% if form.errors %}
+            {% if form.errors %}
                 <div class="alert alert-danger">
                     Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
                     <ul>
@@ -39,12 +39,24 @@
                         {% endfor %}
                     </ul>
                 </div>
-                {% endif %}
+            {% endif %}
+        {% with messages = get_flashed_messages(category_filter=["profile_profile"]) %}
+            {% if messages %}
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
                 <button name="cancel" type="submit" value="cancel" class="btn btn-default">Peruuta</button>
             </form>
             <h1 class="page-header">Salasanan vaihto</h1>
-            <form action="/edit/profile" method="post" name="changepwd">
+            <form action="{{ url_for('profile') }}" method="post" name="changepwd">
                 <div class="form-group">
                     <label>Salasana:</label>
                     <input class="form-control" type="password" name="password1" value="">
@@ -53,10 +65,30 @@
                     <label>Vahvista salasana:</label>
                     <input class="form-control" type="password" name="password2" value="">
                 </div>
-
+            {% if cpform.errors %}
+                <div class="alert alert-danger">
+                    Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
+                    <ul>
+                        {% for field in cpform.errors %}
+                        <li>{{ ", ".join(cpform.errors[field]) }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% with messages = get_flashed_messages(category_filter=["profile_password"]) %}
+            {% if messages %}
+                <div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
                 <button name="changepwd" type="submit" value="submit" class="btn btn-default">Tallenna</button>
                 <button name="cancel" type="submit" value="cancel" class="btn btn-default">Peruuta</button>
-                <span class="text-success">{{info2}}</span><span class="text-danger">{{error2}}</span>
             </form>
             <br/>
         </div>
