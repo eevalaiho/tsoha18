@@ -1,11 +1,12 @@
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
 
+from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 
 from application import app, db
 from application.library import admin_required
-from application.auth.models import User, UserRole
+from application.auth.models import User, UserRole, Role
 from application.user.forms import UserForm, NewUserForm
 
 
@@ -58,7 +59,7 @@ def newuser():
 
     # SAVE roles
     for role_id in form.userroles.data:
-        userrole = UserRole(role_id,user.id)
+        userrole = UserRole(int(role_id),user.id)
         db.session.add(userrole)
 
     try:
@@ -85,7 +86,7 @@ def user(id):
     if request.method == "GET":
         userroles = []
         for userrole in UserRole.query.filter(UserRole.accountid.__eq__(user.id)).all():
-            userroles.append(userrole.id)
+            userroles.append(userrole.roleid)
         form = UserForm(obj=user,userroles=userroles)
         return render_template("/user/user.html", user = user, form=form)
 
@@ -108,6 +109,24 @@ def user(id):
     except (DBAPIError, SQLAlchemyError) as ex2:
         form.errors["general"] = ["Käyttäjän tallentaminen ei onnistunut."]
         return render_template("/user/user.html", user = user, form=form)
+
+
+    # SAVE roles
+    try:
+        # First delete all existing roles
+        sql = text('delete from accountrole where accountid=' + str(user.id))
+        db.engine.execute(sql)
+
+        # Then add new roles
+        for role_id in form.userroles.data:
+            userrole = UserRole(int(role_id),user.id)
+            db.session.add(userrole)
+
+        db.session().commit()
+    except (DBAPIError, SQLAlchemyError) as ex2:
+        form.errors["general"] = ["Käyttäjäryhmien tallentaminen ei onnistunut."]
+        return render_template("/user/user.html", user=user, form=form)
+
 
     flash('Käyttäjän tallentaminen onnistui','user')
     return render_template("/user/user.html", user = user, form=form)
