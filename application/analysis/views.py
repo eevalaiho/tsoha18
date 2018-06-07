@@ -23,7 +23,7 @@ def listanalysis():
 @login_required
 def analysis(id=None):
 
-    analysis = Analysis(-1,"","") if id is None else Analysis.query.get(id) # __init__(self, companyid, name, keywords):
+    analysis = Analysis(-1,"","", False) if id is None else Analysis.query.get(id) # __init__(self, companyid, name, keywords):
 
     if analysis is None:
         return redirect(url_for('analysislist'))

@@ -31,10 +31,8 @@
                 <div class="form-group{% if form.keywords.errors %} has-error{% endif %}">
                     {{ form.keywords.label(class_="control-label") }}
                 {% if analysis.locked %}
-                    boo
                     {{ form.keywords(class_="form-control", readonly="") }}
                 {% else %}
-                    baa
                     {{ form.keywords(class_="form-control") }}
                 {% endif %}
                 </div>
