@@ -8,9 +8,9 @@ from flask_login import login_required
 def index():
     return redirect(url_for("auth_login"))
 
-@app.route("/edit")
+@app.route("/home")
 @login_required
-def edit():
+def home():
     return render_template("/home.html")
 
 

@@ -110,7 +110,6 @@ def user(id):
         form.errors["general"] = ["Käyttäjän tallentaminen ei onnistunut."]
         return render_template("/user/user.html", user = user, form=form)
 
-
     # SAVE roles
     try:
         # First delete all existing roles

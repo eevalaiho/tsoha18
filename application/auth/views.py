@@ -26,7 +26,7 @@ def auth_login():
     remember = form.remember
     login_user(user, remember=remember)
 
-    return redirect(url_for("edit"))
+    return redirect(url_for("home"))
 
 
 @app.route("/auth/logout")

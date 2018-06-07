@@ -32,32 +32,6 @@ class Company(Base):
 
         return res
 
-class Analysis(Base):
-    __tablename__ = "analysis"
-
-    companyid = db.Column(db.Integer, db.ForeignKey('company.id'), nullable=False)
-    name = db.Column(db.String(255), nullable=False)
-    keywords = db.Column(db.String(2000), nullable=False)
-
-    def __init__(self, companyid, name, keywords):
-        self.companyid = companyid
-        self.name = name
-        self.keywords = keywords
-
-
-class Target(Base):
-    __tablename__ = "target"
-
-    analysisid = db.Column(db.Integer, db.ForeignKey('analysis.id'), nullable=False)
-    title = db.Column(db.String(255), nullable=False)
-    type = db.Column(db.Integer, nullable=False)
-    uri = db.Column(db.String(255), nullable=False)
-
-    def __init__(self, subjectid, title, type, uri):
-        self.subjectid = subjectid
-        self.title = title
-        self.type = type
-        self.uri = uri
 
 
 

@@ -26,7 +26,7 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="/edit"><i class="fa fa-home fa-fw"></i> Etusivu</a>
+                            <a href="{{ url_for('home') }}"><i class="fa fa-home fa-fw"></i> Etusivu</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Raportit<span class="fa arrow"></span></a>
@@ -44,7 +44,10 @@
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> Ylläpito<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="/users">Käyttäjät</a>
+                                    <a href="{{ url_for('userlist') }}"><i class="fa fa-users fa-fw"></i> Käyttäjät</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('listanalysis') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Analyysit</a>
                                 </li>
                             </ul>
                         </li>
