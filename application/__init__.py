@@ -36,7 +36,7 @@ from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
 
 
-from application.auth.models import User
+from application.auth.models import User, Role, UserRole
 from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -48,10 +48,7 @@ login_manager.login_message = "Toiminnallisuus edellyttää kirjautumista."
 def load_user(user_id):
     return User.query.get(user_id)
 
-
-from application.auth.models import Role
 from application.models import Company
-from application.auth.models import UserRole
 from application.analysis.models import Analysis
 from application.target.models import Target
 from sys import stdout
@@ -91,7 +88,6 @@ try:
         db.session.add(UserRole(3, 5)) # Customer-ida
         db.session.commit()
         stdout.write("Userroles inserted")
-
 
         #Analysis: def __init__(self, companyid, name, keywords):
         db.session.add(Analysis(2,'Tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',False))
