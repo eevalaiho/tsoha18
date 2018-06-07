@@ -7,7 +7,7 @@ from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 from application import app, db
 from application.library import admin_required
 from application.analysis.models import Analysis
-from application.target.models import Target
+from application.ttarget.models import Ttarget
 from application.models import Company
 from application.analysis.forms import AnalysisForm
 
@@ -32,8 +32,8 @@ def analysis(id=None):
 
     # GET
     if request.method == "GET":
-        targets = "\r\n".join([t.url for t in analysis.get_targets()])
-        form = AnalysisForm(obj=analysis, targets=targets)
+        ttargets = "\r\n".join([t.url for t in analysis.get_ttargets()])
+        form = AnalysisForm(obj=analysis, ttargets=ttargets)
         form.companyid.choices=companies
         return render_template("/analysis/item.html", analysis=analysis, form=form)
 
@@ -65,13 +65,13 @@ def analysis(id=None):
     # SAVE targets
     try:
         # First delete all existing targets
-        sql = text('delete from target where analysisid = :analysisid')
+        sql = text('delete from ttarget where analysisid = :analysisid')
         db.engine.execute(sql, analysisid=analysis.id)
         db.session().flush()
         # Then add new targets
-        for url in form.targets.data.split("\r\n"):
-            target = Target(analysis.id, url)
-            db.session.add(target)
+        for url in form.ttargets.data.split("\r\n"):
+            ttarget = Ttarget(analysis.id, url)
+            db.session.add(ttarget)
         db.session().commit()
     except (DBAPIError, SQLAlchemyError) as ex2:
         db.session().rollback()

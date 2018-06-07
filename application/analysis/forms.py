@@ -7,7 +7,7 @@ class AnalysisForm(FlaskForm):
     companyid = SelectField("Yritys")
     name = StringField("Nimi", validators=[InputRequired('Nimi ei voi olla tyhjä')])
     keywords = StringField("Avainsanat", validators=[InputRequired('Avainsanat ei voi olla tyhjä')])
-    targets = TextAreaField("Kohteet")
+    ttargets = TextAreaField("Kohteet")
     locked = BooleanField("Lukittu")
 
     class Meta:

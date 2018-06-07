@@ -1,6 +1,6 @@
 from application import db
 from application.models import Base
-from application.target.models import Target
+from application.ttarget.models import Ttarget
 
 class Analysis(Base):
     __tablename__ = "analysis"
@@ -16,8 +16,8 @@ class Analysis(Base):
         self.keywords = keywords
         self.locked = locked
 
-    def get_targets(self):
-        return Target.query.filter(Target.analysisid.__eq__(self.id)).all()
+    def get_ttargets(self):
+        return Ttarget.query.filter(Ttarget.analysisid.__eq__(self.id)).all()
 
 
 

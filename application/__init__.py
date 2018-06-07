@@ -1,46 +1,40 @@
-from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
+
+# App config
 
 from flask import Flask
+from os import urandom
 app = Flask(__name__)
+app.config["SECRET_KEY"] = urandom(32)
 
+
+# SQLAlchemy
 
 from flask_sqlalchemy import SQLAlchemy
 import os
-
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tsoha18.db"
     app.config["SQLALCHEMY_ECHO"] = True
-
 db = SQLAlchemy(app)
 
 
-from application import views
-from application import models
+# Application views and models
 
-from application.auth import views
-from application.auth import models
-
+from application import views, models
+from application.auth import views, models
 from application.profile import views
-
 from application.user import views
-
-from application.analysis import views
-from application.analysis import models
-
-from application.target import models
+from application.analysis import views, models
+from application.ttarget import models
 
 
-from os import urandom
-app.config["SECRET_KEY"] = urandom(32)
-
+# LoginManager
 
 from application.auth.models import User, Role, UserRole
 from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Toiminnallisuus edellyttää kirjautumista."
 
@@ -48,10 +42,14 @@ login_manager.login_message = "Toiminnallisuus edellyttää kirjautumista."
 def load_user(user_id):
     return User.query.get(user_id)
 
+
+# Populate DB
+
 from application.models import Company
 from application.analysis.models import Analysis
-from application.target.models import Target
+from application.ttarget.models import Ttarget
 from sys import stdout
+from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 
 try:
     db.create_all()
@@ -95,8 +93,8 @@ try:
         stdout.write("Analyses inserted")
 
         #Target: def __init__(self, analysisid, title, uri):
-        db.session.add(Target(1,'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
-        db.session.add(Target(1, 'https://yle.fi/uutiset/18-212923')) # Yle tiedeuutiset tuoreimmat
+        db.session.add(Ttarget(1, 'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
+        db.session.add(Ttarget(1, 'https://yle.fi/uutiset/18-212923')) # Yle tiedeuutiset tuoreimmat
         db.session.commit()
         stdout.write("Targets inserted")
 
