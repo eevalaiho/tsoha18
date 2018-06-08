@@ -53,6 +53,10 @@
                     </div>
                 </div>
                 <div class="form-group input-group">
+                    <label>Ryömitty:</label>&nbsp;
+                    <span class="form-control-static">{% if not analysis is none %}{{analysis.date_crawled}}{% endif %}</span>
+                </div>
+                <div class="form-group input-group">
                     <label>Luotu:</label>&nbsp;
                     <span class="form-control-static">{% if not analysis is none %}{{analysis.date_created}}{% endif %}</span>
                 </div>

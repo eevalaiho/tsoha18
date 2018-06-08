@@ -25,18 +25,18 @@
 
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">&nbsp;</li>
                         <li>
                             <a href="{{ url_for('home') }}"><i class="fa fa-home fa-fw"></i> Etusivu</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Raportit<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                {% for analysis in get_finished_analyses(current_user) %}
                                 <li>
-                                    <a href="#">Raportti 1</a>
+                                    <a href="{{ url_for('report', id=analysis.id) }}">{{ analysis.name }}</a>
                                 </li>
-                                <li>
-                                    <a href="#">Raportti 2</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </li>
                     {% if current_user.is_admin() %}

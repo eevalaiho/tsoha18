@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Käyttäjän muokkaus</h1>
+            <h1 class="page-header">Käyttäjän {% if user is none %}lisäys{% else %}muokkaus{% endif %}</h1>
         </div>
     </div>
     <div class="row">

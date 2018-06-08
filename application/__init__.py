@@ -27,6 +27,7 @@ from application.profile import views
 from application.user import views
 from application.analysis import views, models
 from application.ttarget import models
+from application.report import views
 
 
 # LoginManager
@@ -43,10 +44,18 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
+# Left navigation methods
+
+from application.analysis.models import Analysis
+def get_finished_analyses(user):
+    return Analysis.get_finished_analyses(user.companyid)
+
+app.jinja_env.globals.update(get_finished_analyses=get_finished_analyses)
+
+
 # Populate DB
 
 from application.models import Company
-from application.analysis.models import Analysis
 from application.ttarget.models import Ttarget
 from sys import stdout
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
@@ -87,12 +96,14 @@ try:
         db.session.commit()
         stdout.write("Userroles inserted")
 
-        #Analysis: def __init__(self, companyid, name, keywords):
-        db.session.add(Analysis(2,'Tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',False))
+        import datetime
+        #Analysis: def __init__(self, companyid, name, keywords, locked, date_crawled):
+        db.session.add(Analysis(2,'Tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',False,datetime.datetime(2018,6,1,12,0,0)))
+        db.session.add(Analysis(2, 'Toinen analyysi', 'aldk,adlakd,aldk,alk', False, None))
         db.session.commit()
         stdout.write("Analyses inserted")
 
-        #Target: def __init__(self, analysisid, title, uri):
+        #Target: def __init__(self, analysisid, url):
         db.session.add(Ttarget(1, 'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
         db.session.add(Ttarget(1, 'https://yle.fi/uutiset/18-212923')) # Yle tiedeuutiset tuoreimmat
         db.session.commit()
