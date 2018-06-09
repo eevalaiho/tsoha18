@@ -4,9 +4,7 @@ Sovellus on asennettu Herokussa osoitteeseen: [https://shielded-brook-33904.hero
 
 Käyttäjätunnukset: 
 * Sähköposti: paivio@tsoha18, salasana: salainen (pääylläpitäjä)
-* Sähköposti: yngve@tsoha18, salasana: salainen (ylläpitäjä)
 * Sähköposti: aukusti@asianajotoimisto, salasana: salainen (asiakas)
-* Sähköposti: akuliina@asianajotoimisto, salasana: salainen (asiakas)
 * Sähköposti: ida@ideahautomo, salasana: salainen (asiakas)
 
 ### Aihe
@@ -16,7 +14,7 @@ Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 Aiheen motivaationa on [NLTK:n](https://www.nltk.org/) ominaisuuksiin tutustuminen ja mielekäs hyödyntäminen 
 tietokantaprojektissa sekä mahdollisesti data-analyysin graafisiin työkaluihin tutustuminen. 
 
-Erilaisia NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/NLTK.md).
+NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/NLTK.md).
 
 ### Käyttäjätarinat
 
@@ -24,15 +22,15 @@ Käyttäjätarinat on kuvattu dokumentissa: [Käyttäjätarinat](./documentation
 
 ### Ulkoasu
 
-Käytetty ulkoasukirjasto on kuvattu dokumentissa: [Ulkoasu](./documentation/ulkoasu.md)
+Ulkoasukirjasto on kuvattu dokumentissa: [Ulkoasu](./documentation/ulkoasu.md)
 
 ### Tietokanta
 
 Tietokanta on kuvattu dokumentissa: [Tietokanta](./documentation/tietokanta.md)
 
-### Sovelluskirjastoja ja työkaluja
+### Ohjelmakirjastot ja työkalut
 
-Käytetyt ohjelmakirjasot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjasot.md).
+Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjasot.md).
     
 ### Muistinpanoja, Featureja, kirjastoja - POISTETAAN
 * Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)

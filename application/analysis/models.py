@@ -33,9 +33,10 @@ class Analysis(Base):
 
     @staticmethod
     def get_finished_analyses_bycompany(companyid):
+        # Filtering SQLAlchemy queries by a boolean value seems to behave differently
+        # with SQLite as compared to  Postgres, so it's safer to use raw SQL here
         analyses = db.session.query(Analysis)\
-            .from_statement(
-                "SELECT Analysis.* " +
+            .from_statement("SELECT Analysis.* " +
                 " FROM Analysis" +
                 " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
                 " WHERE Analysis.companyid = " + str(companyid) +
@@ -50,6 +51,7 @@ class Analysis(Base):
             return Analysis.get_analysis(analysis.id)
         return None
 
+#https://stackoverflow.com/questions/7686887/sqlalchemy-from-statement-dynamic-attributes-for-python-objects
     @staticmethod
     def get_analysis(id):
         sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.keywordmentioncount), Analysis.date_crawled"
@@ -63,7 +65,7 @@ class Analysis(Base):
             if os.environ.get("HEROKU"):
                 return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": row[3]}
             else:
-                # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
+                # SQLite returns datetime fileds as string when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
                 return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
         else:
             return None
