@@ -42,11 +42,11 @@ class Analysis(Base):
     def get_latest_analysis_bycompany(companyid):
         result = Analysis.get_finished_analyses_bycompany(companyid)
         for analysis in result:
-            return Analysis.get_keyword_mentions(analysis.id)
+            return Analysis.get_analysis(analysis.id)
         return None
 
     @staticmethod
-    def get_keyword_mentions(id):
+    def get_analysis(id):
         sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.keywordmentioncount), Analysis.date_crawled"
                     " FROM Analysis"
                     " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
@@ -54,8 +54,11 @@ class Analysis(Base):
                     " HAVING Analysis.id = " + str(id))
         res = db.engine.execute(sql)
         row = res.fetchone()
-        # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
-        return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
+        if not row is None:
+            # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
+            return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
+        else:
+            return None
 
 
 
