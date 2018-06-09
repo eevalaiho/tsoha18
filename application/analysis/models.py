@@ -50,7 +50,8 @@ class Analysis(Base):
         sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.keywordmentioncount), Analysis.date_crawled"
                     " FROM Analysis"
                     " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
-                    " WHERE Analysis.id = " + str(id))
+                    " GROUP BY Analysis.id, Analysis.name, Analysis.date_crawled "
+                    " HAVING Analysis.id = " + str(id))
         res = db.engine.execute(sql)
         row = res.fetchone()
         # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy

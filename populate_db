@@ -1,34 +1,51 @@
+﻿BEGIN TRANSACTION;
 
-INSERT INTO `company` (id,date_created,date_modified,name,agreementlevel) VALUES (1,'2018-06-07 04:10:41','2018-06-07 04:10:41','Aukustin asianajotoimisto Ky',2);
-INSERT INTO `company` (id,date_created,date_modified,name,agreementlevel) VALUES (2,'2018-06-07 04:10:41','2018-06-07 04:10:41','Idan ideahautomo',1);
-
-INSERT INTO `role` (id,date_created,date_modified,name) VALUES (1,'2018-06-07 04:10:41','2018-06-07 04:10:41','Administrator');
-INSERT INTO `role` (id,date_created,date_modified,name) VALUES (2,'2018-06-07 04:10:41','2018-06-07 04:10:41','Editor');
-INSERT INTO `role` (id,date_created,date_modified,name) VALUES (3,'2018-06-07 04:10:41','2018-06-07 04:10:41','Customer');
-
-COMMIT;
-
-INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (1,'2018-06-07 04:10:41','2018-06-07 04:10:41','Päiviö','Pääkäyttäjä','paivio@tsoha18','salainen',NULL,1);
-INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (2,'2018-06-07 04:10:41','2018-06-07 04:10:41','Yngve','Ylläpitäjä','yngve@tsoha18','salainen',NULL,1);
-INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (3,'2018-06-07 04:10:41','2018-06-07 04:10:41','Aukusti','Asiakas','aukusti@asianajotoimisto','salainen',1,1);
-INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (4,'2018-06-07 04:10:41','2018-06-07 04:10:41','Akuliina','Asiakas','akuliina@asianajotoimisto','salainen',1,1);
-INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (5,'2018-06-07 04:10:41','2018-06-07 04:10:41','Ida','Asiakas','ida@ideahautomo','salainen',2,1);
+DELETE FROM ttarget;
+DELETE FROM analysis;
+DELETE FROM accountrole;
+DELETE FROM account;
+DELETE FROM role;
+DELETE FROM company;
 
 COMMIT;
 
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (1,'2018-06-07 04:10:41','2018-06-07 04:10:41',1,1);
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (2,'2018-06-07 04:10:41','2018-06-07 04:10:41',2,1);
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (3,'2018-06-07 04:10:41','2018-06-07 04:10:41',2,2);
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (4,'2018-06-07 04:10:41','2018-06-07 04:10:41',3,3);
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (5,'2018-06-07 04:10:41','2018-06-07 04:10:41',3,4);
-INSERT INTO `accountrole` (id,date_created,date_modified,roleid,accountid) VALUES (6,'2018-06-07 04:10:41','2018-06-07 04:10:41',3,5);
+BEGIN TRANSACTION;
 
-INSERT INTO `analysis` (id,date_created,date_modified,companyid,name,keywords,locked) VALUES (1,'2018-06-07 04:10:41','2018-06-07 04:11:15',2,'Tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',0);
+INSERT INTO role (id,date_created,date_modified,name) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24','Administrator');
+INSERT INTO role (id,date_created,date_modified,name) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24','Editor');
+INSERT INTO role (id,date_created,date_modified,name) VALUES (3,'2018-06-09 06:18:24','2018-06-09 06:18:24','Customer');
+
+INSERT INTO company (id,date_created,date_modified,name,agreementlevel) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24','Aukustin asianajotoimisto Ky',2);
+INSERT INTO company (id,date_created,date_modified,name,agreementlevel) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24','Idan ideahautomo',1);
+
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24','Päiviö','Pääkäyttäjä','paivio@tsoha18','salainen',NULL,True);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24','Yngve','Ylläpitäjä','yngve@tsoha18','salainen',NULL,True);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (3,'2018-06-09 06:18:24','2018-06-09 06:18:24','Aukusti','Asiakas','aukusti@asianajotoimisto','salainen',1,True);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (4,'2018-06-09 06:18:24','2018-06-09 06:18:24','Akuliina','Asiakas','akuliina@asianajotoimisto','salainen',1,True);
+INSERT INTO account (id,date_created,date_modified,firstname,lastname,username,password,companyid,active) VALUES (5,'2018-06-09 06:18:24','2018-06-09 06:18:24','Ida','Asiakas','ida@ideahautomo','salainen',2,True);
+
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24',1,1);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24',2,1);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (3,'2018-06-09 06:18:24','2018-06-09 06:18:24',2,2);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (4,'2018-06-09 06:18:24','2018-06-09 06:18:24',3,3);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (5,'2018-06-09 06:18:24','2018-06-09 06:18:24',3,4);
+INSERT INTO accountrole (id,date_created,date_modified,roleid,accountid) VALUES (6,'2018-06-09 06:18:24','2018-06-09 06:18:24',3,5);
+
+INSERT INTO analysis (id,date_created,date_modified,companyid,name,keywords,locked,date_crawled) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24',2,'Idan tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',True,'2018-06-05 12:00:00.000000');
+INSERT INTO analysis (id,date_created,date_modified,companyid,name,keywords,locked,date_crawled) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24',2,'Idan toinen analyysi','',False,NULL);
+INSERT INTO analysis (id,date_created,date_modified,companyid,name,keywords,locked,date_crawled) VALUES (3,'2018-06-09 06:18:24','2018-06-09 06:18:24',1,'Asianajotoimiston lakimaininnat','laki,sote,aukusti',True,'2018-06-01 12:00:00.000000');
+
+INSERT INTO ttarget (id,date_created,date_modified,analysisid,url,title,keywordmentioncount,keywordmentions) VALUES (1,'2018-06-09 06:18:24','2018-06-09 06:18:24',1,'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/',NULL,NULL,NULL);
+INSERT INTO ttarget (id,date_created,date_modified,analysisid,url,title,keywordmentioncount,keywordmentions) VALUES (2,'2018-06-09 06:18:24','2018-06-09 06:18:24',1,'https://yle.fi/uutiset/18-212923',NULL,NULL,NULL);
+INSERT INTO ttarget (id,date_created,date_modified,analysisid,url,title,keywordmentioncount,keywordmentions) VALUES (3,'2018-06-09 06:18:24','2018-06-09 06:18:24',3,'https://yle.fi/uutiset/3-9637501',NULL,NULL,NULL);
 
 COMMIT;
+--ROLLBACK;
 
-INSERT INTO `ttarget` (id,date_created,date_modified,analysisid,url,title,type) VALUES (1,'2018-06-07 04:11:15','2018-06-07 04:11:15',1,'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/',NULL,NULL);
-INSERT INTO `ttarget` (id,date_created,date_modified,analysisid,url,title,type) VALUES (2,'2018-06-07 04:11:15','2018-06-07 04:11:15',1,'https://yle.fi/uutiset/18-212923',NULL,NULL);
-INSERT INTO `ttarget` (id,date_created,date_modified,analysisid,url,title,type) VALUES (3,'2018-06-07 04:11:28','2018-06-07 04:11:28',2,'lafklfak',NULL,NULL);
 
-COMMIT;
+SELECT * FROM ttarget;
+SELECT * FROM analysis;
+SELECT * FROM accountrole;
+SELECT * FROM account;
+SELECT * FROM role;
+SELECT * FROM company;
