@@ -34,7 +34,7 @@ class Analysis(Base):
     @staticmethod
     def get_finished_analyses_bycompany(companyid):
         return Analysis.query\
-            .filter(Analysis.companyid.__eq__(companyid) and bool(Analysis.locked) and not Analysis.date_crawled is None) \
+            .filter(Analysis.companyid.__eq__(companyid) and Analysis.locked and not Analysis.date_crawled is None) \
             .order_by(Analysis.date_crawled.desc())\
             .all()
 
