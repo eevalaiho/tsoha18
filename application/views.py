@@ -1,4 +1,4 @@
-import logging
+import sys
 
 from application import app
 from application.analysis.models import Analysis
@@ -14,7 +14,8 @@ def index():
 @login_required
 def home():
     latestreport = None
-    logging.warning(current_user)
+    sys.stdout.write(current_user.toJSON())
+    sys.stdout.flush()
     if not current_user.companyid is None:
         latestreport = Analysis.get_latest_analysis_bycompany(current_user.companyid)
     return render_template("/home.html", latestreport=latestreport)

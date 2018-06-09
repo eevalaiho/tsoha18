@@ -1,3 +1,4 @@
+import jsonpickle
 from application import db
 from application.models import Base
 from application.models import Company
@@ -32,6 +33,9 @@ class User(Base):
         self.password = password
         self.companyid = companyid
         self.active = active
+
+    def toJSON(self):
+        return jsonpickle.encode(self)
 
     def get_roles(self):
         roles = {1:0, 2:0, 3:0} # 1=Administrator, 2=Editor, 3=Customer
