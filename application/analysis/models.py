@@ -33,10 +33,15 @@ class Analysis(Base):
 
     @staticmethod
     def get_finished_analyses_bycompany(companyid):
-        return Analysis.query\
-            .filter(Analysis.companyid.__eq__(companyid) and Analysis.locked.__eq__(False) and not Analysis.date_crawled is None) \
-            .order_by(Analysis.date_crawled.desc())\
-            .all()
+        analyses = db.session.query(Analysis)\
+            .from_statement(
+                "SELECT Analysis.* " +
+                " FROM Analysis" +
+                " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
+                " WHERE Analysis.companyid = " + str(companyid) +
+                    " AND Analysis.locked AND NOT Analysis.date_crawled IS NULL"
+            ).all()
+        return analyses
 
     @staticmethod
     def get_latest_analysis_bycompany(companyid):
