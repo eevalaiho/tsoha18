@@ -1,4 +1,4 @@
-import sys
+import sys, jsonpickle, datetime
 
 from application import app
 from application.analysis.models import Analysis
@@ -14,10 +14,10 @@ def index():
 @login_required
 def home():
     latestreport = None
-    sys.stdout.write(current_user.toJSON())
-    sys.stdout.flush()
     if not current_user.companyid is None:
         latestreport = Analysis.get_latest_analysis_bycompany(current_user.companyid)
+        sys.stdout.write("\r\n\r\n" + str(datetime.datetime.now()) + " INFO " + jsonpickle.encode(latestreport)+ "\r\n\r\n\r\n")
+        sys.stdout.flush()
     return render_template("/home.html", latestreport=latestreport)
 
 
