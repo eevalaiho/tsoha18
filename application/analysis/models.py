@@ -1,8 +1,8 @@
+import os
 from sqlalchemy import text
 from application import db
 from application.models import Base
 from application.ttarget.models import Ttarget
-from datetime import datetime
 from dateutil.parser import parse
 
 class Analysis(Base):
@@ -55,8 +55,11 @@ class Analysis(Base):
         res = db.engine.execute(sql)
         row = res.fetchone()
         if not row is None:
-            # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
-            return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
+            if os.environ.get("HEROKU"):
+                return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": row[3]}
+            else:
+                # SQLite returns datetime fileds as string in when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
+                return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
         else:
             return None
 
