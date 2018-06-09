@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <form method="POST" action="{{ url_for('newuser') if (user is none) else url_for('user', id=user.id) }}">
+            <form method="POST" action="{{ url_for('user') if (user is none) else url_for('user', id=user.id) }}">
             {% if user is none %}
                 <div class="form-group{% if form.username.errors %} has-error{% endif %}">
                     {{ form.username.label(class_="control-label", disabled_=True) }}
@@ -46,6 +46,10 @@
                 <div class="form-group{% if form.lastname.errors %} has-error{% endif %}">
                     {{ form.lastname.label(class_="control-label") }}
                     {{ form.lastname(class_="form-control") }}
+                </div>
+                <div class="form-group{% if form.companyid.errors %} has-error{% endif %}">
+                    {{ form.companyid.label(class_="control-label") }}
+                    {{ form.companyid(class_="form-control") }}
                 </div>
                 <div class="form-group">
                     {{ form.userroles.label(class_="control-label") }}

@@ -18,7 +18,7 @@ def profile():
         return render_template("/profile/profile.html", user=user, form = form, cpform = cpform)
 
     if not request.form.get("cancel") is None: # user clicked cancel
-        return redirect(url_for('edit'))
+        return redirect(url_for('home'))
 
 
     if request.form.get("changepwd"): # change password form was submitted
@@ -42,4 +42,4 @@ def profile():
         flash("Salasanan muutos onnistui","profile_password")
     else:
         flash("Profiilin tietojen tallennus onnistui","profile_profile")
-    return render_template("/profile/profile.html", user=user, form = ProfileForm(obj=user), cpform = cpform)
+    return redirect(url_for('profile'))

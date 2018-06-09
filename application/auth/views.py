@@ -61,5 +61,5 @@ def auth_register():
         form.errors["general"] = ["Lomakkeen lähettäminen ei onnistunut."]
         return render_template("/auth/register.html", form=form)
 
-    flash("Kiitos rekisteröitymisestä! Saat sähköpostia asiakaspalvelustamme, kun tunnuksesi on aktiivinen ja voit kirjautua järjestelmään.")
+    flash("Kiitos rekisteröitymisestä! Voit kirjautua järjestelmään, kun ylläpitäjä on hyvksynyt tunnuksesi.")
     return render_template("/auth/register.html", form=form)

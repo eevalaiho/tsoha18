@@ -11,7 +11,9 @@ def index():
 @app.route("/home")
 @login_required
 def home():
-    latestreport = Analysis.get_latest_analysis(current_user.companyid)
+    latestreport = None
+    if not current_user.companyid is None:
+        latestreport = Analysis.get_latest_analysis_bycompany(current_user.companyid)
     return render_template("/home.html", latestreport=latestreport)
 
 

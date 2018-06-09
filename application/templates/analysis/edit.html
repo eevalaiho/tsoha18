@@ -20,7 +20,7 @@
         <div class="col-lg-6">
             <form method="POST" action="{{ url_for('analysis', id=analysis.id) }}">
                 {{ form.id() }}
-                <div class="form-group{% if form.name.errors %} has-error{% endif %}">
+                <div class="form-group{% if form.companyid.errors %} has-error{% endif %}">
                     {{ form.companyid.label(class_="control-label") }}
                     {{ form.companyid(class_="form-control") }}
                 </div>

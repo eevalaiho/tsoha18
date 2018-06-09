@@ -9,18 +9,19 @@
     </div>
     <div class="row">
 
-        {% if not keywordmentions is none %}
+    {% if not report is none %}
 
         <div class="col-lg-3 col-md-6">
-            <div class="panel panel-primary">
+            <div class="panel primary">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-3">
-                            <i class="fa fa-key fa-5x"></i>
+                            <i class="fa fa-clock-o fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ keywordmentions.count }}</div>
-                            <div>Avainsanamainintaa!</div>
+                            <div class="xlarge">{{ report.name }}</div>
+                            <div class="large">{% if not report.date_crawled is none and not report.date_crawled == "" %}{{ report.date_crawled.strftime("%Y-%m-%d %H:%M") }}{% endif %}</div>
+                            <div class="large">Mainintoja <strong>{{ report.count }}</strong></div>
                         </div>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
             </div>
         </div>
 
-        {% endif %}
+    {% endif %}
 
     </div>
 

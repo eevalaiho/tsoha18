@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, BooleanField, HiddenField
-from wtforms.validators import InputRequired, Email, EqualTo, Length
+from wtforms import PasswordField, StringField, BooleanField, HiddenField, SelectField
+from wtforms.validators import InputRequired, Email, EqualTo, Length, NoneOf
 from wtforms.fields.html5 import EmailField
 from application.library import MultiCheckboxField
 
 class UserForm(FlaskForm):
     id = HiddenField("Id")
+    companyid = SelectField("Yritys", validators=[NoneOf([''],'Yritystä ei ole valittu')])
     firstname= StringField("Etunimi", validators=[InputRequired('Etunimi ei voi olla tyhjä')])
     lastname = StringField("Sukunimi", validators=[InputRequired('Sukunimi ei voi olla tyhjä')])
     active = BooleanField("Aktiivinen")
@@ -16,6 +17,7 @@ class UserForm(FlaskForm):
 
 
 class NewUserForm(FlaskForm):
+    companyid = SelectField("Yritys", validators=[NoneOf([''], 'Yritystä ei ole valittu')])
     username = EmailField("Sähköposti", validators=[InputRequired("Sähköposti ei voi olla tyhjä"), Email("Tarkista sähköpostiosoite")])
     firstname= StringField("Etunimi", validators=[InputRequired('Etunimi ei voi olla tyhjä')])
     lastname = StringField("Sukunimi", validators=[InputRequired('Sukunimi ei voi olla tyhjä')])

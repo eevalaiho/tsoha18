@@ -23,7 +23,8 @@ def listanalysis():
 @login_required
 def analysis(id=None):
 
-    analysis = Analysis(-1,"","", False) if id is None else Analysis.query.get(id) # __init__(self, companyid, name, keywords):
+    #def __init__(self, companyid, name, keywords, locked, date_crawled):
+    analysis = Analysis(-1,"","", False, None) if id is None else Analysis.query.get(id) # __init__(self, companyid, name, keywords):
 
     if analysis is None:
         return redirect(url_for('analysislist'))
@@ -35,7 +36,7 @@ def analysis(id=None):
         ttargets = "\r\n".join([t.url for t in analysis.get_ttargets()])
         form = AnalysisForm(obj=analysis, ttargets=ttargets)
         form.companyid.choices=companies
-        return render_template("/analysis/item.html", analysis=analysis, form=form)
+        return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
     # POST
     cancel = request.form.get("cancel")
@@ -46,7 +47,7 @@ def analysis(id=None):
     form.companyid.choices = companies
 
     if not form.validate():
-        return render_template("/analysis/item.html", analysis=analysis, form=form)
+        return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
     analysis.companyid = form.companyid.data
     analysis.name = form.name.data
@@ -57,10 +58,10 @@ def analysis(id=None):
         if (analysis.id is None):
             db.session.add(analysis)
         db.session().commit()
-    except (DBAPIError, SQLAlchemyError) as ex2:
+    except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
         db.session().rollback()
         form.errors["general"] = ["Analyysin tallentaminen ei onnistunut."]
-        return render_template("/analysis/item.html", analysis=analysis, form=form)
+        return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
     # SAVE targets
     try:
@@ -73,13 +74,13 @@ def analysis(id=None):
             ttarget = Ttarget(analysis.id, url)
             db.session.add(ttarget)
         db.session().commit()
-    except (DBAPIError, SQLAlchemyError) as ex2:
+    except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
         db.session().rollback()
         form.errors["general"] = ["Kohteiden tallentaminen ei onnistunut."]
-        return render_template("/analysis/item.html", analysis=analysis, form=form)
+        return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
     flash('Analyysin tallentaminen onnistui','analysis')
-    return render_template("/analysis/item.html", analysis=analysis, form=form)
+    return redirect(url_for('analysis', id=analysis.id))
 
 
 
@@ -90,6 +91,6 @@ def deleteanalysis(id):
     obj = Analysis.query.get(id)
     db.session().delete(obj)
     db.session().commit()
-    flash('Analyysin poistaminen onnistui','user')
+    flash('Analyysin poistaminen onnistui','analysis')
     return redirect(url_for('listanalysis'))
 

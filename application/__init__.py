@@ -47,10 +47,10 @@ def load_user(user_id):
 # Left navigation methods
 
 from application.analysis.models import Analysis
-def get_finished_analyses(user):
-    return Analysis.get_finished_analyses(user.companyid)
+def get_analyses_byuser(user):
+    return Analysis.get_analyses_bycompany(user.companyid)
 
-app.jinja_env.globals.update(get_finished_analyses=get_finished_analyses)
+app.jinja_env.globals.update(get_analyses_byuser=get_analyses_byuser)
 
 
 # Populate DB
@@ -98,14 +98,16 @@ try:
 
         import datetime
         #Analysis: def __init__(self, companyid, name, keywords, locked, date_crawled):
-        db.session.add(Analysis(2,'Tiedeuutiset','als,olkiluoto,cfc,lukutaito,sote',False,datetime.datetime(2018,6,1,12,0,0)))
-        db.session.add(Analysis(2, 'Toinen analyysi', 'aldk,adlakd,aldk,alk', False, None))
+        db.session.add(Analysis(2, 'Idan tiedeuutiset', 'als,olkiluoto,cfc,lukutaito,sote', True,datetime.datetime(2018, 6, 5, 12, 0, 0)))
+        db.session.add(Analysis(2, 'Idan toinen analyysi - KESKEN', 'aldk,adlakd,aldk,alk', False, None))
+        db.session.add(Analysis(1, 'Aukustin asianajotoimiston tiedeuutiset', 'als,olkiluoto,cfc,lukutaito,sote', True,datetime.datetime(2018, 6, 1, 12, 0, 0)))
         db.session.commit()
         stdout.write("Analyses inserted")
 
         #Target: def __init__(self, analysisid, url):
         db.session.add(Ttarget(1, 'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
         db.session.add(Ttarget(1, 'https://yle.fi/uutiset/18-212923')) # Yle tiedeuutiset tuoreimmat
+        db.session.add(Ttarget(3, 'https://yle.fi/uutiset/3-9637501'))
         db.session.commit()
         stdout.write("Targets inserted")
 
