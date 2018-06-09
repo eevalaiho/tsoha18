@@ -13,7 +13,7 @@ def report(id=None):
     if analysis is None:
         return redirect(url_for('home'))
 
-    report = Analysis.get_keyword_mentions(analysis.id)
+    report = Analysis.get_analysis(analysis.id)
 
     return render_template("/report/view.html", analysis=analysis, report=report)
 
