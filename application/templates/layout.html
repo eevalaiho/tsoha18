@@ -13,13 +13,16 @@
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
                 <li>
+                    <span style="padding: 15px">{{current_user.firstname}} {{current_user.lastname}}, {{current_user.get_company().name}}</span>
+                </li>
+                <li>
                     <a href="{{ url_for('profile') }}"><i class="fa fa-user fa-fw"></i> Omat tiedot</a>
                 </li>
                 <li>
                     <a href="{{ url_for('auth_logout') }}"><i class="fa fa-sign-out fa-fw"></i> Kirjaudu ulos</a>
                 </li>
             </ul>
-            <span class="navbar-right">{{current_user.firstname}} {{current_user.lastname}}, {{current_user.get_company().name}}</span>
+
 
             <div class="navbar-default sidebar" role="navigation">
 
