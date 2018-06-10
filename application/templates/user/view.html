@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header"><i class="fa fa-users fa-fw"></i> {{ user.firstname }} {{ user.lastname }}<span style="color: rgb(210, 210, 210);"> (# {{ user.id }})</span></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <label class="col-sm-3">Sähköposti</label>
+                <div class="col-sm-9">{{ user.username }}</div>
+            </div>
+             <div class="row">
+                <label class="col-sm-3">Yritys</label>
+                <div class="col-sm-9">{{ user.company().name }}</div>
+            </div>
+             <div class="row">
+                <label class="col-sm-3">Roolit</label>
+                <div class="col-sm-9">{{ user.rolesstring() }}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Hyväksytty</label>
+                <div class="col-sm-9">{{ "Kyllä" if user.active else "Ei" }}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Luotu</label>
+                <div class="col-sm-9">{{user.date_created}}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Muokattu</label>
+                <div class="col-sm-9">{{user.date_modified}}</div>
+            </div>
+            <br />
+            <a href="{{ url_for('userlist') }}" class="btn btn-default">Takaisin</a>
+            <br />
+        </div>
+        <div class="col-lg-6"></div>
+    </div>
+
+{% endblock %}

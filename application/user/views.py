@@ -18,6 +18,16 @@ def userlist():
     return render_template("/user/index.html", users=User.query.all())
 
 
+@app.route('/user/view/<id>', methods=["GET"])
+@login_required
+@admin_required
+def viewuser(id):
+    user = User.query.get(id)
+    if user is None:
+        return redirect(url_for('userlist'))
+    return render_template("/user/view.html", user=user)
+
+
 @app.route('/user', methods=["GET","POST"])
 @app.route('/user/<id>', methods=["GET","POST"])
 @login_required

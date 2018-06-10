@@ -3,6 +3,7 @@ from sqlalchemy import text
 from application import db
 from application.models import Base
 from application.ttarget.models import Ttarget
+from application.models import Company
 from dateutil.parser import parse
 
 class Analysis(Base):
@@ -21,7 +22,10 @@ class Analysis(Base):
         self.locked = locked
         self.date_crawled = date_crawled
 
-    def get_ttargets(self):
+    def company(self):
+        return Company.query.filter_by(id=self.companyid).first()
+
+    def ttargets(self):
         return Ttarget.query.filter(Ttarget.analysisid.__eq__(self.id)).all()
 
     @staticmethod
@@ -39,9 +43,8 @@ class Analysis(Base):
             .from_statement("SELECT Analysis.* " +
                 " FROM Analysis" +
                 " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
-                " WHERE Analysis.companyid = " + str(companyid) +
-                    " AND Analysis.locked AND NOT Analysis.date_crawled IS NULL"
-            ).all()
+                " WHERE Analysis.companyid = :companyid AND Analysis.locked AND NOT Analysis.date_crawled IS NULL"
+            ).params(companyid=companyid).all()
         return analyses
 
     @staticmethod
@@ -58,7 +61,7 @@ class Analysis(Base):
                     " FROM Analysis"
                     " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
                     " GROUP BY Analysis.id, Analysis.name, Analysis.date_crawled "
-                    " HAVING Analysis.id = " + str(id))
+                    " HAVING Analysis.id = :id").params(id=id)
         res = db.engine.execute(sql)
         row = res.fetchone()
         if not row is None:

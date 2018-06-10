@@ -13,7 +13,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Käyttäjän {% if user is none %}lisäys{% else %}muokkaus{% endif %}</h1>
+            <h1 class="page-header"><i class="fa fa-users fa-fw"></i> {% if user is none %}Lisää käyttäjä{% else %}Muokkaa käyttäjää <span style="color: rgb(210, 210, 210);"> (# {{ user.id }})</span>{% endif %}</h1>
         </div>
     </div>
     <div class="row">
@@ -56,7 +56,7 @@
                     {{ form.userroles(class_="checkbox") }}
                 </div>
                 <div class="form-group">
-                    <label>Aktiivinen:</label>
+                    <label>{{ form.active.label(class_="control-label") }}</label>
                     <div class="checkbox">
                         <label>
                             {{ form.active() }}{{ form.active.label(class_="control-label") }}
@@ -64,11 +64,11 @@
                     </div>
                 </div>
                 <div class="form-group input-group">
-                    <label>Luotu:</label>&nbsp;
+                    <label>Luotu</label>&nbsp;
                     <span class="form-control-static">{% if not user is none %}{{user.date_created}}{% endif %}</span>
                 </div>
                 <div class="form-group input-group">
-                    <label>Muokattu:</label>&nbsp;
+                    <label>Muokattu</label>&nbsp;
                     <span class="form-control-static">{% if not user is none %}{{user.date_modified}}{% endif %}</span>
                 </div>
             {% if form.errors %}

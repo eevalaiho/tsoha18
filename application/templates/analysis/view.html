@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="page-header"><i class="glyphicon glyphicon-equalizer"></i> {{ analysis.name }}<span style="color: rgb(210, 210, 210);"> (# {{ analysis.id }})</span></h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <label class="col-sm-3">Yritys</label>
+                <div class="col-sm-9">{{analysis.company().name}}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Avainsanat</label>
+                <div class="col-sm-9">{{analysis.keywords}}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Kohteet</label>
+                <div class="col-sm-9">
+                    {% for ttarget in analysis.ttargets() %}
+                        {{ ttarget.url }}
+                        {% if not loop.last %}
+                             <br />
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Lukittu</label>
+                <div class="col-sm-9">{{ "Kyllä" if analysis.locked else "Ei" }}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Ryömitty</label>
+                <div class="col-sm-9">{{analysis.date_crawled}}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Luotu</label>
+                <div class="col-sm-9">{{analysis.date_created}}</div>
+            </div>
+            <div class="row">
+                <label class="col-sm-3">Muokattu</label>
+                <div class="col-sm-9">{{analysis.date_modified}}</div>
+            </div>
+            <br />
+            <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Takaisin</a>
+            <br />
+        </div>
+        <div class="col-lg-6"></div>
+    </div>
+
+{% endblock %}

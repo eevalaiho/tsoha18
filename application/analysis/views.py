@@ -18,6 +18,16 @@ def listanalysis():
     return render_template("/analysis/index.html", analyses=Analysis.query.all())
 
 
+@app.route('/analysis/view/<id>', methods=["GET"])
+@login_required
+@admin_required
+def viewanalysis(id):
+    analysis = Analysis.query.get(id)
+    if analysis is None:
+        return redirect(url_for('analysislist'))
+    return render_template("/analysis/view.html", analysis=analysis)
+
+
 @app.route('/analysis', methods=["GET","POST"])
 @app.route('/analysis/<int:id>', methods=["GET","POST"])
 @login_required
@@ -33,8 +43,11 @@ def analysis(id=None):
 
     # GET
     if request.method == "GET":
-        ttargets = "\r\n".join([t.url for t in analysis.get_ttargets()])
-        form = AnalysisForm(obj=analysis, ttargets=ttargets)
+        urls = []
+        for ttarget in analysis.ttargets():
+            urls.append(ttarget.url)
+        form = AnalysisForm(obj=analysis)
+        form.ttargets.data="\r\n".join(urls)
         form.companyid.choices=companies
         return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
@@ -66,13 +79,16 @@ def analysis(id=None):
     # SAVE targets
     try:
         # First delete all existing targets
-        sql = text('delete from ttarget where analysisid = :analysisid')
-        db.engine.execute(sql, analysisid=analysis.id)
-        db.session().flush()
+        if not id is None:
+            sql = text('delete from ttarget where analysisid = :analysisid')
+            db.engine.execute(sql, analysisid=analysis.id)
+            db.session().flush()
+
         # Then add new targets
         for url in form.ttargets.data.split("\r\n"):
             ttarget = Ttarget(analysis.id, url)
             db.session.add(ttarget)
+
         db.session().commit()
     except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
         db.session().rollback()
@@ -81,7 +97,6 @@ def analysis(id=None):
 
     flash('Analyysin tallentaminen onnistui','analysis')
     return redirect(url_for('analysis', id=analysis.id))
-
 
 
 @app.route('/analysis/<int:id>/delete', methods=["GET"])

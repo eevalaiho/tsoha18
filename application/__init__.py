@@ -2,9 +2,7 @@
 # App config
 
 from flask import Flask
-from os import urandom
 app = Flask(__name__)
-app.config["SECRET_KEY"] = urandom(32)
 
 
 # SQLAlchemy
@@ -19,44 +17,99 @@ else:
 db = SQLAlchemy(app)
 
 
-# Application views and models
+# Login functionality part 1
 
-from application import views, models
-from application.auth import views, models
-from application.profile import views
-from application.user import views
-from application.analysis import views, models
-from application.ttarget import models
-from application.report import views
+from os import urandom
+app.config["SECRET_KEY"] = urandom(32)
 
-
-# LoginManager
-
-from application.auth.models import User, Role, UserRole
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Toiminnallisuus edellyttää kirjautumista."
+
+
+# Roles in login_required
+
+from functools import wraps
+
+def login_required(role="ANY"):
+    def wrapper(fn):
+        @wraps(fn)
+        def decorated_view(*args, **kwargs):
+            if not current_user.is_authenticated():
+                return login_manager.unauthorized()
+
+            unauthorized = False
+
+            if role != "ANY":
+                unauthorized = True
+
+                for user_role in current_user.roles():
+                    if user_role == role:
+                        unauthorized = False
+                        break
+
+            if unauthorized:
+                return login_manager.unauthorized()
+
+            return fn(*args, **kwargs)
+
+        return decorated_view
+
+    return wrapper
+
+
+# Template methods
+
+from application.analysis.models import Analysis
+
+def get_analyses_byuser(user):
+    return Analysis.get_analyses_bycompany(user.companyid)
+app.jinja_env.globals.update(get_analyses_byuser=get_analyses_byuser)
+
+
+# Application views and models
+
+from application import views, models
+from application.models import Company
+from application.auth import views, models
+from application.auth.models import User, Role, UserRole
+from application.profile import views
+from application.user import views
+from application.analysis import views, models
+from application.ttarget import models
+from application.ttarget.models import Ttarget
+from application.report import views
+
+
+# Login functionality part 2
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
 
-# Left navigation methods
-
-from application.analysis.models import Analysis
-def get_analyses_byuser(user):
-    return Analysis.get_analyses_bycompany(user.companyid)
-
-app.jinja_env.globals.update(get_analyses_byuser=get_analyses_byuser)
+# App error handlers
 
 
-# Populate DB
+from flask import render_template
 
-from application.models import Company
-from application.ttarget.models import Ttarget
+@app.errorhandler(403)
+def page_not_found(e):
+    return render_template('403.html'), 403
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('500.html'), 500
+
+
+# Create and populate DB
+
 from sys import stdout
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 

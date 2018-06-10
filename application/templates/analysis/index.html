@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Analyysit</h1>
+            <h1 class="page-header"><i class="glyphicon glyphicon-equalizer"></i> Analyysit</h1>
         </div>
     </div>
     <div class="row">
@@ -23,13 +23,11 @@
         <table class="table table-striped table-bordered table-hover dataTable no-footer dtr-inline" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info" style="width: 100%;" width="100%">
             <thead>
                 <tr role="row">
-                    <th tabindex="0" rowspan="1" colspan="1" style="width: 20px;">Id</th>
+                    <th tabindex="0" rowspan="1" colspan="1" style="width: 20px;">#</th>
                     <th rowspan="1" colspan="1" style="width: 180px;">Yritys</th>
                     <th rowspan="1" colspan="1" style="width: 180px;">Nimi</th>
                     <th rowspan="1" colspan="1" style="width: 180px;">Avaisanat</th>
                     <th rowspan="1" colspan="1" style="width: 180px;">Lukittu</th>
-                    <th tabindex="0" rowspan="1" colspan="1" style="width: 180px;" >Luontipvm</th>
-                    <th tabindex="0" rowspan="1" colspan="1" style="width: 180px;" >Muokkauspvm</th>
                     <th tabindex="0" rowspan="1" colspan="1">Toiminnot</th>
                 </tr>
             </thead>
@@ -38,15 +36,14 @@
             <tr class="gradeA odd" role="row">
                 <td>{{analysis.id}}</td>
                 <td>{{analysis.companyid}}</td>
-                <td>{{analysis.name}}</td>
+                <td><a href="{{ url_for('viewanalysis', id=analysis.id) }}">{{analysis.name}}</a></td>
                 <td>{{analysis.keywords}}</td>
-                <td>{{analysis.locked}}</td>
-                <td>{{analysis.date_created}}</td>
-                <td>{{analysis.date_modified}}</td>
-                <td><a href="{{ url_for('analysis', id=analysis.id) }}" class="btn btn-default">Muokkaa</a>&nbsp;
-                    {% if current_user.is_admin() %}
+                <td>{{ "Kyllä" if analysis.locked else "Ei" }}</td>
+                <td><a href="{{ url_for('viewanalysis', id=analysis.id) }}" class="btn btn-default">Katso</a>&nbsp;
+                    <a href="{{ url_for('analysis', id=analysis.id) }}" class="btn btn-default">Muokkaa</a>&nbsp;
+                {% if current_user.is_admin() %}
                     <a href="#" name="btn-delete" data-href="{{ url_for('deleteanalysis', id=analysis.id) }}" data-id="{{analysis.id}}" data-name="{{analysis.name}}" class="btn btn-default">Poista</a>
-                    {% endif %}
+                {% endif %}
                 </td>
             </tr>
         {% endfor %}

@@ -1,14 +1,14 @@
-from flask import render_template, redirect, url_for, request, flash
-from flask_login import login_required
+from flask import render_template, redirect, url_for
+from flask_login import login_required, current_user
 
-from application import app
+from application import app, db
 from application.analysis.models import Analysis
 
 @app.route('/report/<int:id>', methods=["GET"])
 @login_required
-def report(id=None):
+def report(id):
 
-    analysis = Analysis(-1,"","", False) if id is None else Analysis.query.get(id) # __init__(self, companyid, name, keywords):
+    analysis = db.session.query(Analysis).filter(Analysis.companyid.__eq__(current_user.companyid)).filter(Analysis.id.__eq__(id)).first()
 
     if analysis is None:
         return redirect(url_for('home'))

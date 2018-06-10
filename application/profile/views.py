@@ -15,7 +15,7 @@ def profile():
     cpform = ChangePasswordForm()
 
     if request.method == "GET":
-        return render_template("/profile/profile.html", user=user, form = form, cpform = cpform)
+        return render_template("/profile/edit.html", user=user, form = form, cpform = cpform)
 
     if not request.form.get("cancel") is None: # user clicked cancel
         return redirect(url_for('home'))
@@ -26,12 +26,12 @@ def profile():
         if not cpform.validate():
             form.firstname.data = user.firstname
             form.lastname.data = user.lastname
-            return render_template("/profile/profile.html", user=user, form = form, cpform = cpform)
+            return render_template("/profile/edit.html", user=user, form = form, cpform = cpform)
         user.password = cpform.password.data
     else:
         form = ProfileForm(request.form)
         if not form.validate():
-            return render_template("/profile/profile.html", user=user, form = form, cpform = cpform)
+            return render_template("/profile/edit.html", user=user, form = form, cpform = cpform)
         user.firstname = form.firstname.data
         user.lastname = form.lastname.data
 

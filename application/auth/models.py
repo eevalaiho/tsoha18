@@ -37,16 +37,25 @@ class User(Base):
     def toJSON(self):
         return jsonpickle.encode(self)
 
-    def get_roles(self):
+    def roles(self):
         roles = {1:0, 2:0, 3:0} # 1=Administrator, 2=Editor, 3=Customer
         for role in UserRole.query.filter(UserRole.accountid.__eq__(self.id)).all():
             roles[role.id] = 1
         return roles
 
-    def get_company(self):
-        comp2 = Company.query.filter_by(id=self.companyid).first()
-        #comp = Company.get(self.id)
-        return comp2
+    def rolesstring(self):
+        roles = db.session.query(Role)\
+            .from_statement("SELECT role.* FROM role" +
+                " INNER JOIN accountrole ON role.id = accountrole.roleid"
+                " WHERE accountrole.accountid = :userid"
+            ).params(userid=self.id).all()
+        if not roles is None and len(roles) > 0:
+            val = map(lambda x: x.name, roles)  # Output: ['python', 'java']
+            return ", ".join(val)
+        return ""
+
+    def company(self):
+        return Company.query.filter_by(id=self.companyid).first()
 
     def is_anonymous(self):
         return False
@@ -58,7 +67,7 @@ class User(Base):
         return True
 
     def is_admin(self):
-        return bool(self.get_roles().get(1))
+        return bool(self.roles().get(1))
 
 
 class UserRole(Base):
