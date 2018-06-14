@@ -1,4 +1,4 @@
-import urllib, re, nltk, datetime, jsonpickle, pprint
+import urllib, re, nltk, datetime, jsonpickle, sys
 
 from flask import flash
 from sqlalchemy import text
@@ -56,7 +56,7 @@ class Ttarget(Base):
 
         # Parse HTML
         try:
-            soup = BeautifulSoup(res)
+            soup = BeautifulSoup(res, "html.parser")
             for tag in ['script', 'link', 'style', 'input']:
                 [x.extract() for x in soup.findAll(tag)]
             self.raw = soup.getText()
@@ -72,7 +72,8 @@ class Ttarget(Base):
             self.nltk_analysis_json = jsonpickle.encode(obj_nltk_analysis)
 
         except (Exception) as ex:
-            flash('Virhe NLTK analyysissä ' + self.url, 'analysis')
+            flash('Virhe NLTK analyysissä ' + self.url + ", " + ex, 'analysis')
+            sys.stdout.write(ex)
             return False
 
         return True

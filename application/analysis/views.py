@@ -1,4 +1,4 @@
-import urllib, re, datetime
+import urllib, re, datetime, sys
 
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_required
@@ -148,8 +148,9 @@ def reportanalysis(id):
 
     try:
         db.session().commit()
-    except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
+    except (DBAPIError, SQLAlchemyError, IntegrityError) as ex:
         db.session().rollback()
+        sys.stdout.write(ex)
         flash('Raportin tekeminen ei onnistunut', 'analysis')
         return render_template("/analysis/report.html", analysis=analysis, form=form, json=json)
 
@@ -187,8 +188,9 @@ def reportanalysis(id):
 
         db.session().commit()
 
-    except (Exception) as ex2:
+    except (Exception) as ex:
         db.session().rollback()
+        sys.stdout.write(ex)
         flash('Raportin tekeminen ei onnistunut', 'analysis')
         return render_template("/analysis/report.html", analysis=analysis, form=form, json=json)
 
