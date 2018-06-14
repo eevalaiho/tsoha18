@@ -26,7 +26,7 @@ class Ttarget(Base):
     link_count = db.Column(db.Integer)
     word_count = db.Column(db.Integer)
     key_word_count = db.Column(db.Integer)
-    nltk_analysis_json = db.Column(db.String(32000)) # json data
+    nltk_analysis_json = db.Column(db.Text) # json data
 
     def __init__(self, analysisid, url):
         self.analysisid = analysisid
