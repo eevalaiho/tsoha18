@@ -63,10 +63,12 @@ def login_required(role="ANY"):
 # Template methods
 
 from application.analysis.models import Analysis
+import json
 
 def get_analyses_byuser(user):
     return Analysis.get_analyses_bycompany(user.companyid)
 app.jinja_env.globals.update(get_analyses_byuser=get_analyses_byuser)
+app.jinja_env.globals.update(json_stringify=json.dumps) # json.dumps(mylist, separators=(',',':'))
 
 
 # Application views and models
@@ -79,7 +81,7 @@ from application.profile import views
 from application.user import views
 from application.analysis import views, models
 from application.ttarget import models
-from application.ttarget.models import Ttarget
+from application.ttarget.models import Ttarget, NltkAnalysis
 from application.report import views
 
 
@@ -151,16 +153,16 @@ try:
 
         import datetime
         #Analysis: def __init__(self, companyid, name, keywords, locked, date_crawled):
-        db.session.add(Analysis(2, 'Idan tiedeuutiset', 'als,olkiluoto,cfc,lukutaito,sote', True,datetime.datetime(2018, 6, 5, 12, 0, 0)))
-        db.session.add(Analysis(2, 'Idan toinen analyysi - KESKEN', 'aldk,adlakd,aldk,alk', False, None))
-        db.session.add(Analysis(1, 'Aukustin asianajotoimiston tiedeuutiset', 'als,olkiluoto,cfc,lukutaito,sote', True,datetime.datetime(2018, 6, 1, 12, 0, 0)))
+        db.session.add(Analysis(2, 'Idan tiedeuutiset', 'luontopaneeli,ilmastonmuutos,aranda,uv-säteily,ilmakehä',False,None))
+        db.session.add(Analysis(2, 'Idan keskeneräinen analyysi', '', False, None))
+        db.session.add(Analysis(1, 'Aukustin asianajotoimiston ilmastopoiminnat', 'revontulet,arktinen,meteorologi,itämeri',False,None))
         db.session.commit()
         stdout.write("Analyses inserted")
 
         #Target: def __init__(self, analysisid, url):
         db.session.add(Ttarget(1, 'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
-        db.session.add(Ttarget(1, 'https://yle.fi/uutiset/18-212923')) # Yle tiedeuutiset tuoreimmat
-        db.session.add(Ttarget(3, 'https://yle.fi/uutiset/3-9637501'))
+        db.session.add(Ttarget(1, 'https://ilmastotieto.wordpress.com/ilmastouutiset/'))  # Akatemia tiedeuutiset
+        db.session.add(Ttarget(3, 'http://ilmatieteenlaitos.fi/tiedeuutisten-arkisto'))
         db.session.commit()
         stdout.write("Targets inserted")
 

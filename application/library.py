@@ -1,3 +1,5 @@
+import urllib
+
 from functools import wraps
 from flask import flash,request,redirect,url_for
 from flask_login import current_user
@@ -33,3 +35,12 @@ class MultiCheckboxField(SelectMultipleField):
     """
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
+
+'''
+Ref: https://stackoverflow.com/questions/7160737/python-how-to-validate-a-url-in-python-malformed-or-not
+'''
+def is_valid_url(url, qualifying=None):
+    qualifying = ('scheme', 'netloc') if qualifying is None else qualifying
+    token = urllib.parse.urlparse(url)
+    return all([getattr(token, qualifying_attr)
+                for qualifying_attr in qualifying])

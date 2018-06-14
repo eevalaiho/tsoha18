@@ -21,7 +21,7 @@
                             <h4>Kesken</h4>
                         {% else %}
                             <h4>Valmistunut {% if not report.date_crawled is none and not report.date_crawled == "" %}{{ report.date_crawled.strftime("%Y-%m-%d %H:%M") }}{% endif %}</h4>
-                            <h4>Avainsanamainintoja {{ report.count }}</h4>
+                            <h4>Avainsanamainintoja: {{ report.count }}</h4>
                         {% endif %}
                         </div>
                     </div>
@@ -29,45 +29,65 @@
             </div>
         </div>
     </div>
-
+    <h2>Seurantakohteet:</h2>
     <div class="row">
-        <div class="panel-body">
-
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
-                               class="">Perustiedot</a>
-                        </h3>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="true" style="">
-                        <div class="panel-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </div>
+        {% for ttarget in analysis.ttargets() %}
+           <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ ttarget.title }}
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <label class="col-sm-3">Url</label>
+                    <div class="col-sm-9"><a href="{{ ttarget.url }}">{{ ttarget.url }}</a></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Avainsanat</label>
+                    <div class="col-sm-9">{{ analysis.keywords }}</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Avainsanaosumat</label>
+                    <div class="col-sm-9">
+                        {% for keyword in ttarget.nltk_analysis().key_words %}
+                            {{ keyword }} ({{ ttarget.nltk_analysis().key_words[ keyword ] }})
+                            {% if not loop.last %} , {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
-
-            {% if not report is none %}
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed"
-                               aria-expanded="false">Raportti</a>
-                        </h3>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false">
-                        <div class="panel-body">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <h3>Alikohteet:</h3>
+                <div class="panel-group" id="accordion{{ ttarget.id }}">
+            {% for subtarget in ttarget.ttargets() %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion{{ ttarget.id }}" href="#sub{{ subtarget.id }}">
+                                    {{ subtarget.title }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="sub{{ subtarget.id }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="col-sm-3">Url</label>
+                                    <div class="col-sm-9"><a href="{{ subtarget.url }}">{{ subtarget.url }}</a></div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3">Avainsanaosumat</label>
+                                    <div class="col-sm-9">
+                                        {% for keyword in subtarget.nltk_analysis().key_words %}
+                                            {{ keyword }} ({{ subtarget.nltk_analysis().key_words[ keyword ] }})
+                                            {% if not loop.last %} , {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+            {% endfor %}
                 </div>
-
-            {% endif %}
-
             </div>
         </div>
+        {% endfor %}
     </div>
 
 

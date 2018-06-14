@@ -26,7 +26,8 @@ class Analysis(Base):
         return Company.query.filter_by(id=self.companyid).first()
 
     def ttargets(self):
-        return Ttarget.query.filter(Ttarget.analysisid.__eq__(self.id)).all()
+        return Ttarget.query.filter(Ttarget.analysisid.__eq__(self.id))\
+            .filter(Ttarget.ttargetid.is_(None)).all()
 
     @staticmethod
     def get_analyses_bycompany(companyid):
@@ -57,7 +58,7 @@ class Analysis(Base):
 #https://stackoverflow.com/questions/7686887/sqlalchemy-from-statement-dynamic-attributes-for-python-objects
     @staticmethod
     def get_analysis(id):
-        sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.keywordmentioncount), Analysis.date_crawled"
+        sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.key_word_count), Analysis.date_crawled"
                     " FROM Analysis"
                     " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysisid"
                     " GROUP BY Analysis.id, Analysis.name, Analysis.date_crawled "

@@ -12,3 +12,6 @@ class AnalysisForm(FlaskForm):
 
     class Meta:
         csrf = False
+
+class ReportAnalysisForm(FlaskForm):
+    id = HiddenField("Id")

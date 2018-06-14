@@ -2,120 +2,173 @@
 
 {% block content %}
 
-<style type="text/css">
-    ul.checkbox {
-        padding-left: 22px;
-    }
-    div.checkbox{
-        padding-left: 2px;
-    }
-</style>
-
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><i class="glyphicon glyphicon-equalizer"></i> {% if analysis.id is none %}Lisää analyysi{% else %} Muokkaa analyysiä <span style="color: rgb(210, 210, 210);"> (# {{ analysis.id }})</span>{% endif %}</h1>
+            <h1 class="page-header"><i class="glyphicon glyphicon-equalizer"></i>
+                {% if not analysis.locked %} Tee raportti: {% else %} Katso raporttia: {% endif %}
+                {{analysis.name}} <span style="color: rgb(210, 210, 210);"> (# {{ analysis.id }})</span></h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-6">
-            <form method="POST" action="{{ url_for('analysis', id=analysis.id) }}">
-                {{ form.id() }}
-                <div class="form-group{% if form.companyid.errors %} has-error{% endif %}">
-                    {{ form.companyid.label(class_="control-label") }}
-                {% if analysis.locked %}
-                    {{ form.companyid(class_="form-control", readonly="") }}
-                {% else %}
-                    {{ form.companyid(class_="form-control") }}
-                {% endif %}
-                </div>
-                <div class="form-group{% if form.name.errors %} has-error{% endif %}">
-                    {{ form.name.label(class_="control-label") }}
-                    {{ form.name(class_="form-control") }}
-                </div>
-                <div class="form-group{% if form.keywords.errors %} has-error{% endif %}">
-                    {{ form.keywords.label(class_="control-label") }}
-                {% if analysis.locked %}
-                    {{ form.keywords(class_="form-control", readonly="") }}
-                {% else %}
-                    {{ form.keywords(class_="form-control") }}
-                {% endif %}
-                </div>
-                <div class="form-group{% if form.ttargets.errors %} has-error{% endif %}">
-                    {{ form.ttargets.label(class_="control-label") }}
-                {% if analysis.locked %}
-                    {{ form.ttargets(class_="form-control", rows="3", readonly="") }}
-                {% else %}
-                    {{ form.ttargets(class_="form-control", rows="3") }}
-                {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.locked.label(class_="control-label") }}
-                    <div class="checkbox">
-                        <label>
-                            {{ form.locked(class_="checkbox") }}{{ form.locked.label(class_="control-label") }}
-                        </label>
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <label class="col-sm-3">Yritys</label>
+                        <div class="col-sm-9">{{analysis.company().name}}</div>
                     </div>
-                </div>
-                <div class="form-group input-group">
-                    <label>Ryömitty</label>&nbsp;
-                    <span class="form-control-static">{% if not analysis is none %}{{analysis.date_crawled}}{% endif %}</span>
-                </div>
-                <div class="form-group input-group">
-                    <label>Luotu</label>&nbsp;
-                    <span class="form-control-static">{% if not analysis is none %}{{analysis.date_created}}{% endif %}</span>
-                </div>
-                <div class="form-group input-group">
-                    <label>Muokattu</label>&nbsp;
-                    <span class="form-control-static">{% if not analysis is none %}{{analysis.date_modified}}{% endif %}</span>
-                </div>
-            {% if form.errors %}
-                <div class="alert alert-danger">
-                    Tarkista tiedot, lomakkeella havaittiin seuraavat virheet:
-                    <ul>
-                        {% for field in form.errors %}
-                        <li>{{ ", ".join(form.errors[field]) }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% with messages = get_flashed_messages(category_filter=["analysis"]) %}
-            {% if messages %}
-                <div class="alert alert-success alert-dismissable">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <ul class=flashes>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-        {% endwith %}
-                <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                {% if not analysis is none and not analysis.id is none %}
-                    <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">Tee raportti</a>&nbsp;
-                    <a href="#" name="btn-delete" data-href="{{ url_for('deleteanalysis', id=analysis.id) }}" data-id="{{analysis.id}}" data-name="{{analysis.name}}" class="btn btn-default">Poista</a>
+                    <div class="row">
+                        <label class="col-sm-3">Avainsanat</label>
+                        <div class="col-sm-9">{{analysis.keywords}}</div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-3">Kohteet</label>
+                        <div class="col-sm-9">
+                            {% for ttarget in analysis.ttargets() %}
+                                {{ ttarget.url }}
+                                {% if not loop.last %}
+                                     <br />
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <br />
+                {% if not analysis.locked %}
+                    <form method="POST" action="{{ url_for('reportanalysis', id=analysis.id) }}">
+                        {{ form.id() }}
+                        <button type="submit" value="submit" class="btn btn-default">Käynnistä raporttiajo</button>
+                        <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Peruuta</a>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Takaisin</a>
                 {% endif %}
-                <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Peruuta</a>
-                <div>{{error}}</div>
-            </form>
+            {% with messages = get_flashed_messages(category_filter=["analysis_error"]) %}
+                {% if messages %}
+                    <div style="margin-top: 15px; margin-bottom: 0" class="alert alert-error alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
+            {% with messages = get_flashed_messages(category_filter=["analysis"]) %}
+                {% if messages %}
+                    <div style="margin-top: 15px; margin-bottom: 0" class="alert alert-success alert-dismissable">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endwith %}
+                </div>
+            </div>
             <br />
         </div>
-        <div class="col-lg-6"></div>
-
+    </div>
+    <h2>Seurantakohteet:</h2>
+    <div class="row">
+        {% for ttarget in analysis.ttargets() %}
+           <div class="panel panel-default">
+            <div class="panel-heading">
+                {{ ttarget.title }}
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <label class="col-sm-3">Url</label>
+                    <div class="col-sm-9"><a href="{{ ttarget.url }}">{{ ttarget.url }}</a></div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Luotu</label>
+                    <div class="col-sm-9">{{ ttarget.date_created }}</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Kieli</label>
+                    <div class="col-sm-9">{{ ttarget.language }}</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Avainsanat</label>
+                    <div class="col-sm-9">{{ analysis.keywords }}</div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-3">Avainsanaosumat</label>
+                    <div class="col-sm-9">
+                        {% for keyword in ttarget.nltk_analysis().key_words %}
+                            {{ keyword }} ({{ ttarget.nltk_analysis().key_words[ keyword ] }})
+                            {% if not loop.last %} , {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row" id="nltkrow{{ ttarget.id }}">
+                    <div class="col-sm-12">
+                        <div><a href="#nltk{{ ttarget.id }}" data-toggle="collapse" data-parent="#nltkrow{{ ttarget.id }}" >Näytä yksityiskohtaiset tiedot</a></div>
+                        <div id="nltk{{ ttarget.id }}" class="panel-collapse collapse nltk_analysis" data-result="{{ ttarget.nltk_analysis_json }}"></div>
+                    </div>
+                </div>
+                <h3>Alikohteet:</h3>
+                <div class="panel-group" id="accordion{{ ttarget.id }}">
+            {% for subtarget in ttarget.ttargets() %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion{{ ttarget.id }}" href="#sub{{ subtarget.id }}">
+                                    {{ subtarget.title }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="sub{{ subtarget.id }}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="col-sm-3">Url</label>
+                                    <div class="col-sm-9"><a href="{{ subtarget.url }}">{{ subtarget.url }}</a></div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3">Luotu</label>
+                                    <div class="col-sm-9">{{ subtarget.date_created }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3">Kieli</label>
+                                    <div class="col-sm-9">{{ subtarget.language }}</div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-sm-3">Avainsanaosumat</label>
+                                    <div class="col-sm-9">
+                                        {% for keyword in subtarget.nltk_analysis().key_words %}
+                                            {{ keyword }} ({{ subtarget.nltk_analysis().key_words[ keyword ] }})
+                                            {% if not loop.last %} , {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <div class="row" id="nltkrow{{ subtarget.id }}">
+                                    <div class="col-sm-12">
+                                        <div><a href="#nltk{{ subtarget.id }}" data-toggle="collapse" data-parent="#nltkrow{{ subtarget.id }}" >Näytä yksityiskohtaiset tiedot</a></div>
+                                        <div id="nltk{{ subtarget.id }}" class="panel-collapse collapse nltk_analysis" data-result="{{ subtarget.nltk_analysis_json }}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 
 <script type="text/javascript">
-    $("a[name='btn-delete']").click(function(){
-        var id = $(this).attr("data-id");
-        var name = $(this).attr("data-name");
-        if(confirm("Haluatko varmasti poistaa analyysin '" + name + "' (id: " + id + ")?")){
-            var href = $(this).attr("data-href");
-            $(this).attr("href", href);
-        }
-        else{
-            return false;
-        }
+
+    $(function(){
+        $(".nltk_analysis").each(function() {
+            var data = $(this).data("result");
+            $(this).append($('<pre>').text(JSON.stringify(data, undefined, 2)));
+        })
     });
+
 </script>
 
 {% endblock %}
