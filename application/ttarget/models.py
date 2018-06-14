@@ -20,7 +20,7 @@ class Ttarget(Base):
     url = db.Column(db.String(255), nullable=False)
 
     # The following data is to be filled through NLTK and other analyses
-    ttargetid = db.Column(db.Integer, db.ForeignKey('ttarget.id'))
+    ttargetid = db.Column(db.Integer)#, db.ForeignKey('ttarget.id'))
     title = db.Column(db.String(255))
     language = db.Column(db.String(2))
     link_count = db.Column(db.Integer)
