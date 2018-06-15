@@ -1,6 +1,6 @@
-#Käyttäjätarinat
+# Käyttäjätarinat
 
-##Käyttäjä
+### Käyttäjä
 
 Käyttäjänä haluan, että:
 * voin kirjautua sovellukseen tunnus-salasanaparilla
@@ -12,7 +12,7 @@ Käyttäjänä haluan, että:
 * (saan tallennettua raportit ja analyysit pdf-muodossa omalle työasemalleni)
 * muiden yritysten käyttäjät eivät voi katsella yritykseni tietoja 
 
-##Ylläpitäjä
+### Ylläpitäjä
 
 Ylläpitäjänä haluan että:
 * voin katsella asiakkainen analyysejä juuri sellaisina, kuin asiakkaat itse ne näkevät
@@ -21,23 +21,23 @@ Ylläpitäjänä haluan että:
 * voin lisätä, muokata ja poistaa sovelluksen käyttäjiä (käyttäjärooli)
 * voin luoda, muokata ja poistaa raportteja asiakkaan nettinäkyvyydestä
 
-##Pääylläpitäjä
+### Pääylläpitäjä
 
 Pääylläpitäjänä haluan, että:
 * voin lisätä, muokata ja poistaa sovelluksen käyttäjiä
 * voin määrittää käyttäjälle käyttöoikeustason (pääylläpitäjä, ylläpitäjä, käyttäjä)
 (* voin lisätä sovellukseen asiakkaita)
 
-##Vahingoittava käyttäjä
+### Vahingoittava käyttäjä
 
 Vahingoittava käyttäjänä haluan, että:
 * pääsen katsomaan sovelluksen tietoja mihin minulla ei ole oikeutta
 * pääsen muuttamaan tai poistamaan sovelluksen tietokannan sisältöä
 
-## Vanhaa pohdintaa - POISTA
+
+### Vanhaa pohdintaa - POISTUU
 
 Ks mallia esim (Tarkennetut käyttäjätarinat)[https://confluence.csc.fi/pages/viewpage.action?pageId=33525302]
-
 
 Ajatuksia / käyttötapauksia
 * Asiakas voi tilata itselleen tiivisteitä nettinäkyvyydestään. 

@@ -16,7 +16,7 @@ Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 Aiheen motivaationa on  paitsi harjoitustyön toteutus kurssin työvälineillä, myös Pythonin [NLTK-ohjelmakirjastoon](https://www.nltk.org/) 
 tutustuminen ja sen hyödyntäminen mielekkäästi osana harjoitustyötä. Mahdollisesti myös data-analyysin graafisiin työkaluihin tutustuminen. 
 
-NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/NLTK.md).
+NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/nltk.md).
 
 ### Käyttäjätarinat
 
@@ -32,7 +32,7 @@ Tietokanta on kuvattu dokumentissa: [Tietokanta](./documentation/tietokanta.md)
 
 ### Ohjelmakirjastot ja työkalut
 
-Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjasot.md).
+Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjastot.md).
 
 ### Asennusohje
 
@@ -42,7 +42,7 @@ Asennusohje on erillisessä dokumentissa: [Asennusohje](./documentation/asennuso
 
 Käyttöohje on erillisessä dokumentissa: [Käyttöohje](./documentation/kayttoohje.md).
     
-### Muistinpanoja, Featureja, kirjastoja - POISTETAAN
+### Muistinpanoja, Featureja, kirjastoja - POISTUU
 * Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)
 * Python jusText library: [https://nlp.fi.muni.cz, jusText demo](http://corpus.tools/wiki/Justext)
     * The demo seems to be working even though my project has some issues

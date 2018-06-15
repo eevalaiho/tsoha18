@@ -2,11 +2,13 @@
 
 ### Esivaatimukset
 
-Sovelluksen esivaatimukset on kuvattu kurssin työvälineet -sivulla [Työvälineet ja niiden asentaminen](https://materiaalit.github.io/tsoha-18/tyovalineet/).
+Sovelluksen esivaatimukset on kuvattu kurssin sivulla [Työvälineet ja niiden asentaminen](https://materiaalit.github.io/tsoha-18/tyovalineet/).
 
 ### Ohjelman lataus
 
-Lataa ohjelmakoodi itsellesi GitHubista, osoitteesta: https://github.com/eevalaiho/tsoha18 haluamaasi asennuskansioon. Jos lataat koodin zipattuna, pura zip latauksen jälkeen.
+Lataa ohjelmakoodi itsellesi GitHubista, osoitteesta: 
+[https://github.com/eevalaiho/tsoha18](https://github.com/eevalaiho/tsoha18) 
+haluamaasi asennuskansioon. Jos lataat koodin zipattuna, pura zip latauksen jälkeen.
 
 ### Virtuaaliympäristön pystytys
 
@@ -26,7 +28,7 @@ Käynnistä python komentotulkki komennolla:
 ```
 $ python3
 ```
-Lataa NLTK:n käyttämät resurssit komennolla (lisätietoa [Installin NLTK](https://www.nltk.org/install.html)):
+Lataa NLTK:n käyttämät resurssit komennolla (ks [Installing NLTK](https://www.nltk.org/install.html)):
 ```
 >>> import nltk
 >>> nltk.download()
@@ -34,8 +36,9 @@ Lataa NLTK:n käyttämät resurssit komennolla (lisätietoa [Installin NLTK](htt
 
 ### Ohjelman käynnistys
 
-Käynnistä web-sovellus komennolla:
+Sovelluksen käynnistäminen luo sovelluksen application-kansioon SQLite-tietokannan. 
+Web-sovellus käynnistyy osoitteeseen [http://127.0.0.1:5000](http://127.0.0.1:5000).
+Käynnistä sovellus komennolla:
 ```
 $ python3 run.py
 ```
-Komennon ajaminen luo sovelluksen application-kansioon SQLite-tietokannan ja käynnistää web-sovelluksen osoitteeseen [http://127.0.0.1:5000](http://127.0.0.1:5000).
