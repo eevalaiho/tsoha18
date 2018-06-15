@@ -1,5 +1,7 @@
 # Aineopintojen harjoitustyö: tietokantasovellus, kesä 2018
 
+Sovellus on toteutettu harjoitustyönä Helsingin yliopiston Tietokantasovellus -harjoitustyö -kurssilla.  
+
 Sovellus on asennettu Herokussa osoitteeseen: [https://shielded-brook-33904.herokuapp.com/](https://shielded-brook-33904.herokuapp.com/)
 
 Käyttäjätunnukset: 
@@ -11,8 +13,8 @@ Käyttäjätunnukset:
 
 Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 
-Aiheen motivaationa on [NLTK:n](https://www.nltk.org/) ominaisuuksiin tutustuminen ja mielekäs hyödyntäminen 
-tietokantaprojektissa sekä mahdollisesti data-analyysin graafisiin työkaluihin tutustuminen. 
+Aiheen motivaationa on  paitsi harjoitustyön toteutus kurssin työvälineillä, myös Pythonin [NLTK-ohjelmakirjastoon](https://www.nltk.org/) 
+tutustuminen ja sen hyödyntäminen mielekkäästi osana harjoitustyötä. Mahdollisesti myös data-analyysin graafisiin työkaluihin tutustuminen. 
 
 NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/NLTK.md).
 
@@ -31,6 +33,14 @@ Tietokanta on kuvattu dokumentissa: [Tietokanta](./documentation/tietokanta.md)
 ### Ohjelmakirjastot ja työkalut
 
 Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjasot.md).
+
+### Asennusohje
+
+Asennusohje on erillisessä dokumentissa: [Asennusohje](./documentation/asennusohje.md).
+
+### Käyttöohje
+
+Käyttöohje on erillisessä dokumentissa: [Käyttöohje](./documentation/kayttoohje.md).
     
 ### Muistinpanoja, Featureja, kirjastoja - POISTETAAN
 * Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)
