@@ -6,16 +6,14 @@ Käyttäjänä haluan, että:
 * voin kirjautua sovellukseen tunnus-salasanaparilla
 * voin katsella käyttäjätietojani ja muokata nimi- ja yhteystietojani
 * voin vaihtaa salasanani
-* voin katsella yritykselleni tehtyjä analyysejä
-* analyysit on luokitelty asian ja kohteen mukaan
-* voin suodattaa analyysien näkymän asian ja/tai tyypin mukaan
-* (saan tallennettua raportit ja analyysit pdf-muodossa omalle työasemalleni)
+* voin katsella raportteja yritykselleni tehtyjä analyyseistä
+* raportteihin on koostettu oleelliset tiedot analyysistä
+* raporteissa on tietoa tukevia visualisointeja
 * muiden yritysten käyttäjät eivät voi katsella yritykseni tietoja 
 
 ### Ylläpitäjä
 
 Ylläpitäjänä haluan että:
-* voin katsella asiakkainen analyysejä juuri sellaisina, kuin asiakkaat itse ne näkevät
 * pääsen sovelluksen ylläpitonäkymään
 * voin listata sovelluksen käyttäjät
 * voin lisätä, muokata ja poistaa sovelluksen käyttäjiä (käyttäjärooli)
@@ -26,7 +24,7 @@ Ylläpitäjänä haluan että:
 Pääylläpitäjänä haluan, että:
 * voin lisätä, muokata ja poistaa sovelluksen käyttäjiä
 * voin määrittää käyttäjälle käyttöoikeustason (pääylläpitäjä, ylläpitäjä, käyttäjä)
-(* voin lisätä sovellukseen asiakkaita)
+* voin lisätä sovellukseen asiakkaita
 
 ### Vahingoittava käyttäjä
 

@@ -44,6 +44,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 ### Analyysi
 
 * Tee raportti / katso raporttia painikkeiden nimet
+* Varoitus raportin tekemiseen, jos jo tehty
 
 ### Kohde, Ttarget
 
@@ -55,4 +56,5 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 ### Raportti
 
-* Mieti ja tsekkaa koko juttu - mitä käyttäjä oikeun haluaisi nähdä?
+* Mieti ja tsekkaa koko juttu - mitä loppukäyttäjä tässä voisi haluta nähdä - käyttäjätarinat????
+* Graafit
