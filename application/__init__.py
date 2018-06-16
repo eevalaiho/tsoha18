@@ -121,11 +121,9 @@ try:
     user = User.query.get(1)
     if user is None:
 
-        #comp1 = Company("Tsoha18", 1)  # agreementlevel: 1 = Pro, 2 = Basic
-        db.session.add(Company("Aukustin asianajotoimisto Ky",2)) # agreementlevel: 1 = Pro, 2 = Basic
-        db.session.add(Company("Idan ideahautomo",1))
+        db.session.add(Company("Aukustin asianajotoimisto Ky"))
+        db.session.add(Company("Idan ideahautomo"))
         db.session.commit()
-        stdout.write("Companies inserted")
 
         #def __init__(self, username, firstname, lastname, password, companyid, active):
         db.session.add(User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True))
@@ -134,13 +132,11 @@ try:
         db.session.add(User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 1,True))
         db.session.add(User('ida@ideahautomo','Ida','Asiakas','salainen',2,True))
         db.session.commit()
-        stdout.write("Users inserted")
 
         db.session.add(Role('Administrator'))
         db.session.add(Role('Editor'))
         db.session.add(Role('Customer'))
         db.session.commit()
-        stdout.write("Roles inserted")
 
         db.session.add(UserRole(1, 1)) # Administrator-paivio
         db.session.add(UserRole(2, 1)) # Editor-paivio
@@ -149,7 +145,6 @@ try:
         db.session.add(UserRole(3, 4)) # Customer-akuliina
         db.session.add(UserRole(3, 5)) # Customer-ida
         db.session.commit()
-        stdout.write("Userroles inserted")
 
         import datetime
         #Analysis: def __init__(self, companyid, name, keywords, locked, date_crawled):
@@ -157,15 +152,12 @@ try:
         db.session.add(Analysis(2, 'Idan keskeneräinen analyysi', '', False, None))
         db.session.add(Analysis(1, 'Aukustin asianajotoimiston ilmastopoiminnat', 'revontulet,arktinen,meteorologi,itämeri',False,None))
         db.session.commit()
-        stdout.write("Analyses inserted")
 
         #Target: def __init__(self, analysisid, url):
         db.session.add(Ttarget(1, 'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/')) # Akatemia tiedeuutiset
         db.session.add(Ttarget(1, 'https://ilmastotieto.wordpress.com/ilmastouutiset/'))  # Akatemia tiedeuutiset
         db.session.add(Ttarget(3, 'http://ilmatieteenlaitos.fi/tiedeuutisten-arkisto'))
         db.session.commit()
-        stdout.write("Targets inserted")
-
 
 except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
     stdout.write(ex2)

@@ -22,8 +22,7 @@ class Ttarget(Base):
     # The following data is to be filled through NLTK and other analyses
     ttargetid = db.Column(db.Integer)#, db.ForeignKey('ttarget.id'))
     title = db.Column(db.String(255))
-    language = db.Column(db.String(2))
-    link_count = db.Column(db.Integer)
+    lang = db.Column(db.String(2))
     word_count = db.Column(db.Integer)
     key_word_count = db.Column(db.Integer)
     nltk_analysis_json = db.Column(db.Text) # json data
@@ -64,7 +63,7 @@ class Ttarget(Base):
             # Get NLTK analysis
             obj_nltk_analysis = NltkAnalysis(self.raw, keywords)
             self.title = obj_nltk_analysis.title
-            self.language = obj_nltk_analysis.lang
+            self.lang = obj_nltk_analysis.lang
             self.word_count = sum(obj_nltk_analysis.no_stop_words.values())
             self.key_word_count = sum(obj_nltk_analysis.key_words.values())
 
