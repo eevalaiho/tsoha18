@@ -6,7 +6,7 @@ from application.models import Company
 class Role(Base):
     __tablename__ = 'role'
 
-    name = db.Column(db.String(255), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False, unique=True)
 
     def __init__(self, name):
         self.name = name
@@ -16,10 +16,10 @@ class Role(Base):
 class User(Base):
     __tablename__ = "account"
 
-    firstname = db.Column(db.String(255), nullable=False)
-    lastname = db.Column(db.String(255), nullable=False)
-    username = db.Column(db.String(255), nullable=False, unique=True)
-    password = db.Column(db.String(255), nullable=False)
+    firstname = db.Column(db.String(50), nullable=False)
+    lastname = db.Column(db.String(50), nullable=False)
+    username = db.Column(db.String(254), nullable=False, unique=True)
+    password = db.Column(db.String(50), nullable=False)
     companyid = db.Column(db.Integer, db.ForeignKey('company.id'))
     active = db.Column(db.Boolean, default=False)
 
@@ -73,8 +73,8 @@ class User(Base):
 class UserRole(Base):
     __tablename__ = 'accountrole'
 
-    roleid = db.Column(db.Integer, db.ForeignKey('role.id'), nullable=False)
-    accountid = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+    roleid = db.Column(db.Integer, db.ForeignKey('role.id',ondelete='CASCADE'), nullable=False)
+    accountid = db.Column(db.Integer, db.ForeignKey('account.id',ondelete='CASCADE'), nullable=False)
 
     def __init__(self, roleid, accountid):
         self.roleid = roleid

@@ -21,7 +21,8 @@ def auth_login():
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        return render_template("/auth/login.html", form=form, error="Antamasi tunnus ja salasana eivät täsmää\r\n\r\n")
+        flash("Kirjautuminen ei onnistunut. Tarkista tunnus ja salasana.", "login_error")
+        return render_template("/auth/login.html", form=form)
 
     remember = form.remember
     login_user(user, remember=remember)
@@ -61,5 +62,5 @@ def auth_register():
         form.errors["general"] = ["Lomakkeen lähettäminen ei onnistunut."]
         return render_template("/auth/register.html", form=form)
 
-    flash("Kiitos rekisteröitymisestä! Voit kirjautua järjestelmään, kun ylläpitäjä on hyvksynyt tunnuksesi.")
-    return render_template("/auth/register.html", form=form)
+    flash("Kiitos rekisteröitymisestä! Tunnuksesi on tallennettu järjestelmään. Voit kirjautua järjestelmään antamallasi tunnuksella ja salasanalla, kun ylläpitäjä on hyväksynyt tunnuksesi.", "login")
+    return redirect(url_for('auth_login'))

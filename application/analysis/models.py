@@ -39,7 +39,7 @@ class Analysis(Base):
     @staticmethod
     def get_finished_analyses_bycompany(companyid):
         # Filtering SQLAlchemy queries by a boolean value seems to behave differently
-        # with SQLite as compared to  Postgres, so it's safer to use raw SQL here
+        # with SQLite as compared to Postgres so it's safer to use raw SQL here
         analyses = db.session.query(Analysis)\
             .from_statement("SELECT Analysis.* " +
                 " FROM Analysis" +
@@ -55,7 +55,6 @@ class Analysis(Base):
             return Analysis.get_analysis(analysis.id)
         return None
 
-#https://stackoverflow.com/questions/7686887/sqlalchemy-from-statement-dynamic-attributes-for-python-objects
     @staticmethod
     def get_analysis(id):
         sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.key_word_count), Analysis.date_crawled"
