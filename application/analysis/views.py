@@ -169,13 +169,13 @@ def reportanalysis(id):
                 if counter > 5:
                     break;
                 subtarget = Ttarget(ttarget.analysisid, link['href'])
-                subtarget.ttargetid = ttarget.id
+                subtarget.ttarget_id = ttarget.id
                 db.session.add(subtarget)
                 counter += 1
             db.session().commit()
 
             # PROCESS subtargets with NLTK
-            for subtarget in db.session.query(Ttarget).filter(Ttarget.ttargetid.__eq__(ttarget.id)):
+            for subtarget in db.session.query(Ttarget).filter(Ttarget.ttarget_id.__eq__(ttarget.id)):
                 subtarget.processWebContent(analysis.keywords)
                 db.session.add(subtarget)
 

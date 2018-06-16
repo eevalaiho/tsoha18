@@ -160,9 +160,9 @@ try:
         db.session.commit()
 
 except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
-    stdout.write(ex2)
+    stdout.write(str(ex2))
     pass
 except Exception as ex1:
-    stdout.write(ex1)
+    stdout.write(str(ex1))
     pass
 

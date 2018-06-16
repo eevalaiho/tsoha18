@@ -1,7 +1,8 @@
 import urllib, re, nltk, datetime, jsonpickle, sys
 
 from flask import flash
-from sqlalchemy import text
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy import ForeignKeyConstraint
 
 from application import db
 from application.library import is_valid_url
@@ -15,12 +16,11 @@ from collections import Counter
 
 class Ttarget(Base):
     __tablename__ = "ttarget"
-
     analysisid = db.Column(db.Integer, db.ForeignKey('analysis.id'), nullable=False)
     url = db.Column(db.String(255), nullable=False)
+    ttarget_id = db.Column(db.Integer, db.ForeignKey('ttarget.id'))
 
     # The following data is to be filled through NLTK and other analyses
-    ttargetid = db.Column(db.Integer)#, db.ForeignKey('ttarget.id'))
     title = db.Column(db.String(255))
     lang = db.Column(db.String(2))
     word_count = db.Column(db.Integer)
@@ -32,7 +32,7 @@ class Ttarget(Base):
         self.url = url
 
     def ttargets(self):
-        return Ttarget.query.filter(Ttarget.ttargetid.__eq__(self.id)).all()
+        return Ttarget.query.filter(Ttarget.ttarget_id.__eq__(self.id)).all()
 
     def nltk_analysis(self):
         if not self.nltk_analysis_json is None:

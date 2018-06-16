@@ -27,7 +27,7 @@ class Analysis(Base):
 
     def ttargets(self):
         return Ttarget.query.filter(Ttarget.analysisid.__eq__(self.id))\
-            .filter(Ttarget.ttargetid.is_(None)).all()
+            .filter(Ttarget.ttarget_id.is_(None)).all()
 
     @staticmethod
     def get_analyses_bycompany(companyid):
