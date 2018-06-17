@@ -1,26 +1,23 @@
 from flask import render_template, redirect, url_for, request, flash
-from flask_login import login_required
+#from flask_login import login_required
 
 from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 
-from application import app, db
+from application import app, db, login_required
 from application.library import admin_required
-from application.auth.models import User, UserRole
-from application.models import Company
+from application.auth.models import User, UserRole, Company, Role
 from application.user.forms import UserForm, NewUserForm
 
 
 @app.route('/users', methods=["GET"])
-@login_required
-@admin_required
+@login_required(role=1)
 def userlist():
     return render_template("/user/index.html", users=User.query.all())
 
 
 @app.route('/user/view/<id>', methods=["GET"])
-@login_required
-@admin_required
+@login_required(role=1)
 def viewuser(id):
     user = User.query.get(id)
     if user is None:
@@ -30,8 +27,7 @@ def viewuser(id):
 
 @app.route('/user', methods=["GET","POST"])
 @app.route('/user/<id>', methods=["GET","POST"])
-@login_required
-@admin_required
+@login_required(role=1)
 def user(id=None):
 
     if not id is None:
@@ -42,17 +38,17 @@ def user(id=None):
         user = None
 
     companies = [("", "---")]+[(str(c.id), c.name) for c in Company.query.all()]
+    userroles = [(str(r.id), r.name) for r in Role.query.all()]
 
     # GET
     if request.method == "GET":
         if user is None:
             form = NewUserForm()
         else:
-            userroles = []
-            for userrole in UserRole.query.filter(UserRole.accountid.__eq__(user.id)).all():
-                userroles.append(userrole.roleid)
-            form = UserForm(obj=user,userroles=userroles)
-        form.companyid.choices = companies
+            selectedroles = [(str(r.role_id)) for r in UserRole.query.filter(UserRole.account_id.__eq__(user.id)).all()]
+            form = UserForm(obj=user,userroles=selectedroles)
+        form.company_id.choices = companies
+        form.userroles.choices = userroles
         return render_template("/user/edit.html", user=user, form=form)
 
     # POST
@@ -64,16 +60,17 @@ def user(id=None):
         form = NewUserForm(request.form, companies=companies)
     else:
         form = UserForm(request.form,obj=user,companies=companies)
-    form.companyid.choices = companies
+    form.company_id.choices = companies
+    form.userroles.choices = userroles
 
     if not form.validate():
         return render_template("/user/edit.html", user=user, form=form)
 
     if user is None:
-        user = User(form.username.data, form.firstname.data, form.lastname.data, form.password.data, form.companyid.data, form.active.data)
+        user = User(form.username.data, form.firstname.data, form.lastname.data, form.password.data, form.company_id.data, form.active.data)
         db.session.add(user)
     else:
-        user.companyid = form.companyid.data
+        user.company_id = form.company_id.data
         user.firstname = form.firstname.data
         user.lastname = form.lastname.data
         user.active = form.active.data
@@ -88,7 +85,7 @@ def user(id=None):
     try:
         # First delete all existing roles
         if not id is None:
-            sql = text('delete from accountrole where accountid=' + str(user.id))
+            sql = text('delete from accountrole where account_id=' + str(user.id))
             db.engine.execute(sql)
 
         # Then add new roles
@@ -105,9 +102,7 @@ def user(id=None):
     return redirect(url_for('user', id=user.id))
 
 
-
 @app.route('/user/<id>/delete', methods=["GET"])
-@login_required
 @admin_required
 def user_delete(id):
     user = User.query.get(id)

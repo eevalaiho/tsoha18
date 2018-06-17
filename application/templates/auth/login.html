@@ -30,6 +30,7 @@
                             <h1 style="margin-top: 0;">Kirjaudu</h1>
                             <br />
                             <form method="POST" action="{{ url_for('auth_login') }}">
+                                <input type="hidden" name="next" value="{{ next }}" />
                                 <div class="form-group{% if form.username.errors %} has-error{% endif %}">
                                     {{ form.username.label(class_="control-label") }}
                                     {{ form.username(class_="form-control") }}

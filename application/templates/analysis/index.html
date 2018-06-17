@@ -35,13 +35,13 @@
         {% for analysis in analyses %}
             <tr class="gradeA odd" role="row">
                 <td>{{analysis.id}}</td>
-                <td>{{analysis.company().name}}</td>
+                <td>{{analysis.company.name}}</td>
                 <td><a href="{{ url_for('viewanalysis', id=analysis.id) }}">{{analysis.name}}</a></td>
                 <td>{{analysis.keywords}}</td>
                 <td>{{ "Kyllä" if analysis.locked else "Ei" }}</td>
                 <td><a href="{{ url_for('viewanalysis', id=analysis.id) }}" class="btn btn-default">Katso</a>&nbsp;
                     <a href="{{ url_for('analysis', id=analysis.id) }}" class="btn btn-default">Muokkaa</a>&nbsp;
-                    <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">Tee raportti</a>&nbsp;
+                    <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">{% if analysis.date_crawled is none%}Tee raportti{% else %}Katso raporttia{% endif %}</a>&nbsp;
                 {% if current_user.is_admin() %}
                     <a href="#" name="btn-delete" data-href="{{ url_for('deleteanalysis', id=analysis.id) }}" data-id="{{analysis.id}}" data-name="{{analysis.name}}" class="btn btn-default">Poista</a>
                 {% endif %}

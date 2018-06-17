@@ -11,13 +11,16 @@ from application.auth.forms import RegisterForm
 
 @app.route("/auth/login", methods=["GET","POST"])
 def auth_login():
+        # GET
     if request.method == "GET":
-        return render_template("/auth/login.html", form=LoginForm())
+        next = request.args.get('next')
+        form = LoginForm()
+        return render_template("/auth/login.html", form=form, next=next)
 
+    # POST
     form = LoginForm(request.form)
-
     if not form.validate():
-        return render_template("/auth/login.html", form = form)
+        return render_template("/auth/login.html", form=form)
 
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
@@ -27,6 +30,9 @@ def auth_login():
     remember = form.remember
     login_user(user, remember=remember)
 
+    next = request.form.get('next')
+    if not next is None:
+        return redirect(next)
     return redirect(url_for("home"))
 
 

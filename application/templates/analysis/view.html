@@ -11,7 +11,7 @@
         <div class="col-sm-12">
             <div class="row">
                 <label class="col-sm-3">Yritys</label>
-                <div class="col-sm-9">{{analysis.company().name}}</div>
+                <div class="col-sm-9">{{analysis.company.name}}</div>
             </div>
             <div class="row">
                 <label class="col-sm-3">Avainsanat</label>
@@ -45,7 +45,7 @@
                 <div class="col-sm-9">{{analysis.date_modified}}</div>
             </div>
             <br />
-            <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">Tee raportti</a>&nbsp;
+            <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">{% if analysis.date_crawled is none%}Tee raportti{% else %}Katso raporttia{% endif %}</a>&nbsp;
             <a href="#" name="btn-delete" data-href="{{ url_for('deleteanalysis', id=analysis.id) }}" data-id="{{analysis.id}}" data-name="{{analysis.name}}" class="btn btn-default">Poista</a>
             <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Takaisin</a>
             <br />

@@ -4,9 +4,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header"><i class="glyphicon glyphicon-equalizer"></i>
-                {% if not analysis.locked %} Tee raportti: {% else %} Katso raporttia: {% endif %}
-                {{analysis.name}} <span style="color: rgb(210, 210, 210);"> (# {{ analysis.id }})</span></h1>
+            <h1 class="page-header">
+                <i class="glyphicon glyphicon-equalizer"></i>
+                {% if analysis.date_crawled is none%}Tee raportti{% else %}Katso raporttia{% endif %}: {{analysis.name}} <span style="color: rgb(210, 210, 210);"> (# {{ analysis.id }})</span></h1>
         </div>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <label class="col-sm-3">Yritys</label>
-                        <div class="col-sm-9">{{analysis.company().name}}</div>
+                        <div class="col-sm-9">{{analysis.company.name}}</div>
                     </div>
                     <div class="row">
                         <label class="col-sm-3">Avainsanat</label>

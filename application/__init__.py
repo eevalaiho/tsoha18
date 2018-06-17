@@ -62,21 +62,21 @@ def login_required(role="ANY"):
 
 # Template methods
 
+'''
 from application.analysis.models import Analysis
 import json
 
 def get_analyses_byuser(user):
-    return Analysis.get_analyses_bycompany(user.companyid)
+    return user.company.analyses
 app.jinja_env.globals.update(get_analyses_byuser=get_analyses_byuser)
 app.jinja_env.globals.update(json_stringify=json.dumps) # json.dumps(mylist, separators=(',',':'))
-
+'''
 
 # Application views and models
 
 from application import views, models
-from application.models import Company
 from application.auth import views, models
-from application.auth.models import User, Role, UserRole
+from application.auth.models import User, Role, UserRole, Company
 from application.profile import views
 from application.user import views
 from application.analysis import views, models
@@ -120,22 +120,22 @@ try:
 
     user = User.query.get(1)
     if user is None:
-
+        db.session.add(Company("Tsoha 18"))
         db.session.add(Company("Aukustin asianajotoimisto Ky"))
         db.session.add(Company("Idan ideahautomo"))
         db.session.commit()
 
-        #def __init__(self, username, firstname, lastname, password, companyid, active):
-        db.session.add(User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',None,True))
-        db.session.add(User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',None,True))
-        db.session.add(User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',1,True))
-        db.session.add(User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 1,True))
-        db.session.add(User('ida@ideahautomo','Ida','Asiakas','salainen',2,True))
+        #def __init__(self, username, firstname, lastname, password, company_id, active):
+        db.session.add(User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',1,True))
+        db.session.add(User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',1,True))
+        db.session.add(User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True))
+        db.session.add(User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True))
+        db.session.add(User('ida@ideahautomo','Ida','Asiakas','salainen',3,True))
         db.session.commit()
 
-        db.session.add(Role('Administrator'))
-        db.session.add(Role('Editor'))
-        db.session.add(Role('Customer'))
+        db.session.add(Role('Pääylläpitäjä'))
+        db.session.add(Role('Ylläpitäjä'))
+        db.session.add(Role('Asiakas'))
         db.session.commit()
 
         db.session.add(UserRole(1, 1)) # Administrator-paivio
@@ -147,10 +147,10 @@ try:
         db.session.commit()
 
         import datetime
-        #Analysis: def __init__(self, companyid, name, keywords, locked, date_crawled):
-        db.session.add(Analysis(2, 'Idan tiedeuutiset', 'luontopaneeli,ilmastonmuutos,aranda,uv-säteily,ilmakehä',False,None))
-        db.session.add(Analysis(2, 'Idan keskeneräinen analyysi', '', False, None))
-        db.session.add(Analysis(1, 'Aukustin asianajotoimiston ilmastopoiminnat', 'revontulet,arktinen,meteorologi,itämeri',False,None))
+        #Analysis: def __init__(self, company_id, name, keywords, locked, date_crawled):
+        db.session.add(Analysis(3, 'Idan tiedeuutiset', 'luontopaneeli,ilmastonmuutos,aranda,uv-säteily,ilmakehä',False,None))
+        db.session.add(Analysis(3, 'Idan keskeneräinen analyysi', '', False, None))
+        db.session.add(Analysis(2, 'Aukustin asianajotoimiston ilmastopoiminnat', 'revontulet,arktinen,meteorologi,itämeri',False,None))
         db.session.commit()
 
         #Target: def __init__(self, analysisid, url):

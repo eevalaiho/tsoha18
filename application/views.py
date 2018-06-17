@@ -13,11 +13,7 @@ def index():
 @app.route("/home")
 @login_required
 def home():
-    latestreport = None
-    if not current_user.companyid is None:
-        latestreport = Analysis.get_latest_analysis_bycompany(current_user.companyid)
-        sys.stdout.write("\r\n\r\n" + str(datetime.datetime.now()) + " INFO " + jsonpickle.encode(latestreport)+ "\r\n\r\n\r\n")
-        sys.stdout.flush()
+    latestreport = current_user.get_latest_analysis() #Analysis.get_latest_analysis(current_user)
     return render_template("/home.html", latestreport=latestreport)
 
 

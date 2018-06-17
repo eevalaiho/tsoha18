@@ -8,7 +8,7 @@ from application.analysis.models import Analysis
 @login_required
 def report(id):
 
-    analysis = db.session.query(Analysis).filter(Analysis.companyid.__eq__(current_user.companyid)).filter(Analysis.id.__eq__(id)).first()
+    analysis = db.session.query(Analysis).filter(Analysis.company_id.__eq__(current_user.company_id)).filter(Analysis.id.__eq__(id)).first()
 
     if analysis is None:
         return redirect(url_for('home'))

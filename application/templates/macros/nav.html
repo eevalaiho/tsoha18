@@ -10,7 +10,7 @@
 
     <ul class="nav navbar-top-links navbar-right">
         <li>
-            <span style="padding: 15px">{{current_user.firstname}} {{current_user.lastname}}, {{current_user.company().name}}</span>
+            <span style="padding: 15px">{{current_user.firstname}} {{current_user.lastname}}{% if not current_user.company is none %}, {{current_user.company.name}}{% endif %}</span>
         </li>
         <li>
             <a href="{{ url_for('profile') }}"><i class="fa fa-user fa-fw"></i> Omat tiedot</a>
@@ -32,11 +32,11 @@
                 <li>
                     <a href="{{ url_for('home') }}"><i class="fa fa-home fa-fw"></i> Etusivu</a>
                 </li>
-            {% if not current_user.companyid is none %}
+            {% if not current_user.company.analyses is none and current_user.company.analyses|length > 0 %}
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Raportit<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        {% for analysis in get_analyses_byuser(current_user) %}
+                        {% for analysis in current_user.company.analyses %}
                         <li>
                             <a href="{{ url_for('report', id=analysis.id) }}">
                                 {{ analysis.name }}

@@ -10,7 +10,7 @@ from application import app, db
 from application.library import admin_required
 from application.analysis.models import Analysis
 from application.ttarget.models import Ttarget
-from application.models import Company
+from application.auth.models import Company
 from application.analysis.forms import AnalysisForm, ReportAnalysisForm
 
 from bs4 import BeautifulSoup
@@ -19,6 +19,7 @@ import json
 
 @app.route('/analyses', methods=["GET"])
 @login_required
+@admin_required
 def listanalysis():
     return render_template("/analysis/index.html", analyses=Analysis.query.all())
 
@@ -36,6 +37,7 @@ def viewanalysis(id):
 @app.route('/analysis', methods=["GET","POST"])
 @app.route('/analysis/<int:id>', methods=["GET","POST"])
 @login_required
+@admin_required
 def analysis(id=None):
 
     analysis = Analysis(-1,"","", False, None) if id is None else Analysis.query.get(id)
@@ -52,7 +54,7 @@ def analysis(id=None):
             urls.append(ttarget.url)
         form = AnalysisForm(obj=analysis)
         form.ttargets.data="\r\n".join(urls)
-        form.companyid.choices=companies
+        form.company_id.choices=companies
         return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
     # POST
@@ -61,12 +63,12 @@ def analysis(id=None):
         return redirect(url_for('analysislist'))
 
     form = AnalysisForm(request.form, analysis=analysis)
-    form.companyid.choices = companies
+    form.company_id.choices = companies
 
     if not form.validate():
         return render_template("/analysis/edit.html", analysis=analysis, form=form)
 
-    analysis.companyid = form.companyid.data
+    analysis.company_id = form.company_id.data
     analysis.name = form.name.data
     analysis.keywords = form.keywords.data
     analysis.locked = form.locked.data
@@ -84,8 +86,8 @@ def analysis(id=None):
     try:
         # First delete all existing targets
         if not id is None:
-            sql = text('delete from ttarget where analysisid = :analysisid')
-            db.engine.execute(sql, analysisid=analysis.id)
+            sql = text('delete from ttarget where analysis_id = :analysis_id')
+            db.engine.execute(sql, analysis_id=analysis.id)
             db.session().flush()
 
         # Then add new targets
@@ -166,9 +168,9 @@ def reportanalysis(id):
             soup = BeautifulSoup(res)
             counter = 0
             for link in soup.findAll('a', attrs={'href': re.compile("^http://")}):
-                if counter > 5:
+                if counter > 3:
                     break;
-                subtarget = Ttarget(ttarget.analysisid, link['href'])
+                subtarget = Ttarget(ttarget.analysis_id, link['href'])
                 subtarget.ttarget_id = ttarget.id
                 db.session.add(subtarget)
                 counter += 1

@@ -39,7 +39,7 @@
                 <td><a href="{{ url_for('viewuser', id=user.id) }}" title="Katso tietoja">{{user.username}}</a></td>
                 <td>{{user.firstname}}</td>
                 <td>{{user.lastname}}</td>
-                <td>{{user.company().name}}</td>
+                <td>{{user.company.name}}</td>
                 <td>{{ "Kyllä" if user.active else "Ei" }}</td>
                 <td><a href="{{ url_for('viewuser', id=user.id) }}" class="btn btn-default">
                     Katso</a>&nbsp;
