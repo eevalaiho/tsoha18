@@ -9,6 +9,9 @@ Käyttäjätunnukset:
 * Sähköposti: aukusti@asianajotoimisto, salasana: salainen (asiakas)
 * Sähköposti: ida@ideahautomo, salasana: salainen (asiakas)
 
+
+aiheen kuvaus, sovelluksen käyttöohje, sovelluksen asennusohje, työn ja sovelluksen rajoitteet, työn puuttuvat ominaisuudet, dokumentaation vastaavuus toteutettuun työhön, omat kokemukset. 
+
 ### Aihe
 
 Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
@@ -16,17 +19,21 @@ Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
 Aiheen motivaationa on  paitsi harjoitustyön toteutus kurssin työvälineillä, myös Pythonin [NLTK-ohjelmakirjastoon](https://www.nltk.org/) 
 tutustuminen ja sen hyödyntäminen mielekkäästi osana harjoitustyötä. Mahdollisesti myös data-analyysin graafisiin työkaluihin tutustuminen. 
 
-NLTK-työkaluja on koottu dokumenttiin [NLTK](./documentation/nltk.md).
+### Sovelluksen käyttöohje
 
-### Käyttäjätarinat
+Käyttöohje on erillisessä dokumentissa: [Käyttöohje](./documentation/kayttoohje.md).
 
-Käyttäjätarinat on kuvattu dokumentissa: [Käyttäjätarinat](./documentation/kayttajatarinat.md)
+### Sovelluksen asennusohje
 
-### Ulkoasu
+Asennusohje on erillisessä dokumentissa: [Asennusohje](./documentation/asennusohje.md).
 
-Ulkoasukirjasto on kuvattu dokumentissa: [Ulkoasu](./documentation/ulkoasu.md)
+### Käyttötapaukset
 
-### Tietokanta
+Sovelluksen suunnitteluvaiheessa kerätyty käyttäjätarinat on kuvattu dokumentissa: [Käyttäjätarinat](./documentation/kayttajatarinat.md). 
+
+Sovelluksen tärkeimmät käuyttötapaukset on kuvattu dokumentissa: [Käyttötapaukset](./documentation/kayttotapaukset.md).
+
+### Sovelluksen tietokanta
 
 Tietokanta on kuvattu dokumentissa: [Tietokanta](./documentation/tietokanta.md)
 
@@ -34,16 +41,7 @@ Tietokanta on kuvattu dokumentissa: [Tietokanta](./documentation/tietokanta.md)
 
 Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohjelmakirjastot.md).
 
-### Asennusohje
+### Sovelluksen rajoitteet, kehityskohteet
 
-Asennusohje on erillisessä dokumentissa: [Asennusohje](./documentation/asennusohje.md).
 
-### Käyttöohje
-
-Käyttöohje on erillisessä dokumentissa: [Käyttöohje](./documentation/kayttoohje.md).
-    
-### Muistinpanoja, Featureja, kirjastoja - POISTUU
-* Python boilerpipe: [Boilerplate Detection Using Shallow Text Feature](http://www.l3s.de/~kohlschuetter/publications/wsdm187-kohlschuetter.pdf)
-* Python jusText library: [https://nlp.fi.muni.cz, jusText demo](http://corpus.tools/wiki/Justext)
-    * The demo seems to be working even though my project has some issues
-* [O'Reilly Guide to text mining](https://www.oreilly.com/library/view/mining-the-social/9781449368180/ch05.html) 
+### Kokemukset

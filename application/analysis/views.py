@@ -192,7 +192,7 @@ def reportanalysis(id):
 
     except (Exception) as ex:
         db.session().rollback()
-        sys.stdout.write(ex)
+        sys.stdout.write(str(ex))
         flash('Raportin tekeminen ei onnistunut', 'analysis')
         return render_template("/analysis/report.html", analysis=analysis, form=form, json=json)
 

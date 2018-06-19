@@ -15,7 +15,7 @@ Käyttäjätunnukset:
 
 #### Kirjautuminen
 
-Palveluun kirjaututaan [aloitussivun](https://shielded-brook-33904.herokuapp.com) kirjautumislomakkeelta. 
+Palveluun kirjaudutaan [aloitussivun](https://shielded-brook-33904.herokuapp.com) kirjautumislomakkeelta. 
 
 Lomakkeelle täytetään 
 * sähköposti (käyttäjätunnus) ja
@@ -49,6 +49,7 @@ Jos lomakkeella on virheitä kuten puuttuvia tietoja, käyttäjälle näytetää
 Kun lomakkeen tallentaminen onnistuu, käyttäjälle näytetään ilmoitus.
 
 
+
 ### Kirjautuneen käyttäjän toiminnot
 
 #### Sivujen yhteiset toiminnot
@@ -73,7 +74,7 @@ Katso tiedot -linkkiä klikkaamalla pääsee raportin tarkempiin tietoihin.
 
 Omien tietojen muutoslomakkeelle pääsee yläpalkin Omat tiedot -linkin kautta. 
 
-Lomakkeella voi muuttaa etu- ja sukunimeä. Molemmat tiedot ovat pakolliset. Sähköpostiosoite toimii käyttäjätunnuksena, joten sitä ei voi muuttaa. 
+Lomakkeella voi muuttaa etu- ja sukunimeä. Molemmat tiedot ovat pakolliset. Sähköpostiosoite toimii käyttäjätunnuksena ja sitä ei voi muuttaa. 
 
 Muutokset tallennetaan Tallenna -painiketta klikkaamalla. Muutokset voi perua Peruuta -painiketta klikkaamalla.
 
@@ -95,10 +96,18 @@ Jos käyttäjä klikkaa Peruuta-painiketta, selain ohjataan etusivulle.
 
 #### Raportin katselu
 
+Raportin katselunäkymään pääsee vasemman valikon raportit-kohdan linkeistä ja etusivun uusin raportti -lohkon linkistä.
+
+Raportin katselunäkymässä näytetään raportin tiedot: valmistumisaika ja analyysissä käytetyt avainsanat, 
+sanapilvi löydetyistä avainsanoista ja kohteiden luettelo avainsanoittain. Kohdeluettelossa näytetään 
+löydetyt yksittäiset avainsanat kohteittain. 
+
 #### Kirjautuminen ulos
 
 Palvelusta kirjaudutaan ulos yläpalkin Kirjaudu ulos -linkkiä klikkaamalla. 
 Uloskirjautumisen jälkeen selain ohjataan palvelun aloitussivulle.
+
+
 
 ### Ylläpitäjän toiminnot
 
@@ -106,24 +115,97 @@ Uloskirjautumisen jälkeen selain ohjataan palvelun aloitussivulle.
 
 ##### Käyttäjien selaus
 
+Käyttäjien selausnäkymään pääsee vasemman valikon Ylläpito-kohdan Käyttäjät-linkin kautta. 
+
+Käyttäjien selausnäkymässä näytetään listaus sovelluksen käyttäjistä. 
+Käyttäjistä näytetään tiedot id-tunniste, etunimi, sukukunimi, yrityksen nimi ja hyväksytty-tieto ja 
+toimintopainikkeet käyttäjän tietojen katseluun, muokkaamiseen ja poistamiseen. 
+
+Listauksen alapuolella näytetään linkkipainike uuden käyttäjän lisäykseen. 
+Painikkeen klikkaa ohjaa uuden käyttäjän lisäyslomakkeelle. 
+
 ##### Käyttäjän lisäys
 
-##### Käyttäjän muokkaus
+Käyttäjän lisäyslomakkeelle pääsee käyttäjän selausnäkymästä. Lisäyslomakkeelle annetaan 
+käyttäjän tiedot: sähköposti (toimii käyttäjätunnuksena), yritys, etunimi, sukunimi ja salasana, 
+valitaan käyttäjäryhmät ja hyväksytty -tieto. 
+
+Käyttäjän tiedot tallennetaan tallenna-painikkeesta. Kun lomake tallennetaan, se validoidaan. 
+Jos lomakkeella on virheitä, järjestelmä pyytää korjaamaan ne.
+
+Toiminto peruutetaan Peruuta-painiketta klikkaamalla.
 
 ##### Käyttäjän tietojen katselu
 
+Käyttäjän tietojen katselunäkymään pääsee käyttäjän selausnäkymästä. Näkymässä näytetään 
+kaikki käyttäjän tiedot. Näkymältä pääsee takaisin käyttäjäluetteloon Takaisin-painiketta
+klikkaamalla.
+
+##### Käyttäjän muokkaus
+
+Käyttäjän muokkauslomakkeelle pääsee käyttäjän selausnäkymästä. Muokkauslomakkeelle annetaan 
+käyttäjän tiedot: yritys, etunimi, sukunimi, valitaan käyttäjäryhmät ja hyväksytty -tieto. 
+
+Käyttäjän tiedot tallennetaan tallenna-painikkeesta. Kun lomake tallennetaan, se validoidaan. 
+Jos lomakkeella on virheitä, järjestelmä pyytää korjaamaan ne.
+
+Toiminto peruutetaan Peruuta-painiketta klikkaamalla.
+
 ##### Käyttäjän poisto
+
+Käyttäjä voidaan poistaa käyttäjän selaus- ja muokkausnäkymästä. Poistamiseen pyydetään vahvistus.
+
 
 #### Analyysit
 
 ##### Analyysien selaus
 
-##### Analyysin lisäys
+Analyysien selausnäkymään pääsee vasemman valikon Ylläpito-kohdan Analyysit-linkin kautta. 
 
-##### Analyysin muokkaus
+Analyysien selausnäkymässä näytetään listaus analyyseistä. 
+Analyysistä näytetään tiedot id-tunniste, yrityksen nimi, analyysin nimi, avainsanat ja lukittu-tieto sekä
+toimintopainikkeet analyysin tietojen katseluun, muokkaamiseen ja poistamiseen sekä painike raportin tekemiseen. 
+
+Listauksen alapuolella näytetään linkkipainike uuden analyysin lisäykseen. 
+Painikkeen klikkaaminen ohjaa uuden analyysin lisäyslomakkeelle. 
+
+##### Analyysin lisäys / muokkaus
+
+Analyysin lisäyslomakkeelle pääsee analyysien selausnäkymästä. Lisäyslomakkeelle annetaan 
+analyysin tiedot: yritys, nimi, avainsanat pilkkueroteltuna listana, kohteet rivinvahdolla 
+eroteltuna ja lukittu-tieto.
+
+Analyysin tiedot tallennetaan tallenna-painikkeesta. Kun lomake tallennetaan, se validoidaan. 
+Jos lomakkeella on virheitä, järjestelmä pyytää korjaamaan ne.
+
+Toiminto peruutetaan Peruuta-painiketta klikkaamalla.
+
+Tee raportti -painikkeesta (vain muokkaus) pääsee raportinluomisnäkymään.
 
 ##### Analyysin tietojen katselu
 
+Analyysin katselunäkymään pääsee analyysien selausnäkymästä. Näkymässä näytetään 
+kaikki analyysin tiedot. 
+
+Näkymältä pääsee takaisin anayysiluetteloon Takaisin-painiketta klikkaamalla.
+
+Tee raportti -painikkeesta (vain muokkaus) pääsee raportinluomisnäkymään.
+
 ##### Analyysin poisto
 
+Analyysi voidaan poistaa analyysin selaus- ja muokkausnäkymästä. Poistamiseen pyydetään vahvistus.
+
 ##### Raportin teko / katselu
+
+Raportin tekoon pääsee analyysin listaus-, katselu- ja muokkausnäkymien kautta.
+
+Raporttiajon käynnistetään "Käynnistä raporttiajo" -painikkeella. Raporttiajo kerää analyysin
+kohteiksi annetuilta sivuilta url-osoitteita ja analysoi NLTK:n avulla löydettyjen ensimmäisen ja toisen tason 
+sivujen sisältöjä (otetaan 5 ensimmäistä linkkiä). Raporttiajo on siis varsin hidas eikä sitä 
+kannatakaan kokeilla kovin monella kohteella (esim 2 kohdetta demonstroinee sovelluksen toimintaa 
+riittävästi).
+
+Kun raporttiajo on mennyt läpi, sivulla näytetään raporttiajon tulokset: kohteet ja niiden alikohteet. 
+Alikohteiden otsikon klikkaaminen avaa alikohteen tarkemmat tiedot. 
+Näytä yksityiskohtaiset tiedot -linkki avaa NLTK-analyysin raakadatan näkymälle.
+

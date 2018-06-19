@@ -16,6 +16,7 @@ psycopg2==2.7.4
 python-dateutil==2.7.3
 six==1.11.0
 SQLAlchemy==1.2.8
+SQLAlchemy-Utils==0.33.3
 stop-words==2015.2.23.1
 Werkzeug==0.14.1
 WTForms==2.2.1

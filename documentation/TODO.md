@@ -3,7 +3,7 @@
 ### Dokumentaatio
 
 ### Navi
-* Raporttien piilottaminen, jos yrityksellä ei ole raporttia
+* <del>Raporttien piilottaminen, jos yrityksellä ei ole raporttia</del>
 
 ### Näkymien järjestäminen
 
@@ -38,20 +38,22 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 ### Rekisteröityminen
 
-* <del>Pitäisikö ohjata etusivulle rekisteritymisen jälkeen ja antaa Kiitos rekisteröitymisestä -ilmoitus</del>
+* <del>Pitäisikö ohjata etusivulle rekisteröitymisen jälkeen ja antaa Kiitos rekisteröitymisestä -ilmoitus</del>
 
 ### Käyttäjät
 
 * <del>Käyttäjän poistamisesta tulee virhe, jos on rivejä UserRoles -taulussa</del> 
 * Mikä merkitys on Ylläpitäjä -roolilla
 * <del>Roolien nimet</del>
-* Roolit on kovakoodattu käyttäjälomakkeelle - voisi varmaan hakea kannasta (choises)
+* <del>Roolit on kovakoodattu käyttäjälomakkeelle - voisi varmaan hakea kannasta (choises)</del>
+* <del>Rekisteröitymisen jälkeen ei pitäisi päästä suoraan kirjautumaan</del>
 
 ### Analyysi
 
-* Tee raportti / katso raporttia painikkeiden nimet
-* Varoitus raportin tekemiseen, jos jo tehty
-* Kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä
+* <del>Tee raportti / katso raporttia painikkeiden nimet</del>
+* <del>Raportin voi ajaa uudestaan, kun käy poistamassa raportilta lukittu -täpän OK</del>
+* <del>Varmistus raportin tekemiseen, jos jo tehty</del>
+* Tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä
 
 ### Kohde, Ttarget
 
@@ -59,16 +61,14 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 ### Uusin raportti -lohko
 
-* Tsekkaa keyword count - ei ole oikein 
+* <del>Tsekkaa keyword count - ei ole oikein</del> 
 
 ### Raportti
 
-* Mieti ja tsekkaa koko juttu - mitä loppukäyttäjä tässä voisi haluta nähdä - käyttäjätarinat????
-* Graafit
+* <del>Mitä loppukäyttäjä tässä voisi haluta nähdä - käyttäjätarinat</del>
+* Graafit - jos on aikaa
 
 ### Roolit - toimivatko oikein / fiksusti???
-
-* Ylläpitäjärooli?
 
 ###  Arvosanalle 5 on lisäksi seuraavat minimivaatimukset.
 
@@ -77,6 +77,15 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * OK Kirjautumisen lisäksi käyttäjä on yhdistetty tietokannassa johonkin tietokohteeseen, eli käyttäjien tietoja ei tule käyttää pelkästään kirjautumisen osana.
 * OK Vähintään kahdesta tietokohteesta täysi CRUD (käyttäjät, analyysit).
 * OK Yksi tai useampi monesta moneen -suhde (kayttäjä - käyttäjärooli - rooli)
-* TOINEN PUUTTUU Vähintään kaksi monimutkaisempaa useampaa tietokantataulua käyttävää yhteenvetokyselyä. Yhteenvetokyselyt ovat perustellusti (järkevä) osa sovelluksen käyttötapauksia ja toimintaa.
+* OK Vähintään kaksi monimutkaisempaa useampaa tietokantataulua käyttävää yhteenvetokyselyä. Yhteenvetokyselyt ovat perustellusti (järkevä) osa sovelluksen käyttötapauksia ja toimintaa.
+
 * PUUTTUU Käyttötapaukset perusteltuja sekä hyvin dokumentoituja, 
 * PUUTTUU Käyttötapausten yhteydessä myös niihin liittyvät SQL-kyselyt.
+* PUUTTUU Asennusohje
+
+
+* Kuvia käyttöohjeeseen
+
+### Poista
+
+<del>JSON beautifier jquery kirjasto</del>

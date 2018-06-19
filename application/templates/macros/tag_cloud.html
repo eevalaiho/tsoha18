@@ -1,0 +1,60 @@
+{% macro tag_cloud(tags) %}
+
+    <style type="text/css">
+        .tag_cloud
+        {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 30px;
+            padding-top: 15px;
+        }
+        .tag {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tag-1, .tag-1 a
+        {
+            font-size: 16px;
+            /*color: rgb(49, 176, 213); /*SB Admin turquoise*/
+            color: rgb(51, 122, 183); /*SB Admin primary*/
+        }
+        .tag-2, .tag-2 a
+        {
+            font-size: 20px;
+            color: rgb(92, 184, 92); /*SB Admin green*/
+        }
+        .tag-3, .tag-3 a
+        {
+            font-size: 28px;
+            color: rgb(240, 173, 78); /*SB Admin yellow */
+        }
+        .tag-4, .tag-4 a
+        {
+            font-size: 36px;
+            color: rgb(217, 83, 79); /*SB Admin red*/
+        }
+    </style>
+
+    <div id="tag_cloud" class="tag_cloud">
+    {% for tag in tags %}
+        <span class="tag" data-weight="{{ tag[1] }}"><a href="#{{tag[0]}}">{{ tag[0] }}&nbsp;<span class="muted">({{tag[1]}})</span></a></span>
+    {% endfor %}
+    </div>
+
+    <script type="text/javascript">
+        var weights = $("#tag_cloud span.tag").map(function(){
+            return parseFloat($(this).data('weight')) || -Infinity;
+        }).toArray();
+        var max = Math.max.apply(Math, weights);
+
+        console.log(max);
+
+        $("#tag_cloud span.tag").each(function() {
+            var i = 100*$(this).data('weight')/max;
+            var w = (i < 5) ? "1" : ((i < 50) ? "2" : ((i < 95) ? "3" : "4" ));
+            //console.log(i,w);
+            $(this).addClass("tag-" + w);
+        });
+    </script>
+
+{% endmacro %}

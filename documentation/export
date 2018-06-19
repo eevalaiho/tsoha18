@@ -1,0 +1,32 @@
+BEGIN TRANSACTION;
+
+INSERT INTO `company` (id,date_created,date_modified,name) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40','Tsoha 18');
+INSERT INTO `company` (id,date_created,date_modified,name) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40','Aukustin asianajotoimisto Ky');
+INSERT INTO `company` (id,date_created,date_modified,name) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40','Idan ideahautomo');
+
+INSERT INTO `role` (id,date_created,date_modified,name) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40','Pääylläpitäjä');
+INSERT INTO `role` (id,date_created,date_modified,name) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40','Ylläpitäjä');
+INSERT INTO `role` (id,date_created,date_modified,name) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40','Asiakas');
+
+INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,company_id,active) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40','Päiviö','Pääkäyttäjä','paivio@tsoha18','salainen',1,1);
+INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,company_id,active) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40','Yngve','Ylläpitäjä','yngve@tsoha18','salainen',1,1);
+INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,company_id,active) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40','Aukusti','Asiakas','aukusti@asianajotoimisto','salainen',2,1);
+INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,company_id,active) VALUES (4,'2018-06-19 15:49:40','2018-06-19 15:49:40','Akuliina','Asiakas','akuliina@asianajotoimisto','salainen',2,1);
+INSERT INTO `account` (id,date_created,date_modified,firstname,lastname,username,password,company_id,active) VALUES (5,'2018-06-19 15:49:40','2018-06-19 15:49:40','Ida','Asiakas','ida@ideahautomo','salainen',3,1);
+
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40',1,1);
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40',2,1);
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40',2,2);
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (4,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,3);
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (5,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,4);
+INSERT INTO `accountrole` (id,date_created,date_modified,role_id,account_id) VALUES (6,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,5);
+
+INSERT INTO `analysis` (id,date_created,date_modified,company_id,name,keywords,locked,date_crawled) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,'Idan tiedeuutiset','luontopaneeli,ilmastonmuutos,aranda,uv-säteily,ilmakehä',0,NULL);
+INSERT INTO `analysis` (id,date_created,date_modified,company_id,name,keywords,locked,date_crawled) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,'Idan keskeneräinen analyysi','',0,NULL);
+INSERT INTO `analysis` (id,date_created,date_modified,company_id,name,keywords,locked,date_crawled) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40',2,'Aukustin asianajotoimiston ilmastopoiminnat','revontulet,arktinen,meteorologi,itämeri',0,NULL);
+
+INSERT INTO `ttarget` (id,date_created,date_modified,analysis_id,url,ttarget_id,title,lang,word_count,key_word_count,nltk_analysis) VALUES (1,'2018-06-19 15:49:40','2018-06-19 15:49:40',1,'https://www.aka.fi/fi/tietysti/tiedeuutiset/tiedeuutisia-suomesta1/',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `ttarget` (id,date_created,date_modified,analysis_id,url,ttarget_id,title,lang,word_count,key_word_count,nltk_analysis) VALUES (2,'2018-06-19 15:49:40','2018-06-19 15:49:40',1,'https://ilmastotieto.wordpress.com/ilmastouutiset/',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `ttarget` (id,date_created,date_modified,analysis_id,url,ttarget_id,title,lang,word_count,key_word_count,nltk_analysis) VALUES (3,'2018-06-19 15:49:40','2018-06-19 15:49:40',3,'http://ilmatieteenlaitos.fi/tiedeuutisten-arkisto',NULL,NULL,NULL,NULL,NULL,NULL);
+
+COMMIT;

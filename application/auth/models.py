@@ -31,6 +31,7 @@ class Company(Base):
                 " FROM Analysis" +
                 " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysis_id"
                 " WHERE Analysis.company_id = :company_id AND Analysis.locked AND NOT Analysis.date_crawled IS NULL"
+                " ORDER BY Analysis.date_crawled DESC"
             ).params(company_id=self.id).all()
         # SQLite returns datetime fileds as string when raw SQL is used, ref: https://stackoverflow.com/questions/44781320/dates-as-strings-when-submitting-raw-sql-with-sqlalchemy
         if not analyses is None:
@@ -43,7 +44,7 @@ class Company(Base):
     def get_latest_analysis(self):
         result = self.get_finished_analyses()
         if not result is None and len(result) > 0:
-            return result[0]
+            return result[0].get_report_data()
         return None
 
 

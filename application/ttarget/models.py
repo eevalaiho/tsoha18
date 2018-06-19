@@ -1,10 +1,12 @@
-import urllib, re, nltk, datetime, jsonpickle, sys
+import urllib, re, nltk, datetime, sys, pprint, json#, jsonpickle
 
 from flask import flash
 
 from application import db
 from application.library import is_valid_url
 from application.models import Base
+
+from sqlalchemy_utils import JSONType
 
 from langdetect import detect_langs
 from bs4 import BeautifulSoup
@@ -23,7 +25,7 @@ class Ttarget(Base):
     lang = db.Column(db.String(2))
     word_count = db.Column(db.Integer)
     key_word_count = db.Column(db.Integer)
-    nltk_analysis_json = db.Column(db.Text) # json data
+    nltk_analysis = db.Column(JSONType)  # json data
 
     def __init__(self, analysis_id, url):
         self.analysis_id = analysis_id
@@ -32,10 +34,16 @@ class Ttarget(Base):
     def ttargets(self):
         return Ttarget.query.filter(Ttarget.ttarget_id.__eq__(self.id)).all()
 
-    def nltk_analysis(self):
-        if not self.nltk_analysis_json is None:
-            return jsonpickle.decode(self.nltk_analysis_json)
-        return None
+    def nltk_analysis_pretty(self):
+        val = json.dumps(self.nltk_analysis, indent=2, ensure_ascii=False) #, ensure_ascii=False).encode('utf8')
+        return pprint.pformat(val)
+
+
+
+#    def nltk_analysis(self):
+#        if not self.nltk_analysis_json is None:
+#            return jsonpickle.decode(self.nltk_analysis_json)
+#        return None
 
     def processWebContent(self, keywords):
 
@@ -65,8 +73,10 @@ class Ttarget(Base):
             self.word_count = sum(obj_nltk_analysis.no_stop_words.values())
             self.key_word_count = sum(obj_nltk_analysis.key_words.values())
 
-            # Serialize to json
-            self.nltk_analysis_json = jsonpickle.encode(obj_nltk_analysis)
+            # Serialize analysis to json
+            # select json_extract(ttarget.nltk_analysis1, '$.lang') from ttarget
+            obj_as_json_string = json.dumps(obj_nltk_analysis, ensure_ascii=False, default=lambda x: x.__dict__)
+            self.nltk_analysis = json.loads(obj_as_json_string)
 
         except (Exception) as ex:
             flash('Virhe NLTK analyysissä ' + self.url + ", " + ex, 'analysis')
@@ -79,7 +89,10 @@ class Ttarget(Base):
 class NltkAnalysis(object):
 
     def __init__(self, raw, keywords):
-        self.date_created = datetime.datetime.now()
+        self.date_created = str(datetime.datetime.now())
+
+        # To lower case
+        raw = raw.lower()
 
         # Tokenize
         nltk.data.path.append('./nltk_data/')

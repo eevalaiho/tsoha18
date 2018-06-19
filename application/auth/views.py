@@ -22,7 +22,7 @@ def auth_login():
     if not form.validate():
         return render_template("/auth/login.html", form=form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data, password=form.password.data, active=True).first()
     if not user:
         flash("Kirjautuminen ei onnistunut. Tarkista tunnus ja salasana.", "login_error")
         return render_template("/auth/login.html", form=form)

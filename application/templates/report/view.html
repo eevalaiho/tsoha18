@@ -1,94 +1,49 @@
 {% extends "layout.html" %}
+{% from "macros/tag_cloud.html" import tag_cloud with context %}
 
 {% block content %}
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">{{ analysis.name }}</h1>
+            <h1 class="page-header"><i class="fa fa-bar-chart-o"></i> {{ analysis.name }}</h1>
+
+            <p class="text-muted" style="margin-top:-10px">
+            {% if not report is none %}
+                Valmistunut: {{ report.date_crawled.strftime("%Y-%m-%d %H:%M") }}
+            {% else %}
+                Raportti ei ole valmistunut
+            {% endif %}
+            </p>
+            <p class="text-muted" style="margin-top:-5px">
+                Analyysin avainsanat: {{ analysis.keywords }}
+            </p>
+            <br />
         </div>
     </div>
 
+{% if not report is none %}
+
     <div class="row">
-        <div class="col-xl-4 col-lg-6 col-md-12">
-            <div class="panel primary">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <i class="fa fa-bar-chart-o fa-5x"></i>
-                        </div>
-                        <div class="col-xs-9 text-right">
-                        {% if report is none %}
-                            <h4>Kesken</h4>
-                        {% else %}
-                            <h4>Valmistunut {% if not report.date_crawled is none and not report.date_crawled == "" %}{{ report.date_crawled.strftime("%Y-%m-%d %H:%M") }}{% endif %}</h4>
-                            <h4>Avainsanamainintoja: {{ report.count }}</h4>
-                        {% endif %}
-                        </div>
-                    </div>
-                </div>
+        <div class="col-lg-12 text-center">
+            <div class="panel panel-default">
+                {{ tag_cloud(analysis.get_keyword_counts()) }}
             </div>
         </div>
     </div>
-    <h2>Seurantakohteet:</h2>
-    <div class="row">
-        {% for ttarget in analysis.ttargets() %}
-           <div class="panel panel-default">
-            <div class="panel-heading">
-                {{ ttarget.title }}
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <label class="col-sm-3">Url</label>
-                    <div class="col-sm-9"><a href="{{ ttarget.url }}">{{ ttarget.url }}</a></div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-3">Avainsanat</label>
-                    <div class="col-sm-9">{{ analysis.keywords }}</div>
-                </div>
-                <div class="row">
-                    <label class="col-sm-3">Avainsanaosumat</label>
-                    <div class="col-sm-9">
-                        {% for keyword in ttarget.nltk_analysis().key_words %}
-                            {{ keyword }} ({{ ttarget.nltk_analysis().key_words[ keyword ] }})
-                            {% if not loop.last %} , {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-                <h3>Alikohteet:</h3>
-                <div class="panel-group" id="accordion{{ ttarget.id }}">
-            {% for subtarget in ttarget.ttargets() %}
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion{{ ttarget.id }}" href="#sub{{ subtarget.id }}">
-                                    {{ subtarget.title }}
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="sub{{ subtarget.id }}" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <label class="col-sm-3">Url</label>
-                                    <div class="col-sm-9"><a href="{{ subtarget.url }}">{{ subtarget.url }}</a></div>
-                                </div>
-                                <div class="row">
-                                    <label class="col-sm-3">Avainsanaosumat</label>
-                                    <div class="col-sm-9">
-                                        {% for keyword in subtarget.nltk_analysis().key_words %}
-                                            {{ keyword }} ({{ subtarget.nltk_analysis().key_words[ keyword ] }})
-                                            {% if not loop.last %} , {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            {% endfor %}
-                </div>
-            </div>
-        </div>
+
+    <h2>Kohteet avainsanoittain</h2>
+    {% for row in analysis.get_keywords() %}
+        <a name="{{ row[0] }}"></a>
+        <h3>{{ row[0] }}</h3>
+        <ul>
+        {% for ttarget in analysis.get_targets_by_keyword(row[0]) %}
+            <li><a href="{{ ttarget.url }}">{{ ttarget.title }} ({{ ttarget.kw_count }})</a></li>
         {% endfor %}
-    </div>
+        </ul>
+    {% endfor %}
 
+{% endif %}
+<br /><br />
 
 {% endblock %}
+

@@ -14,7 +14,18 @@ if os.environ.get("HEROKU"):
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tsoha18.db"
     app.config["SQLALCHEMY_ECHO"] = True
+
 db = SQLAlchemy(app)
+
+# https://www.sqlite.org/pragma.html
+# https://gist.github.com/lucidfrontier45/7a4989490300d1298ba0
+if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+    def _fk_pragma_on_connect(dbapi_con, con_record):
+        dbapi_con.execute('pragma foreign_keys = ON')
+        dbapi_con.execute('pragma encoding = "UTF-8"')
+
+    from sqlalchemy import event
+    event.listen(db.engine, 'connect', _fk_pragma_on_connect)
 
 
 # Login functionality part 1
@@ -37,7 +48,7 @@ def login_required(role="ANY"):
     def wrapper(fn):
         @wraps(fn)
         def decorated_view(*args, **kwargs):
-            if not current_user.is_authenticated():
+            if not current_user.is_authenticated:
                 return login_manager.unauthorized()
 
             unauthorized = False
@@ -80,6 +91,7 @@ from application.auth.models import User, Role, UserRole, Company
 from application.profile import views
 from application.user import views
 from application.analysis import views, models
+from application.analysis.models import Analysis
 from application.ttarget import models
 from application.ttarget.models import Ttarget, NltkAnalysis
 from application.report import views

@@ -27,13 +27,45 @@ class Analysis(Base):
         return Ttarget.query.filter(Ttarget.analysis_id.__eq__(self.id))\
             .filter(Ttarget.ttarget_id.is_(None)).all()
 
-    @staticmethod
-    def get_analysis(id):
-        sql = text("SELECT Analysis.id, Analysis.name, count(Ttarget.key_word_count), Analysis.date_crawled"
+    def get_keywords(self):
+        sql = text("select distinct key"
+            " from ("
+                    " select data.value as keywords"
+                    " from ttarget, json_each(ttarget.nltk_analysis) as data"
+                    " where key = 'key_words' and ttarget.analysis_id= :id"
+                " ) as subq, json_each(subq.keywords)"
+                " order by key").params(id=self.id)
+        res = db.engine.execute(sql)
+        return res
+
+    def get_targets_by_keyword(self,keyword):
+        sql = text("select ttarget.*, json_extract(ttarget.nltk_analysis, :path) as kw_count"
+                   " from ttarget"
+                   " where analysis_id= :id and json_extract(ttarget.nltk_analysis, :path) is not null"
+                   " order by kw_count desc")\
+            .params(id=self.id, path='$.key_words."' + keyword + '"')
+        res = db.engine.execute(sql)
+        return res
+
+    def get_keyword_counts(self):
+        sql = text("select key, sum(value) as _count"
+            " from ("
+                    " select data.value as keywords"
+                    " from ttarget, json_each(ttarget.nltk_analysis) as data"
+                    " where key = 'key_words' and ttarget.analysis_id= :id"
+                " ) as subq, json_each(subq.keywords)"
+            " group by key"
+            " order by key").params(id=self.id)
+        res = db.engine.execute(sql)
+        return res
+
+    def get_report_data(self):
+        sql = text("SELECT Analysis.id, Analysis.name, SUM(Ttarget.key_word_count), Analysis.date_crawled"
                     " FROM Analysis"
                     " INNER JOIN Ttarget ON Analysis.id = Ttarget.analysis_id"
                     " GROUP BY Analysis.id, Analysis.name, Analysis.date_crawled "
-                    " HAVING Analysis.id = :id").params(id=id)
+                    " HAVING Analysis.id = :id"
+                    " ORDER BY Analysis.date_crawled desc").params(id=self.id)
         res = db.engine.execute(sql)
         row = res.fetchone()
         if not row is None:
@@ -44,11 +76,3 @@ class Analysis(Base):
                 return {"id": row[0], "name": row[1], "count": row[2], "date_crawled": parse(row[3]) if not row[3] is None else ""}
         else:
             return None
-
-
-
-
-
-
-
-
