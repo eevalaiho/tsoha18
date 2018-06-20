@@ -39,16 +39,25 @@ class Analysis(Base):
         return res
 
     def get_targets_by_keyword(self,keyword):
-        sql = text("select ttarget.*, json_extract(ttarget.nltk_analysis, :path) as kw_count"
-                   " from ttarget"
-                   " where analysis_id= :id and json_extract(ttarget.nltk_analysis, :path) is not null"
-                   " order by kw_count desc")\
-            .params(id=self.id, path='$.key_words."' + keyword + '"')
+        if os.environ.get("HEROKU"):
+            sql = text("select ttarget.*, COALESCE(data.kw_count, 0) as kw_count"
+                        " from ttarget "
+                        " inner join (select ttarget.id as ttarget_id, sum((key_words->>:keyword)::int) as kw_count"
+                                    " from ttarget, json_extract_path(ttarget.nltk_analysis, 'key_words') as key_words"
+                                    " group by ttarget.id) as data on data.ttarget_id = ttarget.id"
+                        " where ttarget.analysis_id = :id")\
+                .params(id=self.id, keyword=keyword)
+        else:
+            sql = text("select ttarget.*, json_extract(ttarget.nltk_analysis, :path) as kw_count"
+                       " from ttarget"
+                       " where analysis_id= :id and json_extract(ttarget.nltk_analysis, :path) is not null"
+                       " order by kw_count desc")\
+                .params(id=self.id, path='$.key_words."' + keyword + '"')
         res = db.engine.execute(sql)
         return res
 
     def get_keyword_counts(self):
-        sql = text("select key, sum(cast(cast(value as varchar) as integer)) as _count"
+        sql = text("select key, sum(cast(cast(value as varchar) as integer)) as _count" 
             " from ("
                     " select data.value as keywords"
                     " from ttarget, json_each(ttarget.nltk_analysis) as data"
