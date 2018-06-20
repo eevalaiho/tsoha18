@@ -26,3 +26,42 @@ Katso tiedot -linkkiä klikkaamalla pääsee katsomaan raportin tarkempia tietoj
 
 ### Käyttäjän raporttinäkymä
 
+##### Avainsanapilvi
+
+Valmistuneella raportilla näytetään sanapilvi analyysin tuloksena löydetyistä 
+avainsanoista. 
+
+Sanapilven data haetaan sql:llä:
+
+```
+select key, sum(cast(cast(value as varchar) as integer)) as _count
+from (
+    select data.value as keywords
+    from ttarget, json_each(ttarget.nltk_analysis) as data
+    where key = 'key_words' and ttarget.analysis_id= <ANALYYSIN_ID>  and lang is not null
+) as subq, json_each(subq.keywords)
+group by key
+order by key
+```
+, missä analyysin id välitetään parametrina. Tässä kyselyssä SQLiten ja PostgreSQL:n 
+JSON toteutukset eroavat toisistaan ja Postgrea varten avainsanaosumien määrä täytyy
+castata integeriksi näin ```sum(cast(cast(value as varchar) as integer))```. Tämä muoto 
+kelpaa myös SQLite:lle, kun nätimpää ```sum(value::varchar::int)``` SQLite ei hyväksy.
+
+Sanapilvi tyylitellään javascriptin ja css:n avulla niin, että avainsanat saavat 
+painoarvonsa mukaisen värin ja tekstikoon. Kunkin avainsanan yksilöllinen painoarvo 
+lasketaan osumamäärän osuutena eniten osumia saaneen avainsanan osumamäärästä. 
+Painoarvo muutetaan kokonaisluvuksi niin että "painavimmat" avainsanat saavat arvon 4 
+(jakopisteet 5%, 50%, 95%). Avainsanan css-tyyli asetetaan saadun kokonaislukuarvon
+mukaan.
+
+
+##### Kohteet avainsanoittain
+
+avainsanalista
+
+get_keywords
+
+avainsanakohtaiset osumat
+
+get_targets_by_keyword

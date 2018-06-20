@@ -96,3 +96,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 ### Poista
 
 <del>JSON beautifier jquery kirjasto</del>
+
+### Misc
+
+Miksi get_report_data:aa kutsutaan käyttäjän raportin katselussa - lienee vanhaa jäännettä
