@@ -60,9 +60,9 @@ Painoarvo muutetaan kokonaisluvuksi niin että "painavimmat" avainsanat saavat a
 mukaan.
 
 
-##### Kohteet avainsanoittain
+### Kohteet avainsanoittain
 
-Kohteet avainsanoittain -luettelossa näytetään luettelo kaikista löytyneistä avaisanoista 
+Kohteet avainsanoittain -luettelossa näytetään cd luettelo kaikista löytyneistä avaisanoista 
 ja niihin liittyvät kohteet ja avainsanojen määrät niistä. Luettelo muodostetaan niin, että 
 ensin haetaan avainsanat ja sen jälkeen kohteet jokaiselle avainsanalle. 
 
