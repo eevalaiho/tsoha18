@@ -1,16 +1,14 @@
 import urllib, re, datetime, sys
 
 from flask import render_template, redirect, url_for, request, flash
-from flask_login import login_required
 
 from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 
-from application import app, db
-from application.library import admin_required
+from application import app, db, login_required
 from application.analysis.models import Analysis
 from application.ttarget.models import Ttarget
-from application.auth.models import Company
+from application.auth.models import Company, RolesEnum
 from application.analysis.forms import AnalysisForm, ReportAnalysisForm
 
 from bs4 import BeautifulSoup
@@ -18,15 +16,13 @@ from bs4 import BeautifulSoup
 import json
 
 @app.route('/analyses', methods=["GET"])
-@login_required
-@admin_required
+@login_required(role=RolesEnum.EDIT)
 def listanalysis():
-    return render_template("/analysis/index.html", analyses=Analysis.query.all())
+    return render_template("/analysis/index.html", analyses=Analysis.query.order_by(Analysis.id).all())
 
 
 @app.route('/analysis/view/<id>', methods=["GET"])
-@login_required
-@admin_required
+@login_required(role=RolesEnum.EDIT)
 def viewanalysis(id):
     analysis = Analysis.query.get(id)
     if analysis is None:
@@ -36,8 +32,7 @@ def viewanalysis(id):
 
 @app.route('/analysis', methods=["GET","POST"])
 @app.route('/analysis/<int:id>', methods=["GET","POST"])
-@login_required
-@admin_required
+@login_required(role=RolesEnum.EDIT)
 def analysis(id=None):
 
     analysis = Analysis(-1,"","", False, None) if id is None else Analysis.query.get(id)
@@ -106,8 +101,7 @@ def analysis(id=None):
 
 
 @app.route('/analysis/<int:id>/delete', methods=["GET"])
-@login_required
-@admin_required
+@login_required(role=RolesEnum.ADMIN)
 def deleteanalysis(id):
 
     analysis = Analysis.query.get(id)
@@ -125,8 +119,7 @@ def deleteanalysis(id):
 
 
 @app.route('/analysis/report/<int:id>', methods=["GET", "POST"])
-@login_required
-@admin_required
+@login_required(role=RolesEnum.EDIT)
 def reportanalysis(id):
     analysis = Analysis.query.get(id)
 

@@ -25,7 +25,9 @@ class Analysis(Base):
 
     def ttargets(self):
         return Ttarget.query.filter(Ttarget.analysis_id.__eq__(self.id))\
-            .filter(Ttarget.ttarget_id.is_(None)).all()
+            .filter(Ttarget.ttarget_id.is_(None))\
+            .order_by(Ttarget.id)\
+            .all()
 
     def get_keywords(self):
         sql = text("select distinct key"
@@ -46,7 +48,8 @@ class Analysis(Base):
                                     " from ttarget, json_extract_path(ttarget.nltk_analysis, 'key_words') as key_words"
                                     " group by ttarget.id"
                                     " having sum((key_words->>:keyword)::int) > 0) as data on data.ttarget_id = ttarget.id"
-                        " where ttarget.analysis_id = :id")\
+                        " where ttarget.analysis_id = :id"
+                        " order by kw_count desc")\
                 .params(id=self.id, keyword=keyword)
         else:
             sql = text("select ttarget.*, json_extract(ttarget.nltk_analysis, :path) as kw_count"

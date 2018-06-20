@@ -45,8 +45,10 @@
                 <div class="col-sm-9">{{analysis.date_modified}}</div>
             </div>
             <br />
-            <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">{% if analysis.date_crawled is none%}Tee raportti{% else %}Katso raporttia{% endif %}</a>&nbsp;
+            <a href="{{ url_for('reportanalysis', id=analysis.id) }}" class="btn btn-default">{% if analysis.date_crawled is none %}Tee raportti{% else %}Katso raporttia{% endif %}</a>&nbsp;
+        {% if current_user.is_admin() %}
             <a href="#" name="btn-delete" data-href="{{ url_for('deleteanalysis', id=analysis.id) }}" data-id="{{analysis.id}}" data-name="{{analysis.name}}" class="btn btn-default">Poista</a>
+        {% endif %}
             <a href="{{ url_for('listanalysis') }}" class="btn btn-default">Takaisin</a>
             <br />
         </div>

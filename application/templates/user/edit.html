@@ -94,7 +94,7 @@
             {% endif %}
         {% endwith %}
                 <button type="submit" value="submit" class="btn btn-default">Tallenna</button>
-                {% if not user is none %}
+                {% if not user is none and current_user.is_admin() %}
                     <a href="#" name="btn-delete" data-href="{{ url_for('user_delete', id=user.id) }}" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">Poista</a>
                 {% endif %}
                 <a href="{{ url_for('userlist') }}" class="btn btn-default">Peruuta</a>

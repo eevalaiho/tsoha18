@@ -11,6 +11,5 @@ def report(id):
     analysis = db.session.query(Analysis).filter(Analysis.company_id.__eq__(current_user.company_id)).filter(Analysis.id.__eq__(id)).first()
     if analysis is None:
         return redirect(url_for('home'))
-    report = analysis.get_report_data()
-    return render_template("/report/view.html", analysis=analysis, report=report)
+    return render_template("/report/view.html", analysis=analysis)
 

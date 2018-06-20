@@ -1,23 +1,21 @@
 from flask import render_template, redirect, url_for, request, flash
-#from flask_login import login_required
 
 from sqlalchemy import text
 from sqlalchemy.exc import DBAPIError, SQLAlchemyError, IntegrityError
 
 from application import app, db, login_required
-from application.library import admin_required
-from application.auth.models import User, UserRole, Company, Role
+from application.auth.models import User, UserRole, Company, Role, RolesEnum
 from application.user.forms import UserForm, NewUserForm
 
 
 @app.route('/users', methods=["GET"])
-@login_required(role=1)
+@login_required(role=RolesEnum.EDIT)
 def userlist():
-    return render_template("/user/index.html", users=User.query.all())
+    return render_template("/user/index.html", users=User.query.order_by(User.id).all())
 
 
 @app.route('/user/view/<id>', methods=["GET"])
-@login_required(role=1)
+@login_required(role=RolesEnum.EDIT)
 def viewuser(id):
     user = User.query.get(id)
     if user is None:
@@ -27,7 +25,7 @@ def viewuser(id):
 
 @app.route('/user', methods=["GET","POST"])
 @app.route('/user/<id>', methods=["GET","POST"])
-@login_required(role=1)
+@login_required(role=RolesEnum.EDIT)
 def user(id=None):
 
     if not id is None:
@@ -103,7 +101,7 @@ def user(id=None):
 
 
 @app.route('/user/<id>/delete', methods=["GET"])
-@admin_required
+@login_required(role=RolesEnum.ADMIN)
 def user_delete(id):
     user = User.query.get(id)
     db.session().delete(user)

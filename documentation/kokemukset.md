@@ -52,5 +52,5 @@ saattoi puuttua (minulla oli käytössä PyCharm)
 ### Heroku
 * Ihan ok, välillä hidas
 
-###SchemaCrawler
+### SchemaCrawler
 * Käytin SchemaCrawler –kirjastoa tietokantakaavion tekemiseen – kätevää (kun ei tarvinnut viedä kantaa esim SQL Serveriin ja generoida kuvaa sieltä)

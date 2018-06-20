@@ -1,10 +1,16 @@
-import jsonpickle, os
+import os
 from datetime import datetime
 from application import db
 from application.models import Base
 from application.analysis.models import Analysis
 from sqlalchemy.orm import relationship
+from enum import Enum
 
+
+class RolesEnum(Enum):
+    ADMIN = 1
+    EDIT = 2
+    USER = 3
 
 class Role(Base):
     __tablename__ = 'role'
@@ -58,6 +64,8 @@ class User(Base):
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     company = relationship("Company", back_populates="users")
     active = db.Column(db.Boolean, default=False)
+    __is_admin = None
+    __is_edit = None
 
     def __init__(self):
         return
@@ -79,17 +87,26 @@ class User(Base):
     def is_authenticated(self):
         return True
 
-    def is_admin(self):
-        return bool(self.roles().get(1))
+    def is_edit(self):
+        if self.__is_edit is None:
+            self.__is_edit = False
+            for role in self.roles():
+                if role.role_id == RolesEnum.EDIT.value:
+                    self.__is_edit = True
+                    break
+        return self.__is_edit
 
-    def toJSON(self):
-        return jsonpickle.encode(self)
+    def is_admin(self):
+        if self.__is_admin is None:
+            self.__is_admin = False
+            for role in self.roles():
+                if role.role_id == RolesEnum.ADMIN.value:
+                    self.__is_admin = True
+                    break
+        return self.__is_admin
 
     def roles(self):
-        roles = {1:0, 2:0, 3:0} # 1=Administrator, 2=Editor, 3=Customer
-        for role in UserRole.query.filter(UserRole.account_id.__eq__(self.id)).all():
-            roles[role.id] = 1
-        return roles
+        return UserRole.query.filter(UserRole.account_id.__eq__(self.id)).all()
 
     def rolesstring(self):
         roles = db.session.query(Role)\

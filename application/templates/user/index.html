@@ -41,12 +41,13 @@
                 <td>{{user.lastname}}</td>
                 <td>{{user.company.name}}</td>
                 <td>{{ "Kyllä" if user.active else "Ei" }}</td>
-                <td><a href="{{ url_for('viewuser', id=user.id) }}" class="btn btn-default">
-                    Katso</a>&nbsp;
-                    <a href="{{ url_for('user', id=user.id) }}" class="btn btn-default">
-                        Muokkaa</a>
+                <td><a href="{{ url_for('viewuser', id=user.id) }}" class="btn btn-default">Katso</a>&nbsp;
+                    <a href="{{ url_for('user', id=user.id) }}" class="btn btn-default">Muokkaa</a>
+                {% if current_user.is_admin() %}
                     <a href="#" name="btn-delete" data-href="{{ url_for('user_delete', id=user.id) }}" data-user-id="{{user.id}}" data-user-name="{{user.firstname}} {{user.lastname}}" class="btn btn-default">
-                        Poista</a></td>
+                        Poista</a>
+                {% endif %}
+                </td>
             </tr>
         {% endfor %}
             </tbody>

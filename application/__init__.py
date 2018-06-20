@@ -27,7 +27,6 @@ if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
     from sqlalchemy import event
     event.listen(db.engine, 'connect', _fk_pragma_on_connect)
 
-
 # Login functionality part 1
 
 from os import urandom
@@ -37,7 +36,7 @@ from flask_login import LoginManager, current_user
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth_login"
-login_manager.login_message = "Toiminnallisuus edellyttää kirjautumista."
+login_manager.login_message = "Toiminto edellyttää kirjautumista."
 
 
 # Roles in login_required
@@ -57,7 +56,7 @@ def login_required(role="ANY"):
                 unauthorized = True
 
                 for user_role in current_user.roles():
-                    if user_role == role:
+                    if user_role.role_id == role.value:
                         unauthorized = False
                         break
 

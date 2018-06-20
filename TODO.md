@@ -1,11 +1,11 @@
 # TODO
 
-### Dokumentaatio
+### <del>Dokumentaatio</del>
 
 ### Navi
 * <del>Raporttien piilottaminen, jos yrityksellä ei ole raporttia</del>
 
-### Näkymien järjestäminen
+### Listausnäkymien järjestäminen
 
 Oletusjärjestys eri SQLitella ja Postgresillä
 
@@ -43,7 +43,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 ### Käyttäjät
 
 * <del>Käyttäjän poistamisesta tulee virhe, jos on rivejä UserRoles -taulussa</del> 
-* Mikä merkitys on Ylläpitäjä -roolilla
+* Mikä merkitys on Ylläpitäjä -roolilla?
 * <del>Roolien nimet</del>
 * <del>Roolit on kovakoodattu käyttäjälomakkeelle - voisi varmaan hakea kannasta (choises)</del>
 * <del>Rekisteröitymisen jälkeen ei pitäisi päästä suoraan kirjautumaan</del>
@@ -73,7 +73,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 
 ### Vasen valikko
-* Alikohteet auki
+* <del>Alikohteet auki</del>
 * Raportit myös ylläpitäjälle???
 
 
@@ -86,22 +86,22 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * OK Yksi tai useampi monesta moneen -suhde (kayttäjä - käyttäjärooli - rooli)
 * OK Vähintään kaksi monimutkaisempaa useampaa tietokantataulua käyttävää yhteenvetokyselyä. Yhteenvetokyselyt ovat perustellusti (järkevä) osa sovelluksen käyttötapauksia ja toimintaa.
 
-* PUUTTUU Käyttötapaukset perusteltuja sekä hyvin dokumentoituja, 
-* PUUTTUU Käyttötapausten yhteydessä myös niihin liittyvät SQL-kyselyt.
-* PUUTTUU Asennusohje
+* OK Käyttötapaukset perusteltuja sekä hyvin dokumentoituja, 
+* OK Käyttötapausten yhteydessä myös niihin liittyvät SQL-kyselyt.
+* OK Asennusohje
 
-
-* Kuvia käyttöohjeeseen
+* <del>Kuvia käyttöohjeeseen</del>
 
 ### Poista
 
+<del>jsonpickle</del>
 <del>JSON beautifier jquery kirjasto</del>
 
 ### Misc
 
-* Miksi get_report_data:aa kutsutaan käyttäjän raportin katselussa - lienee vanhaa jäännettä
-* Kohteet avainsanoittain ORDER BY kw_count DESC
-* Indeksi käyttöohjeeseen
-* Tietokanta-dokumentti - yhteenvetokyselyt - pitäisikö olla käyttötapauksissa vai tässä??????
+* <del>Miksi get_report_data:aa kutsutaan käyttäjän raportin katselussa - onko vanhaa jäännettä</del>
+* <del>Kohteet avainsanoittain ORDER BY kw_count DESC</del>
+* <del>Indeksi käyttöohjeeseen?</del>
+* <del>Tietokanta-dokumentti - yhteenvetokyselyt - pitäisikö olla käyttötapauksissa vai tässä??????</del>
 * Salasanojen kryptaus
-* Raportin teon prosessi - toimiiko ihan oikein?
+* <del>Raportin teon prosessi - toimiiko fiksusti?</del>
