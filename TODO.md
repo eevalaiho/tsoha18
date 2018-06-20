@@ -1,19 +1,30 @@
-# TODO
+# Tee vielä
+
+### TODO
+
+* <del>Salasanojen kryptaus</del>
+* Analyysin tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä
+
+### Kehityskohteet / rajoitukset
+
+* Graafit raportille - jos on aikaa
+* Kuvia käyttöohjeeseen
+* Etusivun uusin raportti -> uusimmat raportit ja sql:n rajaus top 3
+* Sivutus ????
+    * [Flask SQL Alchemy pagination](http://flask-sqlalchemy.pocoo.org/2.1/api/?highlight=pagination#flask.ext.sqlalchemy.Pagination)
+    * [Jinja2 pagination macro](https://gist.github.com/allhailwesttexas/8c7fe8f8b53190c2ad8a)
+    
+# Tehdyt / ei tehdä
 
 ### <del>Dokumentaatio</del>
+* <del>Kuvia käyttöohjeeseen</del>
 
 ### Navi
 * <del>Raporttien piilottaminen, jos yrityksellä ei ole raporttia</del>
 
 ### Listausnäkymien järjestäminen
 
-Oletusjärjestys eri SQLitella ja Postgresillä
-
-### Sivutus ????
-[Flask SQL Alchemy pagination](http://flask-sqlalchemy.pocoo.org/2.1/api/?highlight=pagination#flask.ext.sqlalchemy.Pagination)
-[Jinja2 pagination macro](https://gist.github.com/allhailwesttexas/8c7fe8f8b53190c2ad8a)
-* Käyttäjät
-* Analyysit
+<del>Oletusjärjestys eri SQLitella ja Postgresillä</del>
 
 ### Liian ison syötteen tarkistus lomakkeilla
 
@@ -23,15 +34,6 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * <del>Salasana</del>
 * <del>Käyttäjä</del>
 * <del>Analyysi</del>
-
-### Kantavirheiden try-catch ja käsittely (lokitus, ilmoitus käyttäjälle)
-
-* Kirjautuminen
-* Rekisteröityminen
-* Profiili
-* Salasana
-* Käyttäjä
-* Analyysi
 
 ### Kirjautuminen
 * <del>Puuttuvista tiedoista ei tule ilmoitusta - tsekkaa onko lomaketta ja validointia</del>
@@ -43,7 +45,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 ### Käyttäjät
 
 * <del>Käyttäjän poistamisesta tulee virhe, jos on rivejä UserRoles -taulussa</del> 
-* Mikä merkitys on Ylläpitäjä -roolilla?
+* <del>Mikä merkitys on Ylläpitäjä -roolilla?</del>
 * <del>Roolien nimet</del>
 * <del>Roolit on kovakoodattu käyttäjälomakkeelle - voisi varmaan hakea kannasta (choises)</del>
 * <del>Rekisteröitymisen jälkeen ei pitäisi päästä suoraan kirjautumaan</del>
@@ -53,7 +55,6 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * <del>Tee raportti / katso raporttia painikkeiden nimet</del>
 * <del>Raportin voi ajaa uudestaan, kun käy poistamassa raportilta lukittu -täpän OK</del>
 * <del>Varmistus raportin tekemiseen, jos jo tehty</del>
-* Tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä
 
 ### Kohde, Ttarget
 
@@ -66,20 +67,18 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 ### Raportti
 
 * <del>Mitä loppukäyttäjä tässä voisi haluta nähdä - käyttäjätarinat</del>
-* Graafit - jos on aikaa
-* Etusivun uusin raportti -> uusimmat raportit ja sql:n rajaus top 3
 
 ### Roolit - toimivatko oikein / fiksusti???
 
 
 ### Vasen valikko
 * <del>Alikohteet auki</del>
-* Raportit myös ylläpitäjälle???
+* <del>Raportit myös ylläpitäjälle???</del>
 
 
 ###  Arvosanalle 5 on lisäksi seuraavat minimivaatimukset.
 
-* OK Toimiva tietokantaa käyttävä web-sovellus.
+* <del>OK Toimiva tietokantaa käyttävä web-sovellus.
 * OK Vähintään kolme tietokohdetta, eli vähintään 3 tietokantataulua sekä mahdolliset liitostaulut.
 * OK Kirjautumisen lisäksi käyttäjä on yhdistetty tietokannassa johonkin tietokohteeseen, eli käyttäjien tietoja ei tule käyttää pelkästään kirjautumisen osana.
 * OK Vähintään kahdesta tietokohteesta täysi CRUD (käyttäjät, analyysit).
@@ -88,14 +87,12 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 * OK Käyttötapaukset perusteltuja sekä hyvin dokumentoituja, 
 * OK Käyttötapausten yhteydessä myös niihin liittyvät SQL-kyselyt.
-* OK Asennusohje
+* OK Asennusohje</del>
 
-* <del>Kuvia käyttöohjeeseen</del>
+### Poista turhat viittaukset
 
-### Poista
-
-<del>jsonpickle</del>
-<del>JSON beautifier jquery kirjasto</del>
+* <del>jsonpickle</del>
+* <del>JSON beautifier jquery kirjasto</del>
 
 ### Misc
 
@@ -103,5 +100,14 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * <del>Kohteet avainsanoittain ORDER BY kw_count DESC</del>
 * <del>Indeksi käyttöohjeeseen?</del>
 * <del>Tietokanta-dokumentti - yhteenvetokyselyt - pitäisikö olla käyttötapauksissa vai tässä??????</del>
-* Salasanojen kryptaus
 * <del>Raportin teon prosessi - toimiiko fiksusti?</del>
+
+
+### Virhekäsittely
+* <del>Tsekkaa että on toteutuettu kantavirheiden try-catch ja käsittely (lokitus / ilmoitus käyttäjälle)
+* Kirjautuminen
+* Rekisteröityminen
+* Profiili
+* Salasana
+* Käyttäjä
+* Analyysi</del>

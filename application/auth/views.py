@@ -1,3 +1,5 @@
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user
 
@@ -22,8 +24,8 @@ def auth_login():
     if not form.validate():
         return render_template("/auth/login.html", form=form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data, active=True).first()
-    if not user:
+    user = User.query.filter_by(username=form.username.data, active=True).first()
+    if not (user and check_password_hash(user.password, form.password.data)):
         flash("Kirjautuminen ei onnistunut. Tarkista tunnus ja salasana.", "login_error")
         return render_template("/auth/login.html", form=form)
 
@@ -51,7 +53,7 @@ def auth_register():
     if not form.validate():
         return render_template("/auth/register.html", form = form)
 
-    password = form.password.data
+    password = generate_password_hash(form.password.data)
     email = form.username.data
     firstname = form.firstname.data
     lastname = form.lastname.data

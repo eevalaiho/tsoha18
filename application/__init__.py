@@ -137,11 +137,11 @@ try:
         db.session.commit()
 
         #def __init__(self, username, firstname, lastname, password, company_id, active):
-        db.session.add(User('paivio@tsoha18','Päiviö','Pääkäyttäjä','salainen',1,True))
-        db.session.add(User('yngve@tsoha18','Yngve','Ylläpitäjä','salainen',1,True))
-        db.session.add(User('aukusti@asianajotoimisto','Aukusti','Asiakas','salainen',2,True))
-        db.session.add(User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'salainen', 2,True))
-        db.session.add(User('ida@ideahautomo','Ida','Asiakas','salainen',3,True))
+        db.session.add(User('paivio@tsoha18','Päiviö','Pääkäyttäjä','pbkdf2:sha256:50000$OAKvqFOV$3d70a08136ace0d5f2ffc8f0e4763005d0954162906baaba62ed3edc902b0ef1',1,True))
+        db.session.add(User('yngve@tsoha18','Yngve','Ylläpitäjä','pbkdf2:sha256:50000$OAKvqFOV$3d70a08136ace0d5f2ffc8f0e4763005d0954162906baaba62ed3edc902b0ef1',1,True))
+        db.session.add(User('aukusti@asianajotoimisto','Aukusti','Asiakas','pbkdf2:sha256:50000$OAKvqFOV$3d70a08136ace0d5f2ffc8f0e4763005d0954162906baaba62ed3edc902b0ef1',2,True))
+        db.session.add(User('akuliina@asianajotoimisto', 'Akuliina', 'Asiakas', 'pbkdf2:sha256:50000$OAKvqFOV$3d70a08136ace0d5f2ffc8f0e4763005d0954162906baaba62ed3edc902b0ef1', 2,True))
+        db.session.add(User('ida@ideahautomo','Ida','Asiakas','pbkdf2:sha256:50000$OAKvqFOV$3d70a08136ace0d5f2ffc8f0e4763005d0954162906baaba62ed3edc902b0ef1',3,True))
         db.session.commit()
 
         db.session.add(Role('Pääylläpitäjä'))
