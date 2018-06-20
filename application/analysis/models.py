@@ -48,7 +48,7 @@ class Analysis(Base):
         return res
 
     def get_keyword_counts(self):
-        sql = text("select key, sum(value) as _count"
+        sql = text("select key, sum(cast(cast(value as varchar) as integer)) as _count"
             " from ("
                     " select data.value as keywords"
                     " from ttarget, json_each(ttarget.nltk_analysis) as data"

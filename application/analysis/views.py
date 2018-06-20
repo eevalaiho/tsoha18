@@ -168,7 +168,7 @@ def reportanalysis(id):
             soup = BeautifulSoup(res)
             counter = 0
             for link in soup.findAll('a', attrs={'href': re.compile("^http://")}):
-                if counter > 3:
+                if counter > 1:
                     break;
                 subtarget = Ttarget(ttarget.analysis_id, link['href'])
                 subtarget.ttarget_id = ttarget.id

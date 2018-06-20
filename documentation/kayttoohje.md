@@ -206,9 +206,9 @@ Raporttiajon käynnistetään "Käynnistä raporttiajo" -painikkeella. Raporttia
 * analysoi NLTK:n avulla sivujen sisältöjä ja
 * koostaa raporttitietoja. 
 
-Analysoitavien toisen tason sivujen määrä on rajoitettu 5:n alisivuun (koska demo). 
-Raporttiajo kestää kuitenkin varsin kauan eikä sitä kannatakaan kokeilla kovin monella kohteella, 
-esim 2 kohdetta demonstroinee sovelluksen toimintaa riittävästi.
+Analysoitavien toisen tason sivujen määrä on rajoitettu 2:n alisivuun, koska sovellus on harjoitustyö. 
+Raporttiajo kestää varsin kauan eikä sitä kannatakaan kokeilla kovin monella kohteella, esim 2 kohdetta 
+demonstroinee sovelluksen toimintaa riittävästi.
 
 Kun raporttiajo on mennyt läpi, sivulla näytetään raporttiajon tulokset: kohteet ja niiden alikohteet. 
 Alikohteen otsikon klikkaaminen avaa sivulle alikohteen tarkemmat tiedot. 

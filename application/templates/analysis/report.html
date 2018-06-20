@@ -178,12 +178,12 @@
         e.preventDefault();
         var datecrawled = $(this).attr("data-date_crawled");
         console.log(datecrawled)
-        if (datecrawled && datecrawled.length > 0) {
+        if (datecrawled && datecrawled!='None' ) {
             if(confirm("Raprtti on ajettu " + datecrawled + ". Halautko ajaa raportin uudestaan?")){
                 $(this).closest('form').submit();
             }
         }
-        return false;
+        $(this).closest('form').submit();
     });
 
 </script>
