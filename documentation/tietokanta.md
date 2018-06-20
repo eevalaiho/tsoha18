@@ -86,7 +86,7 @@ CREATE TABLE ttarget (
 COMMIT;
 ```
 
-### Tietokannan populointi
+### Kehitystietokannan populointi
 ```
 BEGIN TRANSACTION;
 
@@ -125,39 +125,4 @@ COMMIT;
 
 ### Yhteenvetokyselyt
 
-##### Uusin raporttiajo
-
-Käyttäjälle näytetään etusivulla yhteenveto uusimmasta hänen yritykselleen tehdystä raporttiajosta. 
-
-Yhteenvetolohkossa näytettävät tiedot haetaan kyselyllä:
-```
-SELECT Analysis.* 
-FROM Analysis
-INNER JOIN Ttarget ON Analysis.id = Ttarget.analysis_id
-WHERE Analysis.company_id = <COMPANY-ID> AND Analysis.locked AND NOT Analysis.date_crawled IS NULL
-ORDER BY Analysis.date_crawled DESC
-```
-Kyselylle välitetään parametrina käyttäjän yrityksen id. Tuloksista valitaan ensimmäinen sovelluskoodissa.
-
-##### 
-
-
-
-
-Yhteenvetolohkossa näytettävät tiedot haetaan kyselyllä:
-```
-SELECT Analysis.id, Analysis.name, SUM(Ttarget.key_word_count), Analysis.date_crawled
-FROM Analysis
-INNER JOIN Ttarget ON Analysis.id = Ttarget.analysis_id
-GROUP BY Analysis.id, Analysis.name, Analysis.date_crawled 
-HAVING Analysis.id = <ANALYYSIN-ID>
-ORDER BY Analysis.date_crawled DESC
-```
-Kyselyssä välitetään parametrinä uusimman analyysin ID.
-
-
-Samat tiedot myös analyysin omalle sivulle.
-
-Analyysien listaus
-* Näytetään analyysiin löydettyjen kohteiden määrä
-
+Yhteenvetokyelyt on kuvattu käyttötapauksittain dokumentissa [Käyttötapaukset](./documentation/kayttotapaukset.md).

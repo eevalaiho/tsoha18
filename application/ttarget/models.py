@@ -38,13 +38,6 @@ class Ttarget(Base):
         val = json.dumps(self.nltk_analysis, indent=2, ensure_ascii=False) #, ensure_ascii=False).encode('utf8')
         return pprint.pformat(val)
 
-
-
-#    def nltk_analysis(self):
-#        if not self.nltk_analysis_json is None:
-#            return jsonpickle.decode(self.nltk_analysis_json)
-#        return None
-
     def processWebContent(self, keywords):
 
         # Check that url is valid - I guess this check should be moved to saving targets

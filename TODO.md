@@ -103,3 +103,5 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 * Kohteet avainsanoittain ORDER BY kw_count DESC
 * Indeksi käyttöohjeeseen
 * Tietokanta-dokumentti - yhteenvetokyselyt - pitäisikö olla käyttötapauksissa vai tässä??????
+* Salasanojen kryptaus
+* Raportin teon prosessi - toimiiko ihan oikein?
