@@ -1,7 +1,7 @@
 # Käyttötapaukset
 
-Tähän dokumenttiin on kirjattu järjestelmän keskeiset käyttötapaukset. Järjestelmän perus-
-toiminnallisuudet on kuvattu [käyttöohjeessa](./documentation/kayttoohje.md).
+Tähän dokumenttiin on kirjattu järjestelmän keskeiset käyttötapaukset. Järjestelmän 
+perustoiminnallisuudet on kuvattu [käyttöohjeessa](./documentation/kayttoohje.md).
 
 ### Uusin raportti -lohko
 

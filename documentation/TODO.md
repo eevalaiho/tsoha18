@@ -101,3 +101,4 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 * Miksi get_report_data:aa kutsutaan käyttäjän raportin katselussa - lienee vanhaa jäännettä
 * Kohteet avainsanoittain ORDER BY kw_count DESC
+* Indeksi käyttöohjeeseen

@@ -40,5 +40,8 @@ Ohjelmakirjastot on kuvattu dokumentissa: [Ohjelmakirjastot](./documentation/ohj
 
 ### Sovelluksen rajoitteet, kehityskohteet
 
+Sovelluksen rajoitteet ja kehityskohteet on kuvattu dokumentissa: [Rajoitteet ja kehityskohteet](./documentation/kehityskohteet.md).
 
 ### Kokemukset
+
+Kokemukset on kuvattu dokumentissa: [Kokemukset](./documentation/kokemukset.md).
