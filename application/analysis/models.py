@@ -44,7 +44,8 @@ class Analysis(Base):
                         " from ttarget "
                         " inner join (select ttarget.id as ttarget_id, sum((key_words->>:keyword)::int) as kw_count"
                                     " from ttarget, json_extract_path(ttarget.nltk_analysis, 'key_words') as key_words"
-                                    " group by ttarget.id) as data on data.ttarget_id = ttarget.id"
+                                    " group by ttarget.id"
+                                    " having sum((key_words->>:keyword)::int) > 0) as data on data.ttarget_id = ttarget.id"
                         " where ttarget.analysis_id = :id")\
                 .params(id=self.id, keyword=keyword)
         else:
