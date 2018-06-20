@@ -98,9 +98,13 @@ Jos käyttäjä klikkaa Peruuta-painiketta, selain ohjataan etusivulle.
 
 Raportin katselunäkymään pääsee vasemman valikon raportit-kohdan linkeistä ja etusivun uusin raportti -lohkon linkistä.
 
-Raportin katselunäkymässä näytetään raportin tiedot: valmistumisaika ja analyysissä käytetyt avainsanat, 
-sanapilvi löydetyistä avainsanoista ja kohteiden luettelo avainsanoittain. Kohdeluettelossa näytetään 
-löydetyt yksittäiset avainsanat kohteittain. 
+Raportin katselunäkymässä näytetään raportin perustiedot: nimi, valmistumisaika ja analyysissä käytetyt avainsanat.
+Raporttiajon tuloksina näytetään sanapilvi löydetyistä avainsanoista. Sanapilvi kertoo visuaalisesti ja numeerisesti 
+kuinka usein avaisanaa on käytetty analysoiduilla verkkosivuilla. Ssanapilven sanaa klikkaamalla pääsee tarkempiin
+avainsanakohtaisiin tuloksiin. 
+ 
+Avainsanakohtaisina tuloksina näytetään löydetyt avainsanaosumat kohteittain. Jos kohteesta ei ole löytynyt avainsanaa
+sitä ei näytetä.
 
 #### Kirjautuminen ulos
 

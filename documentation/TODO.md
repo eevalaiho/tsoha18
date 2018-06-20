@@ -67,6 +67,7 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 * <del>Mitä loppukäyttäjä tässä voisi haluta nähdä - käyttäjätarinat</del>
 * Graafit - jos on aikaa
+* Etusivun uusin raportti -> uusimmat raportit ja sql:n rajaus top 3
 
 ### Roolit - toimivatko oikein / fiksusti???
 

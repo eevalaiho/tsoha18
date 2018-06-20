@@ -9,9 +9,6 @@ Käyttäjätunnukset:
 * Sähköposti: aukusti@asianajotoimisto, salasana: salainen (asiakas)
 * Sähköposti: ida@ideahautomo, salasana: salainen (asiakas)
 
-
-aiheen kuvaus, sovelluksen käyttöohje, sovelluksen asennusohje, työn ja sovelluksen rajoitteet, työn puuttuvat ominaisuudet, dokumentaation vastaavuus toteutettuun työhön, omat kokemukset. 
-
 ### Aihe
 
 Julkisuusseuranta valitun avainsanan / avainsanojen ympäriltä
@@ -29,9 +26,9 @@ Asennusohje on erillisessä dokumentissa: [Asennusohje](./documentation/asennuso
 
 ### Käyttötapaukset
 
-Sovelluksen suunnitteluvaiheessa kerätyty käyttäjätarinat on kuvattu dokumentissa: [Käyttäjätarinat](./documentation/kayttajatarinat.md). 
+Sovelluksen suunnitteluvaiheessa kerätyt ja suunnittelun pohjana toimineet käyttäjätarinat on kuvattu dokumentissa: [Käyttäjätarinat](./documentation/kayttajatarinat.md). 
 
-Sovelluksen tärkeimmät käuyttötapaukset on kuvattu dokumentissa: [Käyttötapaukset](./documentation/kayttotapaukset.md).
+Sovelluksen tärkeimmät käyttötapaukset on kuvattu dokumentissa: [Käyttötapaukset](./documentation/kayttotapaukset.md).
 
 ### Sovelluksen tietokanta
 
