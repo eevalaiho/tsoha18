@@ -70,6 +70,12 @@ Oletusjärjestys eri SQLitella ja Postgresillä
 
 ### Roolit - toimivatko oikein / fiksusti???
 
+
+### Vasen valikko
+* Alikohteet auki
+* Raportit myös ylläpitäjälle???
+
+
 ###  Arvosanalle 5 on lisäksi seuraavat minimivaatimukset.
 
 * OK Toimiva tietokantaa käyttävä web-sovellus.

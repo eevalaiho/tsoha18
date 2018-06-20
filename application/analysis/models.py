@@ -52,7 +52,7 @@ class Analysis(Base):
             " from ("
                     " select data.value as keywords"
                     " from ttarget, json_each(ttarget.nltk_analysis) as data"
-                    " where key = 'key_words' and ttarget.analysis_id= :id"
+                    " where key = 'key_words' and ttarget.analysis_id= :id  and lang is not null" # if lang gets assigned a value then nltk_analysis is not null
                 " ) as subq, json_each(subq.keywords)"
             " group by key"
             " order by key").params(id=self.id)
