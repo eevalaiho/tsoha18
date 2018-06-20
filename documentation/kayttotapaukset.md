@@ -22,7 +22,6 @@ ORDER BY Analysis.date_crawled desc
 
 Katso tiedot -linkkiä klikkaamalla pääsee katsomaan raportin tarkempia tietoja.
 
-### Ylläpitäjän raporttinäkymä
 
 ### Käyttäjän raporttinäkymä
 
@@ -58,10 +57,48 @@ mukaan.
 
 ##### Kohteet avainsanoittain
 
-avainsanalista
+Kohteet avainsanoittain -luettelossa näytetään luettelo kaikista löytyneistä avaisanoista 
+ja niihin liittyvät kohteet ja avainsanojen määrät niistä. Luettelo muodostetaan niin, että 
+ensin haetaan avainsanat ja sen jälkeen kohteet jokaiselle avainsanalle. 
 
-get_keywords
+Avainsanat haetaan sql-llä:
+```
+SELECT DISTINCT key
+FROM (
+    SELECT data.value AS keywords
+    FROM ttarget, json_each(ttarget.nltk_analysis) AS data
+    WHERE key = 'key_words' AND ttarget.analysis_id= <ANALYYSIN_ID>
+) AS subq, json_each(subq.keywords)
+ORDER BY key
+```
+, missä analyysin id välitetään parametrina. 
 
-avainsanakohtaiset osumat
+Avainsanakohtaisten kohteiden haussa SQLiten ja PostgreSQL:n JSON-toteutukset poikkeavat
+niin merkittävästi toisistaan, että eri ympäristöihin on täytynyt tehdä eri kyselyt:
 
-get_targets_by_keyword
+SQLite-tietokannasta tiedot haetaan sql:llä:
+```
+SELECT ttarget.*, json_extract(ttarget.nltk_analysis, <POLKU>) AS kw_count
+FROM ttarget
+WHERE analysis_id= <ALAYYSIN_ID> AND json_extract(ttarget.nltk_analysis, <POLKU>) IS NOT NULL
+ORDER BY kw_count DESC
+```
+
+, missä analyysin id ja JSON-datan polku välitetään parametreina. Polkuparametri on merkkijono ja 
+muotoa ```$.key_words.<AVAINSANA>```.
+
+Postgre-tietokannasta tiedot haetaan sql:llä
+```
+SELECT ttarget.*, COALESCE(data.kw_count, 0) as kw_count
+FROM ttarget 
+INNER JOIN (SELECT ttarget.id AS ttarget_id, SUM((key_words->><AVAINSANA>)::int) AS kw_count
+            FROM ttarget, json_extract_path(ttarget.nltk_analysis, 'key_words') AS key_words
+            GROUP BY ttarget.id
+            HAVING SUM((key_words->><AVAINSANA>)::int) > 0) AS data ON data.ttarget_id = ttarget.id
+WHERE ttarget.analysis_id = <ANALYYSIN_ID>
+```
+, missä analyysin id ja avainsana välitetään parametreina. 
+
+### Ylläpitäjän raporttinäkymä
+
+TULOSSA
