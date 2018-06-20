@@ -137,7 +137,7 @@ INNER JOIN Ttarget ON Analysis.id = Ttarget.analysis_id
 WHERE Analysis.company_id = <COMPANY-ID> AND Analysis.locked AND NOT Analysis.date_crawled IS NULL
 ORDER BY Analysis.date_crawled DESC
 ```
-Tuloksista valitaan viimeisin sovelluskoodissa.
+Kyselylle välitetään parametrina käyttäjän yrityksen id. Tuloksista valitaan ensimmäinen sovelluskoodissa.
 
 ##### 
 

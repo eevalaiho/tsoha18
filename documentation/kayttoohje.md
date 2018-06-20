@@ -199,13 +199,22 @@ Analyysi voidaan poistaa analyysin selaus- ja muokkausnäkymästä. Poistamiseen
 
 Raportin tekoon pääsee analyysin listaus-, katselu- ja muokkausnäkymien kautta.
 
-Raporttiajon käynnistetään "Käynnistä raporttiajo" -painikkeella. Raporttiajo kerää analyysin
-kohteiksi annetuilta sivuilta url-osoitteita ja analysoi NLTK:n avulla löydettyjen ensimmäisen ja toisen tason 
-sivujen sisältöjä (otetaan 5 ensimmäistä linkkiä). Raporttiajo on siis varsin hidas eikä sitä 
-kannatakaan kokeilla kovin monella kohteella (esim 2 kohdetta demonstroinee sovelluksen toimintaa 
-riittävästi).
+Raporttiajon käynnistetään "Käynnistä raporttiajo" -painikkeella. Raporttiajo:
+* kerää analyysin kohteiksi annetuilta sivuilta url-osoitteita,
+* hakee löydettyjen ensimmäisen ja toisen tason sivujen palauttaman html:n
+* parseroi ja siivoaa niistä html:n, css:n ja skriptin (boilerplate)
+* analysoi NLTK:n avulla sivujen sisältöjä ja
+* koostaa raporttitietoja. 
+
+Analysoitavien toisen tason sivujen määrä on rajoitettu 5:n alisivuun (koska demo). 
+Raporttiajo kestää kuitenkin varsin kauan eikä sitä kannatakaan kokeilla kovin monella kohteella, 
+esim 2 kohdetta demonstroinee sovelluksen toimintaa riittävästi.
 
 Kun raporttiajo on mennyt läpi, sivulla näytetään raporttiajon tulokset: kohteet ja niiden alikohteet. 
-Alikohteiden otsikon klikkaaminen avaa alikohteen tarkemmat tiedot. 
+Alikohteen otsikon klikkaaminen avaa sivulle alikohteen tarkemmat tiedot. 
 Näytä yksityiskohtaiset tiedot -linkki avaa NLTK-analyysin raakadatan näkymälle.
 
+Raporttiajon voi tehdä uudestaan. Tämä tyhjentää aiemmin tehdyn raportin tiedot. Käyttäjältä
+pyydetään ensin varmistus.
+
+Raportilta pääsee pois Takaisin -painikkeella.
