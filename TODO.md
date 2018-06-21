@@ -2,15 +2,9 @@
 
 ### TODO
 
-* <del>Salasanojen kryptaus</del>
 * Tsekkaa asennusohje
-* <del>Analyysin tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä</del>
-* Käyttäjälle tulee virhe ei-ajetun raportin sivulla, kun yritykselle ei ole ajettu yhtän raporttia:
-```
-    sqlalchemy.exc.DataError: (psycopg2.DataError) cannot deconstruct a scalar
-    
-    2018-06-21T02:45:53.605094+00:00 app[web.1]:  [SQL: "select distinct key from ( select data.value as keywords from ttarget, json_each(ttarget.nltk_analysis) as data where key = 'key_words' and ttarget.analysis_id= %(id)s ) as subq, json_each(subq.keywords) order by key"] [parameters: {'id': 1}] (Background on this error at: http://sqlalche.me/e/9h9h)
-```
+* Analyysin poistaminen ei onnistu Herokussa
+
 ### Kehityskohteet / rajoitukset
 
 * Graafit raportille - jos on aikaa
@@ -22,6 +16,17 @@
 
     
 # Tehdyt / ei tehdä
+
+* <del>Salasanojen kryptaus</del>
+* <del>Analyysin tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä</del>
+* <del>Käyttäjälle tulee virhe ei-ajetun raportin sivulla, kun yritykselle ei ole ajettu yhtän raporttia:
+```
+    sqlalchemy.exc.DataError: (psycopg2.DataError) cannot deconstruct a scalar
+    
+    2018-06-21T02:45:53.605094+00:00 app[web.1]:  [SQL: "select distinct key from ( select data.value as keywords from ttarget, json_each(ttarget.nltk_analysis) as data where key = 'key_words' and ttarget.analysis_id= %(id)s ) as subq, json_each(subq.keywords) order by key"] [parameters: {'id': 1}] (Background on this error at: http://sqlalche.me/e/9h9h)
+```
+</del>
+
 
 ### <del>Dokumentaatio</del>
 * <del>Kuvia käyttöohjeeseen</del>
