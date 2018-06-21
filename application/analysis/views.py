@@ -10,6 +10,7 @@ from application.analysis.models import Analysis
 from application.ttarget.models import Ttarget
 from application.auth.models import Company, RolesEnum
 from application.analysis.forms import AnalysisForm, ReportAnalysisForm
+from application.library import is_valid_url
 
 from bs4 import BeautifulSoup
 
@@ -87,11 +88,14 @@ def analysis(id=None):
 
         # Then add new targets
         for url in form.ttargets.data.split("\r\n"):
-            ttarget = Ttarget(analysis.id, url)
+            if is_valid_url(url):
+                ttarget = Ttarget(analysis.id, url)
+            else:
+                raise ValueError('The provided url '+ url +' is not valid.')
             db.session.add(ttarget)
 
         db.session().commit()
-    except (DBAPIError, SQLAlchemyError, IntegrityError) as ex2:
+    except (DBAPIError, SQLAlchemyError, IntegrityError, ValueError) as ex2:
         db.session().rollback()
         form.errors["general"] = ["Kohteiden tallentaminen ei onnistunut."]
         return render_template("/analysis/edit.html", analysis=analysis, form=form)

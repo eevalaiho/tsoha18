@@ -38,9 +38,10 @@ class MultiCheckboxField(SelectMultipleField):
 
 '''
 Ref: https://stackoverflow.com/questions/7160737/python-how-to-validate-a-url-in-python-malformed-or-not
+Ref: https://www.e-learn.cn/content/wangluowenzhang/388351
 '''
 def is_valid_url(url, qualifying=None):
     qualifying = ('scheme', 'netloc') if qualifying is None else qualifying
     token = urllib.parse.urlparse(url)
     return all([getattr(token, qualifying_attr)
-                for qualifying_attr in qualifying])
+        for qualifying_attr in qualifying])

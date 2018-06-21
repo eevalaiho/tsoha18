@@ -3,7 +3,8 @@
 ### TODO
 
 * <del>Salasanojen kryptaus</del>
-* Analyysin tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä
+* Tsekkaa asennusohje
+* <del>Analyysin tallennukseen kohteiden tarkistus, että ovat valideja urleja ja että yksittäisen urlin pituus on korkeintaan 256 merkkiä</del>
 
 ### Kehityskohteet / rajoitukset
 
@@ -13,6 +14,7 @@
 * Sivutus ????
     * [Flask SQL Alchemy pagination](http://flask-sqlalchemy.pocoo.org/2.1/api/?highlight=pagination#flask.ext.sqlalchemy.Pagination)
     * [Jinja2 pagination macro](https://gist.github.com/allhailwesttexas/8c7fe8f8b53190c2ad8a)
+
     
 # Tehdyt / ei tehdä
 
