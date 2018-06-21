@@ -60,7 +60,7 @@ class User(Base):
     firstname = db.Column(db.String(50), nullable=False)
     lastname = db.Column(db.String(50), nullable=False)
     username = db.Column(db.String(254), nullable=False, unique=True)
-    password = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     company_id = db.Column(db.Integer, db.ForeignKey('company.id'))
     company = relationship("Company", back_populates="users")
     active = db.Column(db.Boolean, default=False)
