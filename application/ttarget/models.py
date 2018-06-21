@@ -25,7 +25,7 @@ class Ttarget(Base):
     lang = db.Column(db.String(2))
     word_count = db.Column(db.Integer)
     key_word_count = db.Column(db.Integer)
-    nltk_analysis = db.Column(JSONType)  # json data
+    nltk_analysis = db.Column(JSONType, default='{}')  # json data
 
     def __init__(self, analysis_id, url):
         self.analysis_id = analysis_id
